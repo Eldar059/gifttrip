@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GiftTrip — sovg'a va sayr rejalashtiruvchi</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23101110'/%3E%3Cg stroke='%23EDECE6' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='30' y='52' width='42' height='34' rx='1.5'/%3E%3Cpath d='M30 64 H72'/%3E%3Cpath d='M51 52 V86'/%3E%3Cpath d='M40 52 C40 42 47 37 51 45 C55 37 62 42 62 52'/%3E%3C/g%3E%3Cpath d='M66 58 C82 50 84 40 88 34' stroke='%236E6F67' stroke-width='2.4' stroke-dasharray='1 7' stroke-linecap='round' fill='none'/%3E%3Cpath d='M90 18 C99 18 105 25 105 33 C105 43 90 58 90 58 C90 58 75 43 75 33 C75 25 81 18 90 18 Z' fill='none' stroke='%23C9A24B' stroke-width='3.2' stroke-linejoin='round'/%3E%3Ccircle cx='90' cy='33' r='6' fill='%23C9A24B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#101110;
+    --paper-raised:#171816;
+    --paper-raised-2:#1D1F1C;
+    --ink:#EDECE6;
+    --ink-soft:#9B9C93;
+    --ink-faint:#6E6F67;
+    --line:#2B2C28;
+    --line-soft:#232420;
+    --forest:#5C8A6E;
+    --forest-deep:#3E6350;
+    --gold:#C9A24B;
+    --rose:#C97A83;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Manrope',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+  }
+  /* subtle film-grain overlay for a premium, non-flat surface */
+  body::before{
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:200;
+    opacity:.035;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+  }
+  h1,h2,h3,.display{
+    font-family:'Newsreader',serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  p{margin:0;}
+  button{font-family:inherit;cursor:pointer;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+  @media (max-width:640px){.wrap{padding:0 20px;}}
+
+  /* ---------- Top bar ---------- */
+  header.topbar{
+    border-bottom:1px solid var(--line);
+    background:var(--paper);
+    position:sticky;top:0;z-index:50;
+  }
+  .topbar-inner{
+    max-width:1080px;margin:0 auto;padding:18px 32px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+  }
+  .logo{
+    display:inline-flex;align-items:center;gap:8px;
+    text-decoration:none;flex-shrink:0;
+  }
+  .logo svg{display:block;}
+  .logo .wordmark{
+    font-family:'Manrope',sans-serif;font-weight:700;font-size:19px;color:var(--ink);
+  }
+  .logo .wordmark em{
+    font-family:'Newsreader',serif;font-style:italic;font-weight:500;color:var(--gold);
+    margin-left:1px;
+  }
+  .search-form{
+    flex:1;max-width:440px;display:flex;align-items:center;
+    border:1px solid var(--line);border-radius:999px;padding:8px 16px;
+    background:var(--paper-raised);
+  }
+  .search-form input{
+    border:none;outline:none;background:transparent;flex:1;
+    font-family:'Manrope',sans-serif;font-size:14px;color:var(--ink);
+  }
+  .search-form input::placeholder{color:var(--ink-soft);}
+  .search-form button{
+    border:none;background:none;font-size:15px;color:var(--ink-soft);
+    padding:2px 4px;
+  }
+  .nav-links{display:flex;gap:20px;align-items:center;flex-shrink:0;}
+  .nav-links a{
+    color:var(--ink-soft);text-decoration:none;font-size:14px;
+    border-bottom:1px solid transparent;
+  }
+  .nav-links a:hover{color:var(--ink);border-bottom-color:var(--ink-soft);}
+  .nav-links a.cta{
+    color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 18px;
+  }
+  .nav-links a.cta:hover{border-color:var(--ink-soft);}
+  .lang-switch{display:flex;gap:2px;border:1px solid var(--line);border-radius:999px;padding:3px;}
+  .lang-switch button{
+    border:none;background:none;color:var(--ink-soft);font-family:inherit;font-size:11.5px;font-weight:600;
+    padding:5px 9px;border-radius:999px;transition:background .2s ease,color .2s ease;
+  }
+  .lang-switch button.active{background:var(--ink);color:var(--paper);}
+
+  /* ---------- Auth / Login ---------- */
+  .auth-wrap{
+    min-height:60vh;display:flex;align-items:center;justify-content:center;padding:40px 0 80px;
+  }
+  .auth-card{
+    width:100%;max-width:400px;border:1px solid var(--line);background:var(--paper-raised);
+    padding:40px 36px;
+  }
+  .auth-logo{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:28px;}
+  .auth-tabs{
+    display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;margin-bottom:28px;
+  }
+  .auth-tab{
+    flex:1;text-align:center;padding:9px 0;font-size:13.5px;color:var(--ink-soft);
+    border-radius:999px;border:none;background:none;transition:background .2s ease, color .2s ease;
+  }
+  .auth-tab.active{background:var(--ink);color:var(--paper);}
+  .auth-title{font-size:20px;margin-bottom:6px;}
+  .auth-sub{color:var(--ink-soft);font-size:13.5px;margin-bottom:26px;}
+  .field{margin-bottom:16px;}
+  .field label{
+    display:block;font-size:12.5px;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;border:1px solid var(--line);background:var(--paper);color:var(--ink);
+    padding:11px 14px;font-family:inherit;font-size:14px;outline:none;transition:border-color .2s ease;
+  }
+  .field input:focus{border-color:var(--gold);}
+  .field-row{display:flex;justify-content:space-between;align-items:center;margin:-6px 0 20px;font-size:12.5px;}
+  .field-row a{color:var(--ink-soft);text-decoration:none;}
+  .field-row a:hover{color:var(--ink);}
+  .field-row label{display:flex;align-items:center;gap:6px;color:var(--ink-soft);}
+  .btn-block{width:100%;justify-content:center;align-self:stretch;}
+  .auth-divider{
+    display:flex;align-items:center;gap:12px;margin:24px 0;color:var(--ink-faint);font-size:12px;
+  }
+  .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--line);}
+  .social-row{display:flex;gap:10px;}
+  .social-btn{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
+    border:1px solid var(--line);background:var(--paper);color:var(--ink);
+    padding:10px 0;font-size:13px;font-family:inherit;transition:border-color .2s ease;
+  }
+  .social-btn:hover{border-color:var(--ink-soft);}
+  .auth-switch{text-align:center;margin-top:24px;font-size:13.5px;color:var(--ink-soft);}
+  .auth-switch button{background:none;border:none;color:var(--gold);font-family:inherit;font-size:13.5px;padding:0;}
+  @media (max-width:760px){
+    .search-form{display:none;}
+    .topbar-inner{gap:12px;}
+  }
+
+  /* ---------- Sections generic ---------- */
+  section{padding:64px 0;}
+  .view{display:none;}
+  .view.active{display:block;}
+
+  /* ---------- Hero / Home ---------- */
+  .hero{padding:72px 0 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;}
+  @media (max-width:800px){.hero{grid-template-columns:1fr;}}
+  .hero .kicker{
+    color:var(--ink-soft);font-size:14px;margin-bottom:18px;
+    opacity:0;animation:riseIn .7s ease forwards;
+  }
+  .hero h1{
+    font-size:44px;line-height:1.15;max-width:640px;
+    opacity:0;animation:riseIn .7s ease .12s forwards;
+  }
+  .hero h1 em{font-style:italic;color:var(--gold);}
+  .hero p.lede{
+    margin-top:18px;font-size:16px;color:var(--ink-soft);max-width:480px;line-height:1.6;
+    opacity:0;animation:riseIn .7s ease .24s forwards;
+  }
+  .hero-feats{
+    margin-top:22px;display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--ink-faint);
+    opacity:0;animation:riseIn .7s ease .34s forwards;
+  }
+  .hero-feats span{display:inline-flex;align-items:center;gap:6px;}
+  .hero-feats span::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--gold);}
+  @keyframes riseIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+  .hero-art{
+    position:relative;height:320px;display:flex;align-items:center;justify-content:center;
+    opacity:0;animation:riseIn .9s ease .2s forwards;
+  }
+  .hero-art svg{width:100%;height:100%;max-width:340px;}
+  .hero-art .float-a{animation:floatY 6s ease-in-out infinite;}
+  .hero-art .float-b{animation:floatY 7s ease-in-out infinite 1.2s;}
+  .hero-art .spin-a{transform-origin:170px 170px;animation:spinSlow 40s linear infinite;}
+  @keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+  @keyframes spinSlow{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+  @media (max-width:800px){.hero-art{height:220px;order:-1;}}
+
+  @media (max-width:640px){.hero h1{font-size:32px;}}
+
+  .choice-row{
+    display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:56px;
+    opacity:0;animation:riseIn .7s ease .44s forwards;
+  }
+  @media (max-width:800px){.choice-row{grid-template-columns:1fr;}}
+
+  .choice-card{
+    position:relative;border-radius:20px;overflow:hidden;min-height:340px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:26px 28px;border:1px solid rgba(255,255,255,.08);
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .choice-card:hover{ transform:translateY(-4px); box-shadow:0 28px 56px -24px rgba(0,0,0,.6); }
+
+  /* warm (gift) theme */
+  .choice-card.tag{
+    background:
+      radial-gradient(circle at 78% 30%, rgba(255,196,110,.22), transparent 55%),
+      radial-gradient(circle at 95% 75%, rgba(255,160,60,.16), transparent 45%),
+      linear-gradient(155deg, #1C1309 0%, #0E0A05 60%, #070502 100%);
+  }
+  /* cool (trip) theme */
+  .choice-card.stub{
+    background:
+      radial-gradient(circle at 80% 20%, rgba(110,170,255,.20), transparent 55%),
+      radial-gradient(circle at 90% 80%, rgba(90,140,255,.14), transparent 45%),
+      linear-gradient(155deg, #0A1222 0%, #060B16 60%, #03060C 100%);
+  }
+
+  .choice-art{position:absolute;inset:0;pointer-events:none;opacity:.9;}
+
+  .choice-badge{
+    display:inline-flex;align-items:center;gap:9px;align-self:flex-start;
+    border-radius:999px;padding:6px 16px 6px 6px;font-size:13px;color:#EDECE6;
+    background:rgba(255,255,255,.04);backdrop-filter:blur(2px);
+  }
+  .choice-badge .n{
+    width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:'Newsreader',serif;font-weight:600;font-size:12.5px;
+  }
+  .choice-card.tag .choice-badge{border:1px solid rgba(240,180,80,.4);}
+  .choice-card.tag .choice-badge .n{background:#F0B429;color:#241A05;}
+  .choice-card.stub .choice-badge{border:1px solid rgba(110,160,255,.4);}
+  .choice-card.stub .choice-badge .n{background:#5B9DF0;color:#08152C;}
+
+  .choice-icon-wrap{position:relative;width:52px;height:52px;margin:18px 0 6px;}
+  .choice-icon-wrap svg{width:100%;height:100%;display:block;position:relative;z-index:1;}
+  .choice-card.tag .choice-icon-wrap svg{color:#F0B429;filter:drop-shadow(0 0 10px rgba(240,180,80,.5));}
+  .choice-card.stub .choice-icon-wrap svg{color:#7FB0FF;filter:drop-shadow(0 0 10px rgba(110,160,255,.5));}
+  .choice-icon-wrap .spark{position:absolute;inset:-14px;opacity:.7;}
+
+  .choice-card h2{
+    font-size:28px;color:#F5F3ED;position:relative;z-index:1;
+  }
+  .choice-card p{
+    color:rgba(237,236,230,.68);font-size:14px;line-height:1.55;max-width:78%;
+    position:relative;z-index:1;margin-top:8px;
+  }
+  .choice-cta{
+    align-self:flex-start;margin-top:20px;border:none;border-radius:999px;
+    padding:13px 26px;font-size:14px;font-weight:700;display:inline-flex;align-items:center;gap:8px;
+    position:relative;z-index:1;transition:transform .2s ease;
+  }
+  .choice-cta:hover{transform:translateX(2px);}
+  .choice-card.tag .choice-cta{
+    background:linear-gradient(135deg,#FFD98A,#F0A93C);color:#241A05;
+    box-shadow:0 0 26px rgba(240,180,80,.45);
+  }
+  .choice-card.stub .choice-cta{
+    background:linear-gradient(135deg,#CFE3FF,#7FB0FF);color:#08152C;
+    box-shadow:0 0 26px rgba(110,160,255,.4);
+  }
+  .btn.with-arrow .arrow{transition:transform .25s ease;}
+  .btn.with-arrow:hover .arrow{transform:translateX(3px);}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--ink);background:var(--ink);color:var(--paper);
+    padding:12px 22px;font-size:14px;font-weight:600;border-radius:999px;
+    align-self:flex-start;margin-top:8px;transition:opacity .2s ease, transform .15s ease;
+  }
+  .btn:hover{opacity:.82;}
+  .btn:active{transform:scale(.96);}
+  .btn.outline{background:transparent;color:var(--ink);}
+  .btn.forest{border-color:var(--forest);background:var(--forest);}
+  .btn.ghost{border-color:var(--line);background:transparent;color:var(--ink-soft);}
+
+  footer{
+    border-top:1px solid var(--line);padding:28px 0;margin-top:40px;
+  }
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;gap:8px;}
+  footer a{color:var(--ink-soft);text-decoration:none;margin-right:16px;}
+  footer a:hover{color:var(--ink);}
+  footer .mark{font-family:'Newsreader',serif;font-style:italic;color:var(--ink-faint);}
+
+  /* ---------- How it works ---------- */
+  .how{margin-top:88px;}
+  .how-head{max-width:520px;margin-bottom:40px;}
+  .how-head .eyebrow{color:var(--ink-soft);font-size:14px;margin-bottom:10px;}
+  .how-head h2{font-size:28px;}
+  .how-steps{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+    border-top:1px solid var(--line);
+  }
+  @media (max-width:760px){.how-steps{grid-template-columns:1fr;}}
+  .how-step{
+    padding:28px 28px 28px 0;border-right:1px solid var(--line);position:relative;
+  }
+  .how-step:last-child{border-right:none;}
+  @media (max-width:760px){.how-step{border-right:none;border-bottom:1px solid var(--line);padding:24px 0;}}
+  .how-step .n{
+    font-family:'Newsreader',serif;font-style:italic;color:var(--gold);font-size:15px;margin-bottom:14px;display:block;
+  }
+  .how-step h3{font-size:18px;font-family:'Manrope',sans-serif;font-weight:600;margin-bottom:8px;}
+  .how-step p{color:var(--ink-soft);font-size:14px;line-height:1.6;}
+
+  /* ---------- Wizard ---------- */
+  .wizard-head{margin-bottom:36px;}
+  .wizard-head .back{
+    font-size:13px;color:var(--ink-soft);text-decoration:none;display:inline-block;margin-bottom:18px;
+  }
+  .wizard-head .back:hover{color:var(--ink);}
+  .progress{display:flex;gap:8px;margin-bottom:24px;}
+  .progress .dot{height:2px;flex:1;background:var(--line);}
+  .progress .dot.done{background:var(--forest);}
+
+  .step-title{font-size:28px;margin-bottom:8px;}
+  .step-sub{color:var(--ink-soft);font-size:14px;margin-bottom:28px;}
+
+  #giftStepBody, #tripStepBody{animation:stepIn .35s ease;}
+  @keyframes stepIn{from{opacity:0;transform:translateX(8px);}to{opacity:1;transform:translateX(0);}}
+
+  .reveal{transition:opacity .7s ease, transform .7s ease;}
+  .reveal.pre{opacity:0;transform:translateY(18px);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  .option-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;
+  }
+  .option{
+    border:1px solid var(--line);padding:18px 16px;background:var(--paper-raised);
+    display:flex;flex-direction:column;gap:6px;align-items:flex-start;text-align:left;
+    font-size:15px;color:var(--ink);transition:border-color .2s ease, transform .2s ease, background .2s ease;
+  }
+  .option .emoji{font-size:22px;}
+  .option:hover{border-color:var(--ink-soft);transform:translateY(-2px);}
+  .option.selected{border-color:var(--forest);background:rgba(92,138,110,.14);}
+
+  .budget-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
+  .chip{
+    border:1px solid var(--line);padding:10px 18px;border-radius:999px;background:var(--paper-raised);
+    font-size:14px;
+  }
+  .chip.selected{border-color:var(--gold);background:rgba(201,162,75,.14);}
+  .budget-custom{
+    display:flex;align-items:center;gap:10px;border:1px solid var(--line);
+    padding:10px 16px;border-radius:999px;max-width:260px;background:var(--paper-raised);
+  }
+  .budget-custom input{
+    border:none;outline:none;background:transparent;width:100%;font-size:14px;font-family:inherit;
+  }
+
+  .wizard-actions{display:flex;justify-content:space-between;margin-top:32px;}
+
+  /* ---------- Results ---------- */
+  .summary-card{
+    border:1px solid var(--line);background:var(--paper-raised);padding:22px 26px;
+    display:flex;flex-wrap:wrap;gap:24px;margin-bottom:36px;font-size:14px;
+  }
+  .summary-card div span{display:block;color:var(--ink-soft);font-size:12px;margin-bottom:2px;}
+  .sort-row{display:flex;gap:8px;margin-bottom:20px;}
+  .sort-btn{
+    border:1px solid var(--line);background:transparent;padding:8px 16px;border-radius:999px;font-size:13px;color:var(--ink-soft);
+  }
+  .sort-btn.active{border-color:var(--ink);color:var(--ink);}
+
+  .gift-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;}
+  .gift-card{
+    border:1px solid var(--line);background:var(--paper-raised);padding:22px;
+    display:flex;flex-direction:column;gap:10px;position:relative;
+  }
+  .heart{
+    background:none;border:none;font-size:18px;color:var(--ink-soft);padding:0;
+  }
+  .heart.active{color:var(--rose);}
+  .gift-card .heart{
+    position:absolute;top:16px;right:16px;
+  }
+  .plan-item .heart{
+    display:inline-flex;font-size:15px;vertical-align:middle;
+  }
+  .gift-card h3{font-size:18px;font-weight:600;font-family:'Manrope',sans-serif;padding-right:24px;}
+  .gift-price{font-size:20px;font-family:'Newsreader',serif;color:var(--forest);}
+  .gift-rating{font-size:13px;color:var(--ink-soft);}
+  .gift-card .detail{
+    font-size:13px;color:var(--ink-soft);margin-top:auto;text-decoration:underline;background:none;border:none;text-align:left;padding:0;
+  }
+
+  .plan-timeline{border-left:2px solid var(--line);margin-left:8px;padding-left:28px;display:flex;flex-direction:column;gap:28px;}
+  .plan-item{position:relative;}
+  .plan-item::before{
+    content:'';position:absolute;left:-33px;top:4px;width:8px;height:8px;border-radius:50%;background:var(--forest);
+  }
+  .plan-time{font-size:13px;color:var(--ink-soft);margin-bottom:4px;}
+  .plan-item h3{font-size:19px;display:flex;align-items:center;gap:8px;font-family:'Newsreader',serif;font-weight:500;}
+  .plan-item p{color:var(--ink-soft);font-size:14px;margin-top:4px;}
+  .plan-cost{font-size:14px;color:var(--forest);margin-top:6px;font-weight:600;}
+
+  .total-card{
+    margin-top:36px;border:1px solid var(--line);padding:24px 28px;background:var(--paper-raised);
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  }
+  .total-card .num{font-family:'Newsreader',serif;font-size:26px;color:var(--forest);}
+  .total-card small{display:block;color:var(--ink-soft);font-size:12px;}
+
+  .map-box{
+    margin-top:28px;border:1px solid var(--line);background:var(--paper-raised);padding:32px;
+    text-align:center;color:var(--ink-soft);font-size:14px;
+  }
+  .map-box .label{font-size:13px;text-transform:none;color:var(--ink-soft);margin-bottom:14px;}
+  .map-route{display:flex;flex-direction:column;gap:8px;align-items:center;font-size:15px;color:var(--ink);}
+
+  .random-box{
+    border:1px dashed var(--line);padding:28px;margin-top:44px;background:var(--paper-raised);
+  }
+  .random-box h3{font-size:20px;margin-bottom:6px;}
+  .random-box p{color:var(--ink-soft);font-size:14px;margin-bottom:18px;}
+  .random-form{display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+  .random-form select,.random-form input{
+    border:1px solid var(--line);padding:10px 14px;font-family:inherit;font-size:14px;background:var(--paper);
+  }
+
+  .empty-state{color:var(--ink-soft);font-size:14px;padding:24px 0;}
+
+  .fav-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;margin-top:24px;}
+
+  /* about/contact simple */
+  .prose{max-width:600px;color:var(--ink-soft);font-size:15px;line-height:1.7;}
+  .prose h2{color:var(--ink);margin-bottom:14px;}
+
+  /* ---------- FAQ ---------- */
+  .faq-list{max-width:720px;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%;text-align:left;background:none;border:none;padding:22px 0;
+    display:flex;justify-content:space-between;align-items:center;gap:16px;
+    font-size:16px;color:var(--ink);font-family:inherit;
+  }
+  .faq-q .icon{color:var(--ink-soft);font-size:20px;transition:transform .25s ease;flex-shrink:0;}
+  .faq-item.open .faq-q .icon{transform:rotate(45deg);}
+  .faq-a{
+    max-height:0;overflow:hidden;transition:max-height .3s ease;
+    color:var(--ink-soft);font-size:14.5px;line-height:1.65;
+  }
+  .faq-item.open .faq-a{max-height:220px;}
+  .faq-a p{padding-bottom:22px;max-width:640px;}
+
+  /* ---------- Team ---------- */
+  .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px;margin-top:36px;}
+  .team-card{border:1px solid var(--line);background:var(--paper-raised);padding:26px 22px;}
+  .team-avatar{
+    width:52px;height:52px;border-radius:50%;border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;font-family:'Newsreader',serif;
+    font-style:italic;font-size:19px;color:var(--gold);margin-bottom:16px;
+  }
+  .team-card h3{font-size:16px;font-weight:600;font-family:'Manrope',sans-serif;margin-bottom:2px;}
+  .team-card .role{color:var(--gold);font-size:12.5px;margin-bottom:10px;}
+  .team-card p{color:var(--ink-soft);font-size:13.5px;line-height:1.55;}
+
+  /* ---------- Pricing ---------- */
+  .pricing-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:36px;max-width:820px;}
+  .price-card{border:1px solid var(--line);background:var(--paper-raised);padding:32px 28px;display:flex;flex-direction:column;gap:14px;position:relative;}
+  .price-card.featured{border-color:var(--gold);}
+  .price-badge{
+    position:absolute;top:-11px;right:24px;background:var(--gold);color:#12140F;
+    font-size:11px;font-weight:700;padding:4px 12px;border-radius:999px;
+  }
+  .price-plan{font-size:13px;color:var(--ink-soft);}
+  .price-amount{font-family:'Newsreader',serif;font-size:34px;color:var(--ink);}
+  .price-amount small{font-size:14px;color:var(--ink-soft);font-family:'Manrope',sans-serif;}
+  .price-feats{display:flex;flex-direction:column;gap:9px;margin:10px 0;font-size:13.5px;color:var(--ink-soft);}
+  .price-feats span::before{content:'— ';color:var(--gold);}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#" class="logo" onclick="go('home');return false;">
+      <svg width="30" height="30" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#EDECE6" stroke-width="4.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="26" y="50" width="46" height="38" rx="2"/>
+          <path d="M26 63 H72"/>
+          <path d="M49 50 V88"/>
+          <path d="M37 50 C37 39 45 33 49 42 C53 33 61 39 61 50"/>
+        </g>
+        <path d="M64 56 C82 47 85 36 90 29" stroke="#6E6F67" stroke-width="3" stroke-dasharray="1 8" stroke-linecap="round" fill="none"/>
+        <path d="M92 12 C102 12 109 20 109 29 C109 40 92 57 92 57 C92 57 75 40 75 29 C75 20 82 12 92 12 Z" fill="none" stroke="#C9A24B" stroke-width="4.4" stroke-linejoin="round"/>
+        <circle cx="92" cy="29" r="7.5" fill="#C9A24B"/>
+      </svg>
+      <span class="wordmark">Gift<em>Trip</em></span>
+    </a>
+    <form class="search-form" onsubmit="handleSearch(event)">
+      <input id="searchInput" type="text" data-i18n-ph="search_ph" placeholder="Masalan: Astana'da 10 000 ₸ ga nima qilsam bo'ladi?">
+      <button type="submit">↵</button>
+    </form>
+    <nav class="nav-links">
+      <a href="#" onclick="go('pricing');return false;" data-i18n="nav_pricing">Narxlar</a>
+      <a href="#" onclick="go('faq');return false;" data-i18n="nav_faq">FAQ</a>
+      <a href="#" onclick="go('favorites');return false;" data-i18n="nav_fav">Sevimlilar</a>
+      <a href="#" class="cta" onclick="go('login');showAuthTab('signin');return false;" data-i18n="nav_login">Kirish</a>
+      <div class="lang-switch" id="langSwitch"></div>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HOME ============ -->
+<main class="wrap">
+
+<section id="view-home" class="view active">
+  <div class="hero">
+    <div>
+      <div class="kicker" data-i18n="hero_kicker">Sovg'a va sayr — bir joyda</div>
+      <h1><span data-i18n="hero_title_1">Buguningizni</span> <em data-i18n="hero_title_em">rejalashtirishga</em><br><span data-i18n="hero_title_2">yordam beramiz.</span></h1>
+      <p class="lede" data-i18n="hero_lede">Kimga sovg‘a olishni bilmayapsizmi, yoki qayerga borishni? Bir necha savolga javob bering — qolganini biz o‘ylab beramiz.</p>
+      <div class="hero-feats">
+        <span data-i18n="hero_feat1">30 soniyada natija</span>
+        <span data-i18n="hero_feat2">Budjetingizga moslashadi</span>
+        <span data-i18n="hero_feat3">To'liq bepul</span>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 340 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g class="spin-a">
+          <circle cx="170" cy="170" r="118" stroke="#2B2C28" stroke-width="1"/>
+          <circle cx="170" cy="52" r="3" fill="#C9A24B"/>
+        </g>
+        <g class="float-a">
+          <rect x="66" y="118" width="80" height="66" rx="2" stroke="#EDECE6" stroke-width="1.4"/>
+          <path d="M66 140 H146 M104 118 V184" stroke="#C9A24B" stroke-width="1.4"/>
+          <path d="M86 118 C86 104 96 98 104 108 C112 98 122 104 122 118" stroke="#C9A24B" stroke-width="1.4"/>
+        </g>
+        <g class="float-b">
+          <path d="M196 210 C196 168 244 168 244 210 C244 238 220 252 220 270" stroke="#5C8A6E" stroke-width="1.4"/>
+          <circle cx="220" cy="210" r="9" stroke="#5C8A6E" stroke-width="1.4"/>
+          <path d="M204 272 h32" stroke="#5C8A6E" stroke-width="1.4"/>
+        </g>
+        <path d="M150 200 C180 190 190 220 220 226" stroke="#6E6F67" stroke-width="1" stroke-dasharray="2 5"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="choice-row">
+    <div class="choice-card tag">
+      <svg class="choice-art" viewBox="0 0 400 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="giftGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFD98A" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#FFD98A" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="boxFace" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#3A2A12"/>
+            <stop offset="100%" stop-color="#1E1608"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="290" cy="230" rx="150" ry="120" fill="url(#giftGlow)"/>
+        <g opacity="0.55">
+          <circle cx="345" cy="55" r="1.6" fill="#FFD98A"/>
+          <circle cx="300" cy="90" r="1.2" fill="#FFD98A"/>
+          <circle cx="370" cy="110" r="1.8" fill="#FFD98A"/>
+          <circle cx="270" cy="45" r="1" fill="#FFD98A"/>
+        </g>
+
+        <!-- small leaning gift, back -->
+        <g transform="translate(215,235) rotate(-8)">
+          <rect x="-34" y="-34" width="68" height="60" rx="3" fill="url(#boxFace)" stroke="#B98A3E" stroke-width="1.6"/>
+          <path d="M-34 -6 H34" stroke="#F0B429" stroke-width="4"/>
+          <path d="M0 -34 V26" stroke="#F0B429" stroke-width="4"/>
+        </g>
+
+        <!-- main gift box, front -->
+        <g transform="translate(300,255)">
+          <rect x="-72" y="-56" width="144" height="104" rx="4" fill="url(#boxFace)" stroke="#F0B429" stroke-width="2.2"/>
+          <path d="M-72 -8 H72" stroke="#F0B429" stroke-width="7"/>
+          <path d="M0 -56 V48" stroke="#F0B429" stroke-width="7"/>
+          <!-- bow -->
+          <path d="M-34 -56 C-34 -84 -8 -96 0 -68 C8 -96 34 -84 34 -56"
+                fill="none" stroke="#F0B429" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="0" cy="-58" r="8" fill="#F0B429"/>
+          <!-- gift tag -->
+          <g transform="translate(58,-2) rotate(10)">
+            <rect x="0" y="0" width="34" height="24" rx="2" fill="#120D05" stroke="#F0B429" stroke-width="1.4"/>
+            <circle cx="8" cy="6" r="2" fill="none" stroke="#F0B429" stroke-width="1.2"/>
+          </g>
+        </g>
+      </svg>
+      <div class="choice-badge"><span class="n">01</span> — <span data-i18n="card_gift_badge">Sovg'a</span></div>
+      <div class="choice-icon-wrap">
+        <svg class="spark" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#F0B429" stroke-width="2" stroke-linecap="round" opacity="0.7">
+            <line x1="40" y1="2" x2="40" y2="14"/>
+            <line x1="40" y1="66" x2="40" y2="78"/>
+            <line x1="2" y1="40" x2="14" y2="40"/>
+            <line x1="66" y1="40" x2="78" y2="40"/>
+            <line x1="13" y1="13" x2="21" y2="21"/>
+            <line x1="59" y1="59" x2="67" y2="67"/>
+            <line x1="67" y1="13" x2="59" y2="21"/>
+            <line x1="21" y1="59" x2="13" y2="67"/>
+          </g>
+        </svg>
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="7" y="20" width="34" height="24" rx="1.5" stroke="currentColor" stroke-width="2.4"/>
+          <path d="M7 28 H41" stroke="currentColor" stroke-width="2.4"/>
+          <path d="M24 20 V44" stroke="currentColor" stroke-width="2.4"/>
+          <path d="M13 20 C13 12 20 8 24 14 C28 8 35 12 35 20" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h2 data-i18n="card_gift_title">Sovg'a topish</h2>
+      <p data-i18n="card_gift_desc">Yaqin insoningiz uchun mos sovg'ani, budjetingiz va uning qiziqishlariga qarab tanlab beramiz.</p>
+      <button class="choice-cta" onclick="startGift()"><span data-i18n="btn_start">Boshlash</span> →</button>
+    </div>
+
+    <div class="choice-card stub">
+      <svg class="choice-art" viewBox="0 0 400 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#BFD8FF" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#BFD8FF" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="bldgFace" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#16294A"/>
+            <stop offset="100%" stop-color="#060D1C"/>
+          </linearGradient>
+        </defs>
+        <!-- moon -->
+        <circle cx="345" cy="55" r="40" fill="url(#moonGlow)"/>
+        <circle cx="345" cy="55" r="13" fill="#E7F0FF" opacity="0.85"/>
+        <g opacity="0.6"><circle cx="70" cy="50" r="1.4" fill="#BFD8FF"/><circle cx="120" cy="35" r="1" fill="#BFD8FF"/><circle cx="180" cy="60" r="1.6" fill="#BFD8FF"/><circle cx="250" cy="30" r="1" fill="#BFD8FF"/></g>
+
+        <!-- skyline, filled silhouettes -->
+        <g fill="url(#bldgFace)" stroke="#3A5A8F" stroke-width="1.4">
+          <rect x="215" y="190" width="30" height="150"/>
+          <rect x="248" y="150" width="26" height="190"/>
+          <rect x="278" y="205" width="34" height="135"/>
+          <rect x="316" y="120" width="22" height="220"/>
+          <rect x="342" y="210" width="30" height="130"/>
+          <rect x="185" y="230" width="26" height="110"/>
+        </g>
+        <!-- lit windows -->
+        <g fill="#FFD98A" opacity="0.85">
+          <rect x="222" y="205" width="4" height="6"/><rect x="234" y="220" width="4" height="6"/>
+          <rect x="222" y="240" width="4" height="6"/><rect x="255" y="170" width="4" height="6"/>
+          <rect x="255" y="195" width="4" height="6"/><rect x="266" y="215" width="4" height="6"/>
+          <rect x="286" y="225" width="4" height="6"/><rect x="298" y="250" width="4" height="6"/>
+          <rect x="322" y="145" width="4" height="6"/><rect x="322" y="175" width="4" height="6"/>
+          <rect x="322" y="205" width="4" height="6"/><rect x="349" y="235" width="4" height="6"/>
+          <rect x="360" y="255" width="4" height="6"/><rect x="192" y="255" width="4" height="6"/>
+        </g>
+
+        <!-- Bayterek-style tower -->
+        <g transform="translate(300,70)" stroke="#7FB0FF" stroke-width="2.4" fill="none">
+          <line x1="-3" y1="20" x2="-14" y2="205"/>
+          <line x1="3" y1="20" x2="14" y2="205"/>
+          <line x1="-9" y1="90" x2="9" y2="90"/>
+          <line x1="-11" y1="150" x2="11" y2="150"/>
+          <circle cx="0" cy="0" r="24" fill="#0A1428"/>
+          <circle cx="0" cy="0" r="24"/>
+          <circle cx="0" cy="0" r="13" fill="#FFD98A" opacity="0.85" stroke="none"/>
+        </g>
+
+        <!-- ground glow -->
+        <rect x="150" y="336" width="250" height="4" fill="#7FB0FF" opacity="0.3"/>
+      </svg>
+      <div class="choice-badge"><span class="n">02</span> — <span data-i18n="card_trip_badge">Sayr</span></div>
+      <div class="choice-icon-wrap">
+        <svg class="spark" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#7FB0FF" stroke-width="2" stroke-linecap="round" opacity="0.7">
+            <line x1="40" y1="2" x2="40" y2="14"/>
+            <line x1="40" y1="66" x2="40" y2="78"/>
+            <line x1="2" y1="40" x2="14" y2="40"/>
+            <line x1="66" y1="40" x2="78" y2="40"/>
+            <line x1="13" y1="13" x2="21" y2="21"/>
+            <line x1="59" y1="59" x2="67" y2="67"/>
+            <line x1="67" y1="13" x2="59" y2="21"/>
+            <line x1="21" y1="59" x2="13" y2="67"/>
+          </g>
+        </svg>
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 6 C32 6 38 12.5 38 20.5 C38 31 24 44 24 44 C24 44 10 31 10 20.5 C10 12.5 16 6 24 6 Z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+          <circle cx="24" cy="20" r="6" stroke="currentColor" stroke-width="2.4"/>
+        </svg>
+      </div>
+      <h2 data-i18n="card_trip_title">Sayr rejalashtirish</h2>
+      <p data-i18n="card_trip_desc">Budjetingizga mos, soatma-soat qiziqarli kun rejasini tuzib beramiz.</p>
+      <button class="choice-cta" onclick="startTrip()"><span data-i18n="btn_start">Boshlash</span> →</button>
+    </div>
+  </div>
+
+  <div class="how reveal">
+    <div class="how-head">
+      <div class="eyebrow" data-i18n="how_eyebrow">Qanday ishlaydi</div>
+      <h2 data-i18n="how_title">Uch qadamda tayyor.</h2>
+    </div>
+    <div class="how-steps">
+      <div class="how-step">
+        <span class="n">01</span>
+        <h3 data-i18n="how1_title">Yo'nalishni tanlang</h3>
+        <p data-i18n="how1_desc">Sovg'a kerakmi yoki sayr rejasimi — shundan boshlaymiz.</p>
+      </div>
+      <div class="how-step">
+        <span class="n">02</span>
+        <h3 data-i18n="how2_title">Bir necha savolga javob bering</h3>
+        <p data-i18n="how2_desc">Kim uchun, qanday budjetda, nima kayfiyatda — bir daqiqa vaqt oladi.</p>
+      </div>
+      <div class="how-step">
+        <span class="n">03</span>
+        <h3 data-i18n="how3_title">Tayyor natijani oling</h3>
+        <p data-i18n="how3_desc">Budjetingizga mos variantlarni ko'rib, sevimlilaringizni saqlab qo'ying.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT / CONTACT ============ -->
+<section id="view-about" class="view">
+  <div class="wizard-head"><a class="back" href="#" onclick="go('home');return false;"><span data-i18n="back_home">← Bosh sahifa</span></a></div>
+  <div class="prose">
+    <h2 style="font-size:28px;" data-i18n="about_title">Biz haqimizda</h2>
+    <p data-i18n="about_p1">GiftTrip — kundalik qarorlarni osonlashtirish uchun yaratilgan kichik xizmat: kimgadir sovg'a tanlash yoki bo'sh kuningizni rejalashtirish endi vaqt talab qilmaydi. Bir nechta savolga javob bering, qolganini biz taklif qilamiz.</p>
+    <p style="margin-top:14px;" data-i18n="about_p2">G'oyamiz oddiy: eng yaxshi qarorlar ko'pincha eng ko'p vaqt talab qiladiganlari emas. Shuning uchun har bir savolni minimal darajaga tushirdik — sovg'a yoki sayr rejasi bir necha bosishda tayyor bo'ladi.</p>
+  </div>
+
+  <h2 class="step-title" style="margin-top:56px;font-size:22px;" data-i18n="team_title">Jamoa</h2>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">A</div>
+      <h3 data-i18n="team1_name">Aziza Rahimova</h3>
+      <div class="role" data-i18n="team1_role">Asoschi &amp; mahsulot</div>
+      <p data-i18n="team1_desc">Foydalanuvchi tajribasi va mahsulot strategiyasiga mas'ul.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">D</div>
+      <h3 data-i18n="team2_name">Diyor Nazarov</h3>
+      <div class="role" data-i18n="team2_role">Dizayn yo'nalishi</div>
+      <p data-i18n="team2_desc">Sayt va ilova dizaynini yaratadi, brend uslubini belgilaydi.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">M</div>
+      <h3 data-i18n="team3_name">Madina Yusupova</h3>
+      <div class="role" data-i18n="team3_role">Ishlab chiqish</div>
+      <p data-i18n="team3_desc">Texnik qism va yangi funksiyalarni amalga oshiradi.</p>
+    </div>
+  </div>
+</section>
+
+<section id="view-contact" class="view">
+  <div class="wizard-head"><a class="back" href="#" onclick="go('home');return false;"><span data-i18n="back_home">← Bosh sahifa</span></a></div>
+  <div class="prose">
+    <h2 style="font-size:28px;" data-i18n="contact_title">Aloqa</h2>
+    <p><span data-i18n="contact_p">Savol yoki taklifingiz bo'lsa, biz bilan bog'laning:</span> <br><strong style="color:var(--ink)">hello@gifttrip.kz</strong></p>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="view-faq" class="view">
+  <div class="wizard-head"><a class="back" href="#" onclick="go('home');return false;"><span data-i18n="back_home">← Bosh sahifa</span></a></div>
+  <h2 class="step-title" data-i18n="faq_title">Ko'p so'raladigan savollar</h2>
+  <p class="step-sub"><span data-i18n="faq_sub_pre">Agar javobini topa olmasangiz,</span> <a href="#" onclick="go('contact');return false;" style="color:var(--gold);" data-i18n="faq_sub_link">bizga yozing</a>.</p>
+  <div class="faq-list" id="faqList"></div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="view-pricing" class="view">
+  <div class="wizard-head"><a class="back" href="#" onclick="go('home');return false;"><span data-i18n="back_home">← Bosh sahifa</span></a></div>
+  <h2 class="step-title" data-i18n="pricing_title">Narxlar</h2>
+  <p class="step-sub" data-i18n="pricing_sub">Asosiy xizmat har doim bepul. Ko'proq imkoniyat kerak bo'lsa — Premium mavjud.</p>
+  <div class="pricing-row">
+    <div class="price-card">
+      <div class="price-plan" data-i18n="plan_free">Bepul</div>
+      <div class="price-amount">0 ₸</div>
+      <div class="price-feats">
+        <span data-i18n="free_feat1">Sovg'a va sayr takliflari</span>
+        <span data-i18n="free_feat2">Kuniga 5 tagacha qidiruv</span>
+        <span data-i18n="free_feat3">Sevimlilarni saqlash</span>
+      </div>
+      <button class="btn outline" onclick="go('login');showAuthTab('signup');" data-i18n="plan_start">Boshlash</button>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge" data-i18n="badge_recommended">Tavsiya etiladi</div>
+      <div class="price-plan" data-i18n="plan_premium">Premium</div>
+      <div class="price-amount">2 990 ₸<small data-i18n="price_premium_period"> /oy</small></div>
+      <div class="price-feats">
+        <span data-i18n="premium_feat1">Cheksiz qidiruv va random reja</span>
+        <span data-i18n="premium_feat2">Xarita bilan batafsil marshrut</span>
+        <span data-i18n="premium_feat3">Ustuvor takliflar va chegirmalar</span>
+        <span data-i18n="premium_feat4">Reklamasiz tajriba</span>
+      </div>
+      <button class="btn forest" onclick="go('login');showAuthTab('signup');" data-i18n="plan_premium_cta">Premium olish</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TERMS / PRIVACY ============ -->
+<section id="view-terms" class="view">
+  <div class="wizard-head"><a class="back" href="#" onclick="go('home');return false;"><span data-i18n="back_home">← Bosh sahifa</span></a></div>
+  <div class="prose">
+    <h2 style="font-size:28px;" data-i18n="terms_title">Foydalanish shartlari</h2>
+    <p data-i18n="terms_p">GiftTrip xizmatidan foydalanish orqali siz quyidagi shartlarga rozilik bildirasiz: xizmat taklif qilingan sovg'a va sayr variantlari faqat tavsiya xarakteriga ega bo'lib, yakuniy qarorni foydalanuvchi o'zi qabul qiladi. Xizmat vaqti-vaqti bilan yangilanib, funksiyalar o'zgarishi mumkin.</p>
+    <h2 style="font-size:22px;margin-top:32px;" data-i18n="privacy_title">Maxfiylik siyosati</h2>
+    <p data-i18n="privacy_p">Biz shaxsiy ma'lumotlaringizni faqat xizmat sifatini yaxshilash uchun ishlatamiz va uchinchi tomonlarga sotmaymiz. Sevimlilar ro'yxati kabi ma'lumotlar brauzeringizda saqlanadi; hisob yaratganingizda esa xavfsiz serverda saqlanadi.</p>
+  </div>
+</section>
+
+<!-- ============ LOGIN / SIGN UP ============ -->
+<section id="view-login" class="view">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <svg width="26" height="26" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#EDECE6" stroke-width="4.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="26" y="50" width="46" height="38" rx="2"/>
+            <path d="M26 63 H72"/>
+            <path d="M49 50 V88"/>
+            <path d="M37 50 C37 39 45 33 49 42 C53 33 61 39 61 50"/>
+          </g>
+          <path d="M64 56 C82 47 85 36 90 29" stroke="#6E6F67" stroke-width="3" stroke-dasharray="1 8" stroke-linecap="round" fill="none"/>
+          <path d="M92 12 C102 12 109 20 109 29 C109 40 92 57 92 57 C92 57 75 40 75 29 C75 20 82 12 92 12 Z" fill="none" stroke="#C9A24B" stroke-width="4.4" stroke-linejoin="round"/>
+          <circle cx="92" cy="29" r="7.5" fill="#C9A24B"/>
+        </svg>
+        <span class="wordmark">Gift<em>Trip</em></span>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab" id="tabSignin" onclick="showAuthTab('signin')" data-i18n="auth_tab_signin">Kirish</button>
+        <button class="auth-tab" id="tabSignup" onclick="showAuthTab('signup')" data-i18n="auth_tab_signup">Ro'yxatdan o'tish</button>
+      </div>
+
+      <!-- Sign in form -->
+      <div id="authSignin">
+        <div class="auth-title" data-i18n="auth_welcome_title">Xush kelibsiz</div>
+        <div class="auth-sub" data-i18n="auth_welcome_sub">Sevimlilaringiz va rejalaringizga kirish uchun tizimga kiring.</div>
+        <div class="field">
+          <label for="siEmail" data-i18n="label_email">Email</label>
+          <input id="siEmail" type="email" placeholder="ism@misol.com">
+        </div>
+        <div class="field">
+          <label for="siPass" data-i18n="label_pass">Parol</label>
+          <input id="siPass" type="password" placeholder="••••••••">
+        </div>
+        <div class="field-row">
+          <label><input type="checkbox" style="width:auto;"> <span data-i18n="remember_me">Meni eslab qol</span></label>
+          <a href="#" data-i18n="forgot_pass">Parolni unutdingizmi?</a>
+        </div>
+        <button class="btn forest btn-block" onclick="alert(t('demo_alert'))" data-i18n="btn_signin">Kirish</button>
+        <div class="auth-divider" data-i18n="or_divider">yoki</div>
+        <div class="social-row">
+          <button class="social-btn" onclick="alert(t('demo_alert2'))">Google</button>
+          <button class="social-btn" onclick="alert(t('demo_alert2'))">Apple</button>
+        </div>
+        <div class="auth-switch"><span data-i18n="no_account">Hisobingiz yo'qmi?</span> <button onclick="showAuthTab('signup')" data-i18n="go_signup">Ro'yxatdan o'ting</button></div>
+      </div>
+
+      <!-- Sign up form -->
+      <div id="authSignup" style="display:none;">
+        <div class="auth-title" data-i18n="auth_signup_title">Hisob yarating</div>
+        <div class="auth-sub" data-i18n="auth_signup_sub">Bir necha soniyada ro'yxatdan o'ting va rejalaringizni saqlab boring.</div>
+        <div class="field">
+          <label for="suName" data-i18n="label_name">Ism</label>
+          <input id="suName" type="text" placeholder="Ismingiz">
+        </div>
+        <div class="field">
+          <label for="suEmail" data-i18n="label_email">Email</label>
+          <input id="suEmail" type="email" placeholder="ism@misol.com">
+        </div>
+        <div class="field">
+          <label for="suPass" data-i18n="label_pass">Parol</label>
+          <input id="suPass" type="password" placeholder="Kamida 8 belgi">
+        </div>
+        <button class="btn forest btn-block" onclick="alert(t('demo_alert'))" data-i18n="btn_signup">Hisob yaratish</button>
+        <div class="auth-divider" data-i18n="or_divider">yoki</div>
+        <div class="social-row">
+          <button class="social-btn" onclick="alert(t('demo_alert2'))">Google</button>
+          <button class="social-btn" onclick="alert(t('demo_alert2'))">Apple</button>
+        </div>
+        <div class="auth-switch"><span data-i18n="have_account">Hisobingiz bormi?</span> <button onclick="showAuthTab('signin')" data-i18n="go_signin">Kiring</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAVORITES ============ -->
+<section id="view-favorites" class="view">
+  <div class="wizard-head"><a class="back" href="#" onclick="go('home');return false;"><span data-i18n="back_home">← Bosh sahifa</span></a></div>
+  <h2 class="step-title" data-i18n="fav_title">❤️ Mening saqlangan joylarim</h2>
+  <p class="step-sub" data-i18n="fav_sub">Keyinchalik bu ro'yxat login tizimi orqali barcha qurilmalaringizda saqlanadi.</p>
+  <div id="favContainer"></div>
+</section>
+
+<!-- ============ GIFT WIZARD ============ -->
+<section id="view-gift-wizard" class="view">
+  <div class="wizard-head">
+    <a class="back" href="#" onclick="go('home');return false;"><span data-i18n="back_home">← Bosh sahifa</span></a>
+    <div class="progress" id="giftProgress"></div>
+  </div>
+  <div id="giftStepBody"></div>
+</section>
+
+<!-- ============ GIFT RESULTS ============ -->
+<section id="view-gift-results" class="view">
+  <div class="wizard-head"><a class="back" href="#" onclick="go('gift-wizard');return false;"><span data-i18n="back_to_questions">← Savollarga qaytish</span></a></div>
+  <h2 class="step-title" data-i18n="gift_results_title">🎁 Siz uchun topilgan sovg'alar</h2>
+  <div class="summary-card" id="giftSummary"></div>
+  <div class="sort-row" id="giftSort"></div>
+  <div class="gift-list" id="giftList"></div>
+</section>
+
+<!-- ============ TRIP WIZARD ============ -->
+<section id="view-trip-wizard" class="view">
+  <div class="wizard-head">
+    <a class="back" href="#" onclick="go('home');return false;"><span data-i18n="back_home">← Bosh sahifa</span></a>
+    <div class="progress" id="tripProgress"></div>
+  </div>
+  <div id="tripStepBody"></div>
+</section>
+
+<!-- ============ TRIP RESULTS ============ -->
+<section id="view-trip-results" class="view">
+  <div class="wizard-head"><a class="back" href="#" onclick="go('trip-wizard');return false;"><span data-i18n="back_to_questions">← Savollarga qaytish</span></a></div>
+  <h2 class="step-title" data-i18n="trip_results_title">🌟 Siz uchun tayyor reja</h2>
+  <div class="summary-card" id="tripSummary"></div>
+  <div class="plan-timeline" id="planTimeline"></div>
+  <div class="total-card" id="totalCard"></div>
+  <div class="map-box" id="mapBox"></div>
+
+  <div class="random-box">
+    <h3 data-i18n="random_title">🎲 Aralashtirib ber</h3>
+    <p data-i18n="random_sub">Shahar va budjetni kiriting — biz sizga butunlay tasodifiy reja tuzib beramiz.</p>
+    <div class="random-form">
+      <select id="randCity"></select>
+      <input id="randBudget" type="number" data-i18n-ph="random_budget_ph" placeholder="Budjet, ₸" style="width:140px;">
+      <select id="randWith"></select>
+      <button class="btn ghost" style="border:1px solid var(--line);" onclick="randomPlan()" data-i18n="random_btn">🎲 Menga random reja ber</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap" style="align-items:flex-start;">
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <a href="#" onclick="go('about');return false;" data-i18n="footer_about">Biz haqimizda</a>
+      <a href="#" onclick="go('faq');return false;" data-i18n="footer_faq">FAQ</a>
+      <a href="#" onclick="go('pricing');return false;" data-i18n="footer_pricing">Narxlar</a>
+      <a href="#" onclick="go('contact');return false;" data-i18n="footer_contact">Aloqa</a>
+      <a href="#" onclick="go('terms');return false;" data-i18n="footer_terms">Shartlar &amp; Maxfiylik</a>
+    </div>
+    <div class="mark">GiftTrip</div>
+    <div data-i18n="footer_copy">© GiftTrip, 2026</div>
+  </div>
+</footer>
+
+<script>
+/* ===================== I18N ===================== */
+const I18N = {"uz": {"nav_pricing": "Narxlar", "nav_faq": "FAQ", "nav_fav": "Sevimlilar", "nav_login": "Kirish", "search_ph": "Masalan: Astana'da 10 000 ₸ ga nima qilsam bo'ladi?", "hero_kicker": "Sovg'a va sayr — bir joyda", "hero_title_1": "Buguningizni", "hero_title_em": "rejalashtirishga", "hero_title_2": "yordam beramiz.", "hero_lede": "Kimga sovg'a olishni bilmayapsizmi, yoki qayerga borishni? Bir necha savolga javob bering — qolganini biz o'ylab beramiz.", "hero_feat1": "30 soniyada natija", "hero_feat2": "Budjetingizga moslashadi", "hero_feat3": "To'liq bepul", "card_gift_badge": "Sovg'a", "card_gift_title": "Sovg'a topish", "card_gift_desc": "Yaqin insoningiz uchun mos sovg'ani, budjetingiz va uning qiziqishlariga qarab tanlab beramiz.", "card_trip_badge": "Sayr", "card_trip_title": "Sayr rejalashtirish", "card_trip_desc": "Budjetingizga mos, soatma-soat qiziqarli kun rejasini tuzib beramiz.", "btn_start": "Boshlash", "how_eyebrow": "Qanday ishlaydi", "how_title": "Uch qadamda tayyor.", "how1_title": "Yo'nalishni tanlang", "how1_desc": "Sovg'a kerakmi yoki sayr rejasimi — shundan boshlaymiz.", "how2_title": "Bir necha savolga javob bering", "how2_desc": "Kim uchun, qanday budjetda, nima kayfiyatda — bir daqiqa vaqt oladi.", "how3_title": "Tayyor natijani oling", "how3_desc": "Budjetingizga mos variantlarni ko'rib, sevimlilaringizni saqlab qo'ying.", "footer_about": "Biz haqimizda", "footer_faq": "FAQ", "footer_pricing": "Narxlar", "footer_contact": "Aloqa", "footer_terms": "Shartlar & Maxfiylik", "footer_copy": "© GiftTrip, 2026", "back_home": "← Bosh sahifa", "about_title": "Biz haqimizda", "about_p1": "GiftTrip — kundalik qarorlarni osonlashtirish uchun yaratilgan kichik xizmat: kimgadir sovg'a tanlash yoki bo'sh kuningizni rejalashtirish endi vaqt talab qilmaydi. Bir nechta savolga javob bering, qolganini biz taklif qilamiz.", "about_p2": "G'oyamiz oddiy: eng yaxshi qarorlar ko'pincha eng ko'p vaqt talab qiladiganlari emas. Shuning uchun har bir savolni minimal darajaga tushirdik — sovg'a yoki sayr rejasi bir necha bosishda tayyor bo'ladi.", "team_title": "Jamoa", "team1_name": "Aziza Rahimova", "team1_role": "Asoschi & mahsulot", "team1_desc": "Foydalanuvchi tajribasi va mahsulot strategiyasiga mas'ul.", "team2_name": "Diyor Nazarov", "team2_role": "Dizayn yo'nalishi", "team2_desc": "Sayt va ilova dizaynini yaratadi, brend uslubini belgilaydi.", "team3_name": "Madina Yusupova", "team3_role": "Ishlab chiqish", "team3_desc": "Texnik qism va yangi funksiyalarni amalga oshiradi.", "contact_title": "Aloqa", "contact_p": "Savol yoki taklifingiz bo'lsa, biz bilan bog'laning:", "faq_title": "Ko'p so'raladigan savollar", "faq_sub_pre": "Agar javobini topa olmasangiz,", "faq_sub_link": "bizga yozing", "faq_q1": "GiftTrip qanday ishlaydi?", "faq_a1": "Bosh sahifada \"Sovg'a topish\" yoki \"Sayr rejalashtirish\"ni tanlaysiz, bir nechta qisqa savolga javob berasiz — kim uchun, qanday budjetda — va sayt sizga mos variantlarni taklif qiladi.", "faq_q2": "Xizmat pullikmi?", "faq_a2": "Asosiy funksiyalar (sovg'a va sayr takliflari, sevimlilar) to'liq bepul. Cheksiz qidiruv va qo'shimcha imkoniyatlar uchun Premium reja mavjud.", "faq_q3": "Takliflar qayerdan olinadi?", "faq_a3": "Hozircha namunaviy ma'lumotlar bazasidan. Kelajakda haqiqiy do'kon va joylar bilan integratsiya qilinadi.", "faq_q4": "Sevimlilarim qayerda saqlanadi?", "faq_a4": "Hisobingiz bo'lmasa, brauzeringizda saqlanadi. Ro'yxatdan o'tsangiz, barcha qurilmalaringizda sinxronlanadi.", "faq_q5": "Xaritada ko'rish funksiyasi ishlaydimi?", "faq_a5": "Hozircha bu qism namuna ko'rinishida. Xarita API'si keyingi versiyada to'liq ulanadi.", "pricing_title": "Narxlar", "pricing_sub": "Asosiy xizmat har doim bepul. Ko'proq imkoniyat kerak bo'lsa — Premium mavjud.", "plan_free": "Bepul", "plan_premium": "Premium", "price_premium_period": "/oy", "badge_recommended": "Tavsiya etiladi", "free_feat1": "Sovg'a va sayr takliflari", "free_feat2": "Kuniga 5 tagacha qidiruv", "free_feat3": "Sevimlilarni saqlash", "premium_feat1": "Cheksiz qidiruv va random reja", "premium_feat2": "Xarita bilan batafsil marshrut", "premium_feat3": "Ustuvor takliflar va chegirmalar", "premium_feat4": "Reklamasiz tajriba", "plan_start": "Boshlash", "plan_premium_cta": "Premium olish", "terms_title": "Foydalanish shartlari", "terms_p": "GiftTrip xizmatidan foydalanish orqali siz quyidagi shartlarga rozilik bildirasiz: xizmat taklif qilingan sovg'a va sayr variantlari faqat tavsiya xarakteriga ega bo'lib, yakuniy qarorni foydalanuvchi o'zi qabul qiladi. Xizmat vaqti-vaqti bilan yangilanib, funksiyalar o'zgarishi mumkin.", "privacy_title": "Maxfiylik siyosati", "privacy_p": "Biz shaxsiy ma'lumotlaringizni faqat xizmat sifatini yaxshilash uchun ishlatamiz va uchinchi tomonlarga sotmaymiz. Sevimlilar ro'yxati kabi ma'lumotlar brauzeringizda saqlanadi; hisob yaratganingizda esa xavfsiz serverda saqlanadi.", "auth_tab_signin": "Kirish", "auth_tab_signup": "Ro'yxatdan o'tish", "auth_welcome_title": "Xush kelibsiz", "auth_welcome_sub": "Sevimlilaringiz va rejalaringizga kirish uchun tizimga kiring.", "label_email": "Email", "label_pass": "Parol", "remember_me": "Meni eslab qol", "forgot_pass": "Parolni unutdingizmi?", "btn_signin": "Kirish", "or_divider": "yoki", "no_account": "Hisobingiz yo'qmi?", "go_signup": "Ro'yxatdan o'ting", "auth_signup_title": "Hisob yarating", "auth_signup_sub": "Bir necha soniyada ro'yxatdan o'ting va rejalaringizni saqlab boring.", "label_name": "Ism", "label_name_ph": "Ismingiz", "label_pass2_ph": "Kamida 8 belgi", "btn_signup": "Hisob yaratish", "have_account": "Hisobingiz bormi?", "go_signin": "Kiring", "demo_alert": "Demo: hali backend ulanmagan.", "demo_alert2": "Demo: hali ulanmagan.", "fav_title": "❤️ Mening saqlangan joylarim", "fav_sub": "Keyinchalik bu ro'yxat login tizimi orqali barcha qurilmalaringizda saqlanadi.", "fav_empty": "Hali hech narsa saqlanmagan. Sovg'a yoki sayr natijalarida ♡ belgisini bosing.", "fav_gift_label": "🎁 Sovg'a", "fav_trip_label": "🗺️ Sayr faoliyati", "gift_step1_title": "Kimga sovg'a olmoqchisiz?", "gift_step2_title": "Qanday sabab bilan?", "gift_step3_title": "Budjetingiz qancha?", "gift_step4_title": "Nimaga qiziqadi?", "step_of": "qadam / 4", "optional": "ixtiyoriy", "budget_custom_label": "Yoki o'zingiz kiriting:", "budget_custom_ph": "masalan 25000", "back_btn": "← Orqaga", "next_btn": "Davom etish →", "see_results_btn": "Natijalarni ko'rish →", "see_plan_btn": "Rejani ko'rish →", "gift_results_title": "🎁 Siz uchun topilgan sovg'alar", "summary_to": "Kimga", "summary_reason": "Sabab", "summary_budget": "Budjet", "summary_interest": "Qiziqish", "sort_price": "Narx bo'yicha", "sort_match": "Moslik bo'yicha", "sort_rating": "Mashhurlik bo'yicha", "gift_detail_btn": "Batafsil", "gift_detail_alert": "haqida batafsil ma'lumot tez orada qo'shiladi.", "gift_empty": "Hozircha mos variant topilmadi. Budjetni oshirib ko'ring.", "back_to_questions": "← Savollarga qaytish", "trip_step1_title": "Qaysi shaharda?", "trip_step2_title": "Kim bilan borasiz?", "trip_step3_title": "Budjetingiz", "trip_step4_title": "Qanday sayr xohlaysiz?", "trip_results_title": "🌟 Siz uchun tayyor reja", "summary_city": "Shahar", "summary_with": "Kim bilan", "summary_style": "Uslub", "total_label": "Umumiy", "remain_label": "qoladi", "over_label": "budjetdan", "over_label2": "oshadi", "map_label": "📍 Xaritada ko'rish (keyingi versiyada xarita API'si bilan)", "random_title": "🎲 Aralashtirib ber", "random_sub": "Shahar va budjetni kiriting — biz sizga butunlay tasodifiy reja tuzib beramiz.", "random_budget_ph": "Budjet, ₸", "random_btn": "🎲 Menga random reja ber", "recipients": {"ona": "Onam", "ota": "Otam", "dost": "Do'stim", "yaqin": "Yaqin insonim", "akauka": "Aka/uka", "opasingil": "Opa/singil", "boshqa": "Boshqa"}, "occasions": {"tugilgan": "Tug'ilgan kun", "bitiruv": "Bitiruv", "bayram": "Bayram", "shunchaki": "Shunchaki", "maxsus": "Maxsus kun", "boshqaOc": "Boshqa"}, "interests": {"gaming": "Gaming", "kitob": "Kitob", "musiqa": "Musiqa", "kiyim": "Kiyim", "tech": "Texnologiya", "sport": "Sport", "sanat": "San'at", "shirinlik": "Shirinlik", "universal": "Universal"}, "companions": {"dost": "Do'stim", "oila": "Oila", "yaqin": "Yaqin inson", "yolgiz": "Yolg'iz", "guruh": "Guruh"}, "trip_types": {"tabiat": "Tabiat", "kongilochar": "Ko'ngilochar", "ovqat": "Ovqatlanish", "madaniy": "Madaniy", "faol": "Faol", "tinch": "Tinch / Chill", "aralash": "Aralash"}, "cities": {"astana": "Astana", "almaty": "Almaty", "shymkent": "Shymkent", "karaganda": "Qarag'anda", "aktobe": "Aktobe", "taraz": "Taraz"}, "gifts": {"g_headset": "Gaming quloqchin", "g_mouse": "Gaming mouse", "g_pad": "Gaming mouse pad", "g_grip": "Kontroller uchun grip", "g_gamecard": "Oyin kodlari kartasi", "g_novel": "Bestseller roman", "g_motiv": "Motivatsion kitob to'plami", "g_bookmark": "Chiroyli kitob belgisi to'plami", "g_audiobook": "Ovozli kitob obunasi (3 oy)", "g_earbuds": "Simsiz quloqchin", "g_speaker": "Bluetooth kolonka (kichik)", "g_vinyl": "Vinil plastinka", "g_musicsub": "Musiqa xizmati obunasi (3 oy)", "g_sweater": "Yumshoq trikotaj kofta", "g_pants": "Sport shim", "g_scarf": "Sharf", "g_cap": "Beysbol qalpoq", "g_powerbank": "Quvvatlash banki (powerbank)", "g_charger": "Simsiz zaryadlagich", "g_stand": "Telefon uchun stend", "g_watchband": "Aqlli soat bandi", "g_bands": "Fitnes rezinka to'plami", "g_bottle": "Sport suv butilkasi", "g_yoga": "Yoga gilamchasi", "g_bag": "Sport sumka", "g_paint": "Akvarel bo'yoq to'plami", "g_sketch": "Eskiz daftari", "g_tablet": "Rasm chizish uchun planshet", "g_choc": "Shokolad to'plami", "g_candy": "Qo'lda tayyorlangan konfetlar", "g_sweetbox": "Shirinliklar sovg'a qutisi", "g_candle": "Aromatik sham", "g_card": "Sovg'a otkritkasi + kichik gift", "g_mug": "Termokружка", "g_album": "Fotoalbom"}, "activities": {"a_park": {"name": "Parkda sayr", "note": "Sayr qilish va suratga tushish."}, "a_lake": {"name": "Ko'l bo'yida dam olish", "note": "Sokin muhitda vaqt o'tkazish."}, "a_cinema": {"name": "Kinoteatr", "note": "Yangi filmga borish."}, "a_bowling": {"name": "Bowling", "note": "Do'stlar bilan musobaqa."}, "a_quest": {"name": "Kvest xona", "note": "Jamoaviy topishmoq o'yini."}, "a_pizza": {"name": "Pizza", "note": "Yengil tushlik."}, "a_cafe": {"name": "Kafeda choy-poy", "note": "Kafeda vaqt o'tkazish."}, "a_dessert": {"name": "Dessert", "note": "Shirinlik bilan yakunlash."}, "a_gallery": {"name": "San'at galereyasi", "note": "Zamonaviy ko'rgazmani ko'rish."}, "a_museum": {"name": "Muzey", "note": "Tarixiy eksponatlarni ko'rish."}, "a_trampoline": {"name": "Trambolin park", "note": "Energiyani sarflash."}, "a_bookshop": {"name": "Kitob do'konida aylanish", "note": "Shoshilmasdan aylanish."}, "a_bowling_active": {"name": "Bowling", "note": "Faol dam olish."}, "a_cafe_chill": {"name": "Kafeda choy-poy", "note": "Sokin suhbat uchun ideal."}}, "search_examples": "masalan"}, "kk": {"nav_pricing": "Бағалар", "nav_faq": "Жиі қойылатын сұрақтар", "nav_fav": "Таңдаулылар", "nav_login": "Кіру", "search_ph": "Мысалы: Астанада 10 000 ₸-ге не істеуге болады?", "hero_kicker": "Сыйлық пен серуен — бір жерде", "hero_title_1": "Бүгініңізді", "hero_title_em": "жоспарлауға", "hero_title_2": "көмектесеміз.", "hero_lede": "Кімге сыйлық алуды білмейсіз бе, әлде қайда барарыңызды? Бірнеше сұраққа жауап беріңіз — қалғанын біз ойлап табамыз.", "hero_feat1": "30 секундта нәтиже", "hero_feat2": "Бюджетіңізге сай", "hero_feat3": "Толығымен тегін", "card_gift_badge": "Сыйлық", "card_gift_title": "Сыйлық табу", "card_gift_desc": "Жақын адамыңыз үшін лайықты сыйлықты бюджетіңіз бен қызығушылығына қарай таңдап береміз.", "card_trip_badge": "Серуен", "card_trip_title": "Серуенді жоспарлау", "card_trip_desc": "Бюджетіңізге сай, сағат сайынғы қызықты күн жоспарын құрып береміз.", "btn_start": "Бастау", "how_eyebrow": "Қалай жұмыс істейді", "how_title": "Үш қадамда дайын.", "how1_title": "Бағытты таңдаңыз", "how1_desc": "Сыйлық керек пе, әлде серуен жоспары ма — содан бастаймыз.", "how2_title": "Бірнеше сұраққа жауап беріңіз", "how2_desc": "Кім үшін, қандай бюджетте, қандай көңіл-күйде — бір минут уақыт алады.", "how3_title": "Дайын нәтижені алыңыз", "how3_desc": "Бюджетіңізге сай нұсқаларды көріп, таңдаулыларыңызды сақтап қойыңыз.", "footer_about": "Біз туралы", "footer_faq": "Жиі қойылатын сұрақтар", "footer_pricing": "Бағалар", "footer_contact": "Байланыс", "footer_terms": "Шарттар және құпиялылық", "footer_copy": "© GiftTrip, 2026", "back_home": "← Басты бет", "about_title": "Біз туралы", "about_p1": "GiftTrip — күнделікті шешімдерді жеңілдету үшін жасалған шағын қызмет: біреуге сыйлық таңдау немесе бос күніңізді жоспарлау енді уақыт алмайды. Бірнеше сұраққа жауап беріңіз, қалғанын біз ұсынамыз.", "about_p2": "Идеямыз қарапайым: ең жақсы шешімдер көбіне ең көп уақыт алатындары емес. Сондықтан әр сұрақты барынша қысқартып шықтық — сыйлық немесе серуен жоспары бірнеше басу арқылы дайын болады.", "team_title": "Команда", "team1_name": "Aziza Rahimova", "team1_role": "Негізін салушы және өнім", "team1_desc": "Пайдаланушы тәжірибесі мен өнім стратегиясына жауапты.", "team2_name": "Diyor Nazarov", "team2_role": "Дизайн бағыты", "team2_desc": "Сайт пен қосымша дизайнын жасайды, брендтің стилін анықтайды.", "team3_name": "Madina Yusupova", "team3_role": "Әзірлеу", "team3_desc": "Техникалық бөлім мен жаңа функцияларды іске асырады.", "contact_title": "Байланыс", "contact_p": "Сұрағыңыз немесе ұсынысыңыз болса, бізбен байланысыңыз:", "faq_title": "Жиі қойылатын сұрақтар", "faq_sub_pre": "Егер жауабын таппасаңыз,", "faq_sub_link": "бізге жазыңыз", "faq_q1": "GiftTrip қалай жұмыс істейді?", "faq_a1": "Басты бетте \"Сыйлық табу\" немесе \"Серуенді жоспарлау\"ды таңдайсыз, бірнеше қысқа сұраққа жауап бересіз — кім үшін, қандай бюджетте — сайт сізге сай нұсқаларды ұсынады.", "faq_q2": "Қызмет ақылы ма?", "faq_a2": "Негізгі функциялар (сыйлық пен серуен ұсыныстары, таңдаулылар) толығымен тегін. Шексіз іздеу және қосымша мүмкіндіктер үшін Premium жоспары бар.", "faq_q3": "Ұсыныстар қайдан алынады?", "faq_a3": "Қазірше үлгілік дерекқордан. Болашақта нақты дүкендер мен орындармен интеграцияланады.", "faq_q4": "Таңдаулыларым қайда сақталады?", "faq_a4": "Есептік жазбаңыз болмаса, браузеріңізде сақталады. Тіркелсеңіз, барлық құрылғыларыңызда синхрондалады.", "faq_q5": "Картадан көру функциясы жұмыс істей ме?", "faq_a5": "Қазірше бұл бөлім үлгі түрінде. Карта API келесі нұсқада толық қосылады.", "pricing_title": "Бағалар", "pricing_sub": "Негізгі қызмет әрқашан тегін. Көбірек мүмкіндік керек болса — Premium бар.", "plan_free": "Тегін", "plan_premium": "Premium", "price_premium_period": "/ай", "badge_recommended": "Ұсынылады", "free_feat1": "Сыйлық пен серуен ұсыныстары", "free_feat2": "Күніне 5-ке дейін іздеу", "free_feat3": "Таңдаулыларды сақтау", "premium_feat1": "Шексіз іздеу және кездейсоқ жоспар", "premium_feat2": "Картамен толық маршрут", "premium_feat3": "Басым ұсыныстар мен жеңілдіктер", "premium_feat4": "Жарнамасыз тәжірибе", "plan_start": "Бастау", "plan_premium_cta": "Premium алу", "terms_title": "Пайдалану шарттары", "terms_p": "GiftTrip қызметін пайдалану арқылы сіз келесі шарттарға келісім бересіз: қызмет ұсынған сыйлық пен серуен нұсқалары тек ұсынымдық сипатта болады, соңғы шешімді пайдаланушы өзі қабылдайды. Қызмет уақыт өте жаңарып, функциялар өзгеруі мүмкін.", "privacy_title": "Құпиялылық саясаты", "privacy_p": "Біз жеке деректеріңізді тек қызмет сапасын жақсарту үшін пайдаланамыз және үшінші тарапқа сатпаймыз. Таңдаулылар тізімі сияқты деректер браузеріңізде сақталады; есептік жазба жасағанда қауіпсіз серверде сақталады.", "auth_tab_signin": "Кіру", "auth_tab_signup": "Тіркелу", "auth_welcome_title": "Қош келдіңіз", "auth_welcome_sub": "Таңдаулыларыңыз бен жоспарларыңызға кіру үшін жүйеге кіріңіз.", "label_email": "Email", "label_pass": "Құпия сөз", "remember_me": "Мені есте сақта", "forgot_pass": "Құпия сөзді ұмыттыңыз ба?", "btn_signin": "Кіру", "or_divider": "немесе", "no_account": "Есептік жазбаңыз жоқ па?", "go_signup": "Тіркеліңіз", "auth_signup_title": "Есептік жазба жасаңыз", "auth_signup_sub": "Бірнеше секундта тіркеліп, жоспарларыңызды сақтап қойыңыз.", "label_name": "Аты", "label_name_ph": "Атыңыз", "label_pass2_ph": "Кемінде 8 таңба", "btn_signup": "Есептік жазба жасау", "have_account": "Есептік жазбаңыз бар ма?", "go_signin": "Кіріңіз", "demo_alert": "Демо: backend әлі қосылмаған.", "demo_alert2": "Демо: әлі қосылмаған.", "fav_title": "❤️ Менің сақталған орындарым", "fav_sub": "Кейінірек бұл тізім кіру жүйесі арқылы барлық құрылғыларыңызда сақталады.", "fav_empty": "Әзірше ештеңе сақталмаған. Сыйлық немесе серуен нәтижелерінде ♡ белгісін басыңыз.", "fav_gift_label": "🎁 Сыйлық", "fav_trip_label": "🗺️ Серуен әрекеті", "gift_step1_title": "Кімге сыйлық алғыңыз келеді?", "gift_step2_title": "Қандай себеппен?", "gift_step3_title": "Бюджетіңіз қанша?", "gift_step4_title": "Немен қызығады?", "step_of": "қадам / 4", "optional": "міндетті емес", "budget_custom_label": "Немесе өзіңіз енгізіңіз:", "budget_custom_ph": "мысалы 25000", "back_btn": "← Артқа", "next_btn": "Жалғастыру →", "see_results_btn": "Нәтижелерді көру →", "see_plan_btn": "Жоспарды көру →", "gift_results_title": "🎁 Сізге табылған сыйлықтар", "summary_to": "Кімге", "summary_reason": "Себебі", "summary_budget": "Бюджет", "summary_interest": "Қызығушылық", "sort_price": "Баға бойынша", "sort_match": "Сәйкестік бойынша", "sort_rating": "Танымалдық бойынша", "gift_detail_btn": "Толығырақ", "gift_detail_alert": "туралы толық ақпарат жақында қосылады.", "gift_empty": "Әзірше сәйкес нұсқа табылмады. Бюджетті арттырып көріңіз.", "back_to_questions": "← Сұрақтарға оралу", "trip_step1_title": "Қай қалада?", "trip_step2_title": "Кіммен барасыз?", "trip_step3_title": "Бюджетіңіз", "trip_step4_title": "Қандай серуен қалайсыз?", "trip_results_title": "🌟 Сізге дайын жоспар", "summary_city": "Қала", "summary_with": "Кіммен", "summary_style": "Стиль", "total_label": "Жалпы", "remain_label": "қалады", "over_label": "бюджеттен", "over_label2": "артады", "map_label": "📍 Картадан көру (келесі нұсқада карта API-мен)", "random_title": "🎲 Араластырып бер", "random_sub": "Қала мен бюджетті енгізіңіз — біз сізге мүлдем кездейсоқ жоспар құрып береміз.", "random_budget_ph": "Бюджет, ₸", "random_btn": "🎲 Маған кездейсоқ жоспар бер", "recipients": {"ona": "Анам", "ota": "Әкем", "dost": "Досым", "yaqin": "Жақын адамым", "akauka": "Аға/іні", "opasingil": "Апа/сіңлі", "boshqa": "Басқа"}, "occasions": {"tugilgan": "Туған күн", "bitiruv": "Бітіру", "bayram": "Мереке", "shunchaki": "Жай ғана", "maxsus": "Ерекше күн", "boshqaOc": "Басқа"}, "interests": {"gaming": "Гейминг", "kitob": "Кітап", "musiqa": "Музыка", "kiyim": "Киім", "tech": "Технология", "sport": "Спорт", "sanat": "Өнер", "shirinlik": "Тәттілер", "universal": "Әмбебап"}, "companions": {"dost": "Досым", "oila": "Отбасы", "yaqin": "Жақын адам", "yolgiz": "Жалғыз", "guruh": "Топ"}, "trip_types": {"tabiat": "Табиғат", "kongilochar": "Ойын-сауық", "ovqat": "Тамақтану", "madaniy": "Мәдени", "faol": "Белсенді", "tinch": "Тыныш / Chill", "aralash": "Аралас"}, "cities": {"astana": "Астана", "almaty": "Алматы", "shymkent": "Шымкент", "karaganda": "Қарағанды", "aktobe": "Ақтөбе", "taraz": "Тараз"}, "gifts": {"g_headset": "Гейминг құлаққап", "g_mouse": "Гейминг тышқан", "g_pad": "Гейминг тышқан төсемі", "g_grip": "Контроллерге арналған грип", "g_gamecard": "Ойын кодтары картасы", "g_novel": "Бестселлер роман", "g_motiv": "Мотивациялық кітаптар жиынтығы", "g_bookmark": "Әдемі кітап белгісі жиынтығы", "g_audiobook": "Аудиокітап жазылымы (3 ай)", "g_earbuds": "Сымсыз құлаққап", "g_speaker": "Bluetooth колонка (кішкентай)", "g_vinyl": "Винил пластинка", "g_musicsub": "Музыка қызметі жазылымы (3 ай)", "g_sweater": "Жұмсақ трикотаж свитер", "g_pants": "Спорттық шалбар", "g_scarf": "Шарф", "g_cap": "Бейсболка", "g_powerbank": "Powerbank", "g_charger": "Сымсыз зарядтағыш", "g_stand": "Телефонға арналған тұғырық", "g_watchband": "Смарт-сағат белдігі", "g_bands": "Фитнес резеңкелер жиынтығы", "g_bottle": "Спорттық су бөтелкесі", "g_yoga": "Йога кілемшесі", "g_bag": "Спорттық сөмке", "g_paint": "Акварель бояулар жиынтығы", "g_sketch": "Эскиз дәптері", "g_tablet": "Сурет салуға арналған планшет", "g_choc": "Шоколад жиынтығы", "g_candy": "Қолдан жасалған конфеттер", "g_sweetbox": "Тәтті сыйлық қорабы", "g_candle": "Хош иісті шам", "g_card": "Сыйлық открыткасы + шағын сыйлық", "g_mug": "Термокружка", "g_album": "Фотоальбом"}, "activities": {"a_park": {"name": "Саябақта серуендеу", "note": "Серуендеу және суретке түсу."}, "a_lake": {"name": "Көл жағасында демалу", "note": "Тыныш ортада уақыт өткізу."}, "a_cinema": {"name": "Кинотеатр", "note": "Жаңа фильмге бару."}, "a_bowling": {"name": "Боулинг", "note": "Достарыңызбен жарыс."}, "a_quest": {"name": "Квест бөлме", "note": "Топтық жұмбақ ойын."}, "a_pizza": {"name": "Пицца", "note": "Жеңіл түскі ас."}, "a_cafe": {"name": "Кафеде шай ішу", "note": "Кафеде уақыт өткізу."}, "a_dessert": {"name": "Десерт", "note": "Тәттімен аяқтау."}, "a_gallery": {"name": "Өнер галереясы", "note": "Заманауи көрмені көру."}, "a_museum": {"name": "Мұражай", "note": "Тарихи жәдігерлерді көру."}, "a_trampoline": {"name": "Батут паркі", "note": "Энергияны жұмсау."}, "a_bookshop": {"name": "Кітап дүкенінде аралау", "note": "Асықпай аралау."}, "a_bowling_active": {"name": "Боулинг", "note": "Белсенді демалыс."}, "a_cafe_chill": {"name": "Кафеде шай ішу", "note": "Тыныш әңгіме үшін тамаша."}}, "search_examples": "мысалы"}, "ru": {"nav_pricing": "Цены", "nav_faq": "Вопросы", "nav_fav": "Избранное", "nav_login": "Войти", "search_ph": "Например: что делать в Астане на 10 000 ₸?", "hero_kicker": "Подарки и прогулки — в одном месте", "hero_title_1": "Помогаем", "hero_title_em": "спланировать", "hero_title_2": "ваш день.", "hero_lede": "Не знаете, что подарить, или куда пойти? Ответьте на несколько вопросов — остальное придумаем мы.", "hero_feat1": "Результат за 30 секунд", "hero_feat2": "Под ваш бюджет", "hero_feat3": "Полностью бесплатно", "card_gift_badge": "Подарок", "card_gift_title": "Найти подарок", "card_gift_desc": "Подберём подходящий подарок для близкого человека с учётом бюджета и интересов.", "card_trip_badge": "Прогулка", "card_trip_title": "Спланировать прогулку", "card_trip_desc": "Составим интересный план дня по часам, который впишется в ваш бюджет.", "btn_start": "Начать", "how_eyebrow": "Как это работает", "how_title": "Готово за три шага.", "how1_title": "Выберите направление", "how1_desc": "Нужен подарок или план прогулки — с этого и начнём.", "how2_title": "Ответьте на несколько вопросов", "how2_desc": "Для кого, какой бюджет, какое настроение — займёт минуту.", "how3_title": "Получите готовый результат", "how3_desc": "Посмотрите подходящие варианты и сохраните понравившиеся.", "footer_about": "О нас", "footer_faq": "Вопросы", "footer_pricing": "Цены", "footer_contact": "Контакты", "footer_terms": "Условия и конфиденциальность", "footer_copy": "© GiftTrip, 2026", "back_home": "← На главную", "about_title": "О нас", "about_p1": "GiftTrip — сервис, который упрощает повседневные решения: выбрать подарок или спланировать свободный день теперь не занимает времени. Ответьте на несколько вопросов — остальное предложим мы.", "about_p2": "Наша идея проста: лучшие решения не всегда требуют больше всего времени. Поэтому мы свели каждый вопрос к минимуму — план готов за несколько нажатий.", "team_title": "Команда", "team1_name": "Азиза Рахимова", "team1_role": "Основатель и продукт", "team1_desc": "Отвечает за пользовательский опыт и продуктовую стратегию.", "team2_name": "Диёр Назаров", "team2_role": "Дизайн-направление", "team2_desc": "Создаёт дизайн сайта и приложения, определяет стиль бренда.", "team3_name": "Мадина Юсупова", "team3_role": "Разработка", "team3_desc": "Реализует техническую часть и новые функции.", "contact_title": "Контакты", "contact_p": "Если у вас есть вопрос или предложение, свяжитесь с нами:", "faq_title": "Часто задаваемые вопросы", "faq_sub_pre": "Если не нашли ответ,", "faq_sub_link": "напишите нам", "faq_q1": "Как работает GiftTrip?", "faq_a1": "На главной странице выберите «Найти подарок» или «Спланировать прогулку», ответьте на несколько коротких вопросов — для кого, какой бюджет — и сайт предложит подходящие варианты.", "faq_q2": "Сервис платный?", "faq_a2": "Основные функции (подарки, прогулки, избранное) полностью бесплатны. Для неограниченного поиска и доп. возможностей есть план Premium.", "faq_q3": "Откуда берутся предложения?", "faq_a3": "Пока — из демонстрационной базы данных. В будущем появится интеграция с реальными магазинами и местами.", "faq_q4": "Где хранится избранное?", "faq_a4": "Без аккаунта — в вашем браузере. После регистрации данные синхронизируются на всех устройствах.", "faq_q5": "Работает ли просмотр на карте?", "faq_a5": "Пока это демонстрационный блок. Полноценный Карта API будет подключён в следующей версии.", "pricing_title": "Цены", "pricing_sub": "Основной сервис всегда бесплатен. Нужно больше возможностей — есть Premium.", "plan_free": "Бесплатно", "plan_premium": "Premium", "price_premium_period": "/мес", "badge_recommended": "Рекомендуем", "free_feat1": "Подборки подарков и прогулок", "free_feat2": "До 5 поисков в день", "free_feat3": "Сохранение избранного", "premium_feat1": "Безлимитный поиск и случайный план", "premium_feat2": "Подробный маршрут на карте", "premium_feat3": "Приоритетные предложения и скидки", "premium_feat4": "Без рекламы", "plan_start": "Начать", "plan_premium_cta": "Оформить Premium", "terms_title": "Условия использования", "terms_p": "Используя GiftTrip, вы соглашаетесь со следующим: предложенные варианты подарков и прогулок носят исключительно рекомендательный характер, окончательное решение принимаете вы сами. Сервис может обновляться, функции могут меняться.", "privacy_title": "Политика конфиденциальности", "privacy_p": "Мы используем ваши персональные данные только для улучшения качества сервиса и не передаём их третьим лицам. Данные вроде списка избранного хранятся в браузере; после регистрации — на защищённом сервере.", "auth_tab_signin": "Войти", "auth_tab_signup": "Регистрация", "auth_welcome_title": "Добро пожаловать", "auth_welcome_sub": "Войдите, чтобы получить доступ к избранному и вашим планам.", "label_email": "Email", "label_pass": "Пароль", "remember_me": "Запомнить меня", "forgot_pass": "Забыли пароль?", "btn_signin": "Войти", "or_divider": "или", "no_account": "Нет аккаунта?", "go_signup": "Зарегистрируйтесь", "auth_signup_title": "Создать аккаунт", "auth_signup_sub": "Зарегистрируйтесь за пару секунд и сохраняйте свои планы.", "label_name": "Имя", "label_name_ph": "Ваше имя", "label_pass2_ph": "Минимум 8 символов", "btn_signup": "Создать аккаунт", "have_account": "Уже есть аккаунт?", "go_signin": "Войдите", "demo_alert": "Демо: бэкенд пока не подключён.", "demo_alert2": "Демо: пока не подключено.", "fav_title": "❤️ Мои сохранённые", "fav_sub": "Позже этот список будет синхронизироваться на всех устройствах через вход в аккаунт.", "fav_empty": "Пока ничего не сохранено. Нажмите ♡ на карточке подарка или прогулки.", "fav_gift_label": "🎁 Подарок", "fav_trip_label": "🗺️ Активность", "gift_step1_title": "Кому хотите подарить?", "gift_step2_title": "По какому поводу?", "gift_step3_title": "Какой у вас бюджет?", "gift_step4_title": "Чем увлекается?", "step_of": "шаг / 4", "optional": "необязательно", "budget_custom_label": "Или введите сами:", "budget_custom_ph": "например 25000", "back_btn": "← Назад", "next_btn": "Продолжить →", "see_results_btn": "Смотреть результаты →", "see_plan_btn": "Смотреть план →", "gift_results_title": "🎁 Подходящие подарки", "summary_to": "Кому", "summary_reason": "Повод", "summary_budget": "Бюджет", "summary_interest": "Интерес", "sort_price": "По цене", "sort_match": "По соответствию", "sort_rating": "По популярности", "gift_detail_btn": "Подробнее", "gift_detail_alert": "подробная информация скоро появится.", "gift_empty": "Пока нет подходящих вариантов. Попробуйте увеличить бюджет.", "back_to_questions": "← Назад к вопросам", "trip_step1_title": "В каком городе?", "trip_step2_title": "С кем пойдёте?", "trip_step3_title": "Ваш бюджет", "trip_step4_title": "Какую прогулку хотите?", "trip_results_title": "🌟 Ваш готовый план", "summary_city": "Город", "summary_with": "С кем", "summary_style": "Стиль", "total_label": "Итого", "remain_label": "останется", "over_label": "превышение бюджета на", "over_label2": "", "map_label": "📍 Смотреть на карте (в следующей версии с картой API)", "random_title": "🎲 Смешать всё", "random_sub": "Укажите город и бюджет — мы составим полностью случайный план.", "random_budget_ph": "Бюджет, ₸", "random_btn": "🎲 Дать случайный план", "recipients": {"ona": "Мама", "ota": "Папа", "dost": "Друг", "yaqin": "Близкий человек", "akauka": "Брат", "opasingil": "Сестра", "boshqa": "Другое"}, "occasions": {"tugilgan": "День рождения", "bitiruv": "Выпускной", "bayram": "Праздник", "shunchaki": "Просто так", "maxsus": "Особый день", "boshqaOc": "Другое"}, "interests": {"gaming": "Игры", "kitob": "Книги", "musiqa": "Музыка", "kiyim": "Одежда", "tech": "Технологии", "sport": "Спорт", "sanat": "Искусство", "shirinlik": "Сладости", "universal": "Универсальный"}, "companions": {"dost": "Друг", "oila": "Семья", "yaqin": "Близкий человек", "yolgiz": "Один", "guruh": "Группа"}, "trip_types": {"tabiat": "Природа", "kongilochar": "Развлечения", "ovqat": "Еда", "madaniy": "Культурное", "faol": "Активное", "tinch": "Спокойное", "aralash": "Смешанное"}, "cities": {"astana": "Астана", "almaty": "Алматы", "shymkent": "Шымкент", "karaganda": "Караганда", "aktobe": "Актобе", "taraz": "Тараз"}, "gifts": {"g_headset": "Игровая гарнитура", "g_mouse": "Игровая мышь", "g_pad": "Коврик для мыши", "g_grip": "Грип для геймпада", "g_gamecard": "Карта игровых кодов", "g_novel": "Роман-бестселлер", "g_motiv": "Набор мотивационных книг", "g_bookmark": "Набор красивых закладок", "g_audiobook": "Подписка на аудиокниги (3 мес)", "g_earbuds": "Беспроводные наушники", "g_speaker": "Bluetooth-колонка (компактная)", "g_vinyl": "Виниловая пластинка", "g_musicsub": "Подписка на музыку (3 мес)", "g_sweater": "Мягкий трикотажный свитер", "g_pants": "Спортивные штаны", "g_scarf": "Шарф", "g_cap": "Бейсболка", "g_powerbank": "Повербанк", "g_charger": "Беспроводное зарядное устройство", "g_stand": "Подставка для телефона", "g_watchband": "Ремешок для смарт-часов", "g_bands": "Набор фитнес-резинок", "g_bottle": "Спортивная бутылка для воды", "g_yoga": "Коврик для йоги", "g_bag": "Спортивная сумка", "g_paint": "Набор акварельных красок", "g_sketch": "Скетчбук", "g_tablet": "Планшет для рисования", "g_choc": "Набор шоколада", "g_candy": "Конфеты ручной работы", "g_sweetbox": "Коробка сладостей", "g_candle": "Ароматическая свеча", "g_card": "Открытка + небольшой подарок", "g_mug": "Термокружка", "g_album": "Фотоальбом"}, "activities": {"a_park": {"name": "Прогулка в парке", "note": "Прогулка и фотографии."}, "a_lake": {"name": "Отдых у озера", "note": "Время в спокойной обстановке."}, "a_cinema": {"name": "Кинотеатр", "note": "Сходить на новый фильм."}, "a_bowling": {"name": "Боулинг", "note": "Соревнование с друзьями."}, "a_quest": {"name": "Квест-комната", "note": "Командная игра-головоломка."}, "a_pizza": {"name": "Пицца", "note": "Лёгкий обед."}, "a_cafe": {"name": "Чай в кафе", "note": "Время в кафе."}, "a_dessert": {"name": "Десерт", "note": "Завершить сладким."}, "a_gallery": {"name": "Арт-галерея", "note": "Посмотреть современную выставку."}, "a_museum": {"name": "Музей", "note": "Посмотреть исторические экспонаты."}, "a_trampoline": {"name": "Батутный парк", "note": "Потратить энергию."}, "a_bookshop": {"name": "Прогулка по книжному", "note": "Неспешно полистать книги."}, "a_bowling_active": {"name": "Боулинг", "note": "Активный отдых."}, "a_cafe_chill": {"name": "Чай в кафе", "note": "Идеально для спокойной беседы."}}, "search_examples": "например"}, "en": {"nav_pricing": "Pricing", "nav_faq": "FAQ", "nav_fav": "Favorites", "nav_login": "Sign in", "search_ph": "e.g. What can I do in Astana with 10,000 ₸?", "hero_kicker": "Gifts and outings — in one place", "hero_title_1": "We help you", "hero_title_em": "plan", "hero_title_2": "your day.", "hero_lede": "Not sure what to give, or where to go? Answer a few questions — we'll figure out the rest.", "hero_feat1": "Results in 30 seconds", "hero_feat2": "Fits your budget", "hero_feat3": "Completely free", "card_gift_badge": "Gift", "card_gift_title": "Find a gift", "card_gift_desc": "We'll pick the right gift for someone close to you, based on your budget and their interests.", "card_trip_badge": "Outing", "card_trip_title": "Plan an outing", "card_trip_desc": "We'll build an hour-by-hour day plan that fits your budget.", "btn_start": "Get started", "how_eyebrow": "How it works", "how_title": "Ready in three steps.", "how1_title": "Choose a direction", "how1_desc": "A gift or a day plan — that's where we start.", "how2_title": "Answer a few questions", "how2_desc": "Who it's for, what budget, what mood — takes about a minute.", "how3_title": "Get your result", "how3_desc": "Browse options that fit your budget and save your favorites.", "footer_about": "About", "footer_faq": "FAQ", "footer_pricing": "Pricing", "footer_contact": "Contact", "footer_terms": "Terms & Privacy", "footer_copy": "© GiftTrip, 2026", "back_home": "← Home", "about_title": "About us", "about_p1": "GiftTrip is a small service built to make everyday decisions easier: choosing a gift or planning a free day no longer takes time. Answer a few questions and we'll suggest the rest.", "about_p2": "Our idea is simple: the best decisions aren't always the ones that take the most time. So we cut every question down to the essentials — a gift or a day plan is ready in a few clicks.", "team_title": "Team", "team1_name": "Aziza Rahimova", "team1_role": "Founder & product", "team1_desc": "Responsible for user experience and product strategy.", "team2_name": "Diyor Nazarov", "team2_role": "Design lead", "team2_desc": "Creates the site and app design, defines the brand style.", "team3_name": "Madina Yusupova", "team3_role": "Engineering", "team3_desc": "Builds the technical side and new features.", "contact_title": "Contact", "contact_p": "If you have a question or a suggestion, reach out to us:", "faq_title": "Frequently asked questions", "faq_sub_pre": "Can't find an answer?", "faq_sub_link": "Write to us", "faq_q1": "How does GiftTrip work?", "faq_a1": "On the home page, choose \"Find a gift\" or \"Plan an outing\", answer a few short questions — who it's for, what budget — and the site suggests matching options.", "faq_q2": "Is the service paid?", "faq_a2": "Core features (gift and outing suggestions, favorites) are completely free. A Premium plan is available for unlimited search and extra features.", "faq_q3": "Where do the suggestions come from?", "faq_a3": "Currently from a sample dataset. Real store and venue integrations are planned for the future.", "faq_q4": "Where are my favorites stored?", "faq_a4": "Without an account, they're stored in your browser. Once you sign up, they sync across all your devices.", "faq_q5": "Does the map view work?", "faq_a5": "It's currently a preview. Full map API support is coming in a future version.", "pricing_title": "Pricing", "pricing_sub": "The core service is always free. Need more? Premium is available.", "plan_free": "Free", "plan_premium": "Premium", "price_premium_period": "/mo", "badge_recommended": "Recommended", "free_feat1": "Gift and outing suggestions", "free_feat2": "Up to 5 searches a day", "free_feat3": "Save favorites", "premium_feat1": "Unlimited search and random plans", "premium_feat2": "Detailed map routes", "premium_feat3": "Priority offers and discounts", "premium_feat4": "Ad-free experience", "plan_start": "Get started", "plan_premium_cta": "Get Premium", "terms_title": "Terms of use", "terms_p": "By using GiftTrip, you agree to the following: the gift and outing options suggested by the service are recommendations only, and the final decision is yours. The service may be updated over time, and features may change.", "privacy_title": "Privacy policy", "privacy_p": "We use your personal data only to improve the quality of the service and never sell it to third parties. Data such as your favorites list is stored in your browser; once you create an account, it's stored on a secure server.", "auth_tab_signin": "Sign in", "auth_tab_signup": "Sign up", "auth_welcome_title": "Welcome back", "auth_welcome_sub": "Sign in to access your favorites and plans.", "label_email": "Email", "label_pass": "Password", "remember_me": "Remember me", "forgot_pass": "Forgot password?", "btn_signin": "Sign in", "or_divider": "or", "no_account": "Don't have an account?", "go_signup": "Sign up", "auth_signup_title": "Create an account", "auth_signup_sub": "Sign up in seconds and start saving your plans.", "label_name": "Name", "label_name_ph": "Your name", "label_pass2_ph": "At least 8 characters", "btn_signup": "Create account", "have_account": "Already have an account?", "go_signin": "Sign in", "demo_alert": "Demo: backend not connected yet.", "demo_alert2": "Demo: not connected yet.", "fav_title": "❤️ My saved items", "fav_sub": "Later, this list will sync across all your devices once you sign in.", "fav_empty": "Nothing saved yet. Tap ♡ on a gift or outing result.", "fav_gift_label": "🎁 Gift", "fav_trip_label": "🗺️ Outing activity", "gift_step1_title": "Who is the gift for?", "gift_step2_title": "What's the occasion?", "gift_step3_title": "What's your budget?", "gift_step4_title": "What are they into?", "step_of": "step / 4", "optional": "optional", "budget_custom_label": "Or enter your own:", "budget_custom_ph": "e.g. 25000", "back_btn": "← Back", "next_btn": "Continue →", "see_results_btn": "See results →", "see_plan_btn": "See plan →", "gift_results_title": "🎁 Gifts we found for you", "summary_to": "For", "summary_reason": "Occasion", "summary_budget": "Budget", "summary_interest": "Interest", "sort_price": "By price", "sort_match": "By match", "sort_rating": "By popularity", "gift_detail_btn": "Details", "gift_detail_alert": "details coming soon.", "gift_empty": "No matching options yet. Try increasing your budget.", "back_to_questions": "← Back to questions", "trip_step1_title": "Which city?", "trip_step2_title": "Who are you going with?", "trip_step3_title": "Your budget", "trip_step4_title": "What kind of outing do you want?", "trip_results_title": "🌟 Your ready plan", "summary_city": "City", "summary_with": "With", "summary_style": "Style", "total_label": "Total", "remain_label": "left", "over_label": "over budget by", "over_label2": "", "map_label": "📍 View on map (full map API coming in a future version)", "random_title": "🎲 Surprise me", "random_sub": "Enter a city and budget — we'll build a completely random plan for you.", "random_budget_ph": "Budget, ₸", "random_btn": "🎲 Give me a random plan", "recipients": {"ona": "Mom", "ota": "Dad", "dost": "Friend", "yaqin": "Partner", "akauka": "Brother", "opasingil": "Sister", "boshqa": "Other"}, "occasions": {"tugilgan": "Birthday", "bitiruv": "Graduation", "bayram": "Holiday", "shunchaki": "Just because", "maxsus": "Special day", "boshqaOc": "Other"}, "interests": {"gaming": "Gaming", "kitob": "Books", "musiqa": "Music", "kiyim": "Clothing", "tech": "Tech", "sport": "Sport", "sanat": "Art", "shirinlik": "Sweets", "universal": "Universal"}, "companions": {"dost": "Friend", "oila": "Family", "yaqin": "Partner", "yolgiz": "Alone", "guruh": "Group"}, "trip_types": {"tabiat": "Nature", "kongilochar": "Entertainment", "ovqat": "Food", "madaniy": "Cultural", "faol": "Active", "tinch": "Relaxed / Chill", "aralash": "Mixed"}, "cities": {"astana": "Astana", "almaty": "Almaty", "shymkent": "Shymkent", "karaganda": "Karaganda", "aktobe": "Aktobe", "taraz": "Taraz"}, "gifts": {"g_headset": "Gaming headset", "g_mouse": "Gaming mouse", "g_pad": "Gaming mouse pad", "g_grip": "Controller grip", "g_gamecard": "Game gift card", "g_novel": "Bestseller novel", "g_motiv": "Motivational book set", "g_bookmark": "Nice bookmark set", "g_audiobook": "Audiobook subscription (3 mo)", "g_earbuds": "Wireless earbuds", "g_speaker": "Compact Bluetooth speaker", "g_vinyl": "Vinyl record", "g_musicsub": "Music service subscription (3 mo)", "g_sweater": "Soft knit sweater", "g_pants": "Sweatpants", "g_scarf": "Scarf", "g_cap": "Baseball cap", "g_powerbank": "Power bank", "g_charger": "Wireless charger", "g_stand": "Phone stand", "g_watchband": "Smartwatch band", "g_bands": "Resistance bands set", "g_bottle": "Sports water bottle", "g_yoga": "Yoga mat", "g_bag": "Sports bag", "g_paint": "Watercolor paint set", "g_sketch": "Sketchbook", "g_tablet": "Drawing tablet", "g_choc": "Chocolate box", "g_candy": "Handmade candy", "g_sweetbox": "Sweets gift box", "g_candle": "Scented candle", "g_card": "Greeting card + small gift", "g_mug": "Thermo mug", "g_album": "Photo album"}, "activities": {"a_park": {"name": "Walk in the park", "note": "A walk and some photos."}, "a_lake": {"name": "Time by the lake", "note": "Relaxing by the water."}, "a_cinema": {"name": "Cinema", "note": "Catch a new movie."}, "a_bowling": {"name": "Bowling", "note": "A friendly competition."}, "a_quest": {"name": "Escape room", "note": "A team puzzle game."}, "a_pizza": {"name": "Pizza", "note": "A light meal."}, "a_cafe": {"name": "Coffee at a cafe", "note": "Time to relax over coffee."}, "a_dessert": {"name": "Dessert", "note": "End on something sweet."}, "a_gallery": {"name": "Art gallery", "note": "See a contemporary exhibit."}, "a_museum": {"name": "Museum", "note": "See historical exhibits."}, "a_trampoline": {"name": "Trampoline park", "note": "Burn off some energy."}, "a_bookshop": {"name": "Browsing a bookshop", "note": "Take your time browsing."}, "a_bowling_active": {"name": "Bowling", "note": "An active break."}, "a_cafe_chill": {"name": "Coffee at a cafe", "note": "Perfect for quiet conversation."}}, "search_examples": "e.g."}};
+let LANG = localStorage.getItem('gifttrip_lang') || 'uz';
+const LANG_LIST = [
+  {id:'uz', label:"O'Z"},
+  {id:'kk', label:'ҚАЗ'},
+  {id:'ru', label:'РУ'},
+  {id:'en', label:'EN'},
+];
+function t(key){
+  return (I18N[LANG] && I18N[LANG][key]) ?? (I18N.uz && I18N.uz[key]) ?? key;
+}
+function t2(group, id){
+  return (I18N[LANG] && I18N[LANG][group] && I18N[LANG][group][id])
+      ?? (I18N.uz && I18N.uz[group] && I18N.uz[group][id]) ?? id;
+}
+function tGift(id){ return t2('gifts', id); }
+function tActField(id, field){
+  const g = (I18N[LANG] && I18N[LANG].activities && I18N[LANG].activities[id])
+        || (I18N.uz && I18N.uz.activities && I18N.uz.activities[id]) || {};
+  return g[field] || '';
+}
+function renderLangSwitch(){
+  const el = document.getElementById('langSwitch');
+  if(!el) return;
+  el.innerHTML = LANG_LIST.map(l=>`<button class="${LANG===l.id?'active':''}" onclick="setLang('${l.id}')">${l.label}</button>`).join('');
+}
+function applyStaticI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-ph');
+    el.setAttribute('placeholder', t(key));
+  });
+  document.documentElement.lang = LANG;
+  renderLangSwitch();
+}
+function setLang(lang){
+  LANG = lang;
+  localStorage.setItem('gifttrip_lang', lang);
+  applyStaticI18n();
+  // re-render whichever dynamic view is currently visible, in place
+  renderGiftStep(true);
+  renderTripStep(true);
+  if(document.getElementById('view-gift-results').classList.contains('active')){ renderGiftSummary(); renderGiftSort(); renderGiftList(); }
+  if(document.getElementById('view-trip-results').classList.contains('active') && window.__tripPlan){
+    renderTripSummary(); renderPlanTimeline(window.__tripPlan); renderTotalCard(window.__tripTotal, trip.budget); renderMapBox(window.__tripPlan);
+  }
+  if(document.getElementById('view-faq').classList.contains('active')) renderFAQ();
+  if(document.getElementById('view-favorites').classList.contains('active')) renderFavorites();
+  if(document.getElementById('randCity')){
+    document.getElementById('randCity').innerHTML = '';
+    document.getElementById('randWith').innerHTML = '';
+    fillRandomSelectors();
+  }
+}
+
+/* ===================== DATA ===================== */
+
+const RECIPIENTS = [
+  {id:'ona', emoji:'\ud83d\udc69'},
+  {id:'ota', emoji:'\ud83d\udc68'},
+  {id:'dost', emoji:'\ud83e\uddd1'},
+  {id:'yaqin', emoji:'\ud83d\udc69\u200d\u2764\ufe0f\u200d\ud83d\udc68'},
+  {id:'akauka', emoji:'\ud83d\udc66'},
+  {id:'opasingil', emoji:'\ud83d\udc67'},
+  {id:'boshqa', emoji:'\ud83d\udc64'},
+];
+const OCCASIONS = [
+  {id:'tugilgan', emoji:'\ud83c\udf82'},
+  {id:'bitiruv', emoji:'\ud83c\udf93'},
+  {id:'bayram', emoji:'\ud83d\udc90'},
+  {id:'shunchaki', emoji:'\ud83c\udf89'},
+  {id:'maxsus', emoji:'\u2764\ufe0f'},
+  {id:'boshqaOc', emoji:'\ud83c\udf81'},
+];
+const INTERESTS = [
+  {id:'gaming', emoji:'\ud83c\udfae'},
+  {id:'kitob', emoji:'\ud83d\udcda'},
+  {id:'musiqa', emoji:'\ud83c\udfa7'},
+  {id:'kiyim', emoji:'\ud83d\udc55'},
+  {id:'tech', emoji:'\ud83d\udcbb'},
+  {id:'sport', emoji:'\u26bd'},
+  {id:'sanat', emoji:'\ud83c\udfa8'},
+  {id:'shirinlik', emoji:'\ud83c\udf6b'},
+  {id:'universal', emoji:'\u2728'},
+];
+
+const GIFTS = {
+  gaming: [
+    {id:'g_headset', price:15000, rating:4.6},
+    {id:'g_mouse', price:12000, rating:4.5},
+    {id:'g_pad', price:8000, rating:4.7},
+    {id:'g_grip', price:6000, rating:4.3},
+    {id:'g_gamecard', price:20000, rating:4.4},
+  ],
+  kitob: [
+    {id:'g_novel', price:9000, rating:4.7},
+    {id:'g_motiv', price:16000, rating:4.5},
+    {id:'g_bookmark', price:4000, rating:4.6},
+    {id:'g_audiobook', price:22000, rating:4.4},
+  ],
+  musiqa: [
+    {id:'g_earbuds', price:23000, rating:4.6},
+    {id:'g_speaker', price:18000, rating:4.5},
+    {id:'g_vinyl', price:11000, rating:4.7},
+    {id:'g_musicsub', price:9000, rating:4.4},
+  ],
+  kiyim: [
+    {id:'g_sweater', price:19000, rating:4.5},
+    {id:'g_pants', price:14000, rating:4.4},
+    {id:'g_scarf', price:7000, rating:4.6},
+    {id:'g_cap', price:6000, rating:4.3},
+  ],
+  tech: [
+    {id:'g_powerbank', price:13000, rating:4.6},
+    {id:'g_charger', price:10000, rating:4.5},
+    {id:'g_stand', price:5000, rating:4.4},
+    {id:'g_watchband', price:8000, rating:4.2},
+  ],
+  sport: [
+    {id:'g_bands', price:6000, rating:4.5},
+    {id:'g_bottle', price:5000, rating:4.6},
+    {id:'g_yoga', price:12000, rating:4.7},
+    {id:'g_bag', price:17000, rating:4.4},
+  ],
+  sanat: [
+    {id:'g_paint', price:10000, rating:4.6},
+    {id:'g_sketch', price:5000, rating:4.5},
+    {id:'g_tablet', price:24000, rating:4.4},
+  ],
+  shirinlik: [
+    {id:'g_choc', price:7000, rating:4.7},
+    {id:'g_candy', price:9000, rating:4.6},
+    {id:'g_sweetbox', price:15000, rating:4.5},
+  ],
+  universal: [
+    {id:'g_candle', price:6000, rating:4.5},
+    {id:'g_card', price:5000, rating:4.4},
+    {id:'g_mug', price:8000, rating:4.6},
+    {id:'g_album', price:12000, rating:4.5},
+  ],
+};
+
+const CITIES = ["astana","almaty","shymkent","karaganda","aktobe","taraz"];
+const COMPANIONS = [
+  {id:'dost', emoji:'\ud83e\uddd1'},
+  {id:'oila', emoji:'\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67'},
+  {id:'yaqin', emoji:'\u2764\ufe0f'},
+  {id:'yolgiz', emoji:'\ud83d\udc64'},
+  {id:'guruh', emoji:'\ud83d\udc65'},
+];
+const TRIP_TYPES = [
+  {id:'tabiat', emoji:'\ud83c\udf33'},
+  {id:'kongilochar', emoji:'\ud83c\udfac'},
+  {id:'ovqat', emoji:'\ud83c\udf54'},
+  {id:'madaniy', emoji:'\ud83c\udfa8'},
+  {id:'faol', emoji:'\ud83c\udfb3'},
+  {id:'tinch', emoji:'\u2615'},
+  {id:'aralash', emoji:'\ud83c\udfb2'},
+];
+
+const ACTIVITIES = {
+  tabiat: [
+    {id:'a_park', price:0, emoji:'\ud83c\udf33'},
+    {id:'a_lake', price:1500, emoji:'\ud83c\udfde\ufe0f'},
+  ],
+  kongilochar: [
+    {id:'a_cinema', price:9000, emoji:'\ud83c\udfac'},
+    {id:'a_bowling', price:8000, emoji:'\ud83c\udfb3'},
+    {id:'a_quest', price:12000, emoji:'\ud83e\udde9'},
+  ],
+  ovqat: [
+    {id:'a_pizza', price:6000, emoji:'\ud83c\udf55'},
+    {id:'a_cafe', price:6000, emoji:'\u2615'},
+    {id:'a_dessert', price:3000, emoji:'\ud83c\udf66'},
+  ],
+  madaniy: [
+    {id:'a_gallery', price:2000, emoji:'\ud83d\uddbc\ufe0f'},
+    {id:'a_museum', price:2500, emoji:'\ud83c\udfdb\ufe0f'},
+  ],
+  faol: [
+    {id:'a_bowling_active', price:8000, emoji:'\ud83c\udfb3'},
+    {id:'a_trampoline', price:7000, emoji:'\ud83e\udd38'},
+  ],
+  tinch: [
+    {id:'a_cafe_chill', price:6000, emoji:'\u2615'},
+    {id:'a_bookshop', price:0, emoji:'\ud83d\udcda'},
+  ],
+};
+// aralash = mix from all categories
+function aralashPool(){
+  return [].concat(ACTIVITIES.tabiat, ACTIVITIES.ovqat, ACTIVITIES.kongilochar, ACTIVITIES.faol, ACTIVITIES.tinch);
+}
+
+/* ===================== STATE ===================== */
+let gift = {recipient:null, occasion:null, budget:null, interest:null};
+let giftStep = 1;
+let giftSortMode = 'price';
+
+let trip = {city:null, companion:null, budget:null, type:null};
+let tripStep = 1;
+
+/* ===================== NAV ===================== */
+function go(view){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+view).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(view==='favorites') renderFavorites();
+  if(view==='trip-results') fillRandomSelectors();
+  if(view==='faq') renderFAQ();
+}
+
+const FAQ_KEYS = ['1','2','3','4','5'];
+function renderFAQ(){
+  const el = document.getElementById('faqList');
+  el.innerHTML = FAQ_KEYS.map((k,i)=>`
+    <div class="faq-item" id="faqItem${i}">
+      <button class="faq-q" onclick="toggleFAQ(${i})"><span>${t('faq_q'+k)}</span><span class="icon">+</span></button>
+      <div class="faq-a"><p>${t('faq_a'+k)}</p></div>
+    </div>`).join('');
+}
+function toggleFAQ(i){
+  document.getElementById('faqItem'+i).classList.toggle('open');
+}
+
+function startGift(){ gift = {recipient:null, occasion:null, budget:null, interest:null}; giftStep=1; go('gift-wizard'); renderGiftStep(); }
+function startTrip(){ trip = {city:null, companion:null, budget:null, type:null}; tripStep=1; go('trip-wizard'); renderTripStep(); }
+
+function showAuthTab(tab){
+  const signinTab = document.getElementById('tabSignin');
+  const signupTab = document.getElementById('tabSignup');
+  const signinForm = document.getElementById('authSignin');
+  const signupForm = document.getElementById('authSignup');
+  if(tab==='signin'){
+    signinTab.classList.add('active'); signupTab.classList.remove('active');
+    signinForm.style.display=''; signupForm.style.display='none';
+  } else {
+    signupTab.classList.add('active'); signinTab.classList.remove('active');
+    signupForm.style.display=''; signinForm.style.display='none';
+  }
+}
+
+/* ===================== GENERIC WIZARD HELPERS ===================== */
+function optionGrid(items, selectedId, onClick, group){
+  return `<div class="option-grid">` + items.map(it => `
+    <button class="option ${selectedId===it.id?'selected':''}" onclick="${onClick}('${it.id}')">
+      <span class="emoji">${it.emoji}</span><span>${t2(group, it.id)}</span>
+    </button>`).join('') + `</div>`;
+}
+function budgetPicker(selected, presets, onPreset, onCustom){
+  return `
+    <div class="budget-row">
+      ${presets.map(p=>`<button class="chip ${selected===p?'selected':''}" onclick="${onPreset}(${p})">${p.toLocaleString('ru-RU')} \u20b8</button>`).join('')}
+    </div>
+    <div class="budget-custom">
+      <span>${t('budget_custom_label')}</span>
+      <input type="number" placeholder="${t('budget_custom_ph')}" value="${(selected && !presets.includes(selected))?selected:''}" oninput="${onCustom}(this.value)">
+    </div>`;
+}
+function progressDots(container, total, current){
+  const el = document.getElementById(container);
+  el.innerHTML = Array.from({length:total}).map((_,i)=>`<div class="dot ${i<current?'done':''}"></div>`).join('');
+}
+function navButtons(canBack, canNext, backFn, nextFn, nextLabel){
+  return `<div class="wizard-actions">
+    <button class="btn ghost" style="border:1px solid var(--line);${canBack?'':'visibility:hidden;'}" onclick="${backFn}">${t('back_btn')}</button>
+    <button class="btn forest" ${canNext?'':'disabled style="opacity:.4;pointer-events:none;"'} onclick="${nextFn}">${nextLabel||t('next_btn')}</button>
+  </div>`;
+}
+
+/* ===================== GIFT WIZARD ===================== */
+function selectRecipient(id){ gift.recipient=id; renderGiftStep(); }
+function selectOccasion(id){ gift.occasion=id; renderGiftStep(); }
+function setGiftBudgetPreset(v){ gift.budget=v; renderGiftStep(); }
+function setGiftBudgetCustom(v){ gift.budget = v ? parseInt(v) : null; renderGiftStep(true); }
+function selectInterest(id){ gift.interest=id; renderGiftStep(); }
+function giftBack(){ if(giftStep>1){giftStep--; renderGiftStep();} }
+function giftNext(){
+  if(giftStep<4){ giftStep++; renderGiftStep(); }
+  else { computeGiftResults(); go('gift-results'); }
+}
+
+function renderGiftStep(skipScroll){
+  progressDots('giftProgress',4,giftStep);
+  const body = document.getElementById('giftStepBody');
+  let html='';
+  if(giftStep===1){
+    html = `<h2 class="step-title">${t('gift_step1_title')}</h2>
+      <p class="step-sub">1-${t('step_of')}</p>
+      ${optionGrid(RECIPIENTS, gift.recipient, 'selectRecipient', 'recipients')}
+      ${navButtons(false, !!gift.recipient, '', 'giftNext()')}`;
+  } else if(giftStep===2){
+    html = `<h2 class="step-title">${t('gift_step2_title')}</h2>
+      <p class="step-sub">2-${t('step_of')}</p>
+      ${optionGrid(OCCASIONS, gift.occasion, 'selectOccasion', 'occasions')}
+      ${navButtons(true, !!gift.occasion, 'giftBack()', 'giftNext()')}`;
+  } else if(giftStep===3){
+    html = `<h2 class="step-title">${t('gift_step3_title')}</h2>
+      <p class="step-sub">3-${t('step_of')}</p>
+      ${budgetPicker(gift.budget, [5000,10000,20000,50000], 'setGiftBudgetPreset', 'setGiftBudgetCustom')}
+      ${navButtons(true, !!gift.budget, 'giftBack()', 'giftNext()')}`;
+  } else if(giftStep===4){
+    html = `<h2 class="step-title">${t('gift_step4_title')}</h2>
+      <p class="step-sub">4-${t('step_of')} \u00b7 ${t('optional')}</p>
+      ${optionGrid(INTERESTS, gift.interest, 'selectInterest', 'interests')}
+      ${navButtons(true, true, 'giftBack()', 'giftNext()', t('see_results_btn'))}`;
+  }
+  body.innerHTML = html;
+  if(!skipScroll) window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function computeGiftResults(){
+  const interest = gift.interest || 'universal';
+  let pool = (GIFTS[interest] || GIFTS.universal).slice();
+  if(interest!=='universal') pool = pool.concat(GIFTS.universal.slice(0,1));
+  const budget = gift.budget || 999999;
+  let filtered = pool.filter(g=>g.price <= budget*1.15);
+  if(filtered.length===0) filtered = pool.slice().sort((a,b)=>a.price-b.price).slice(0,3);
+  window.__giftResults = filtered;
+  renderGiftSummary();
+  renderGiftSort();
+  renderGiftList();
+}
+function renderGiftSummary(){
+  const rec = RECIPIENTS.find(r=>r.id===gift.recipient);
+  const occ = OCCASIONS.find(o=>o.id===gift.occasion);
+  const intr = INTERESTS.find(i=>i.id===gift.interest);
+  document.getElementById('giftSummary').innerHTML = `
+    <div><span>${t('summary_to')}</span>${rec? rec.emoji+' '+t2('recipients',rec.id) : '\u2014'}</div>
+    <div><span>${t('summary_reason')}</span>${occ? occ.emoji+' '+t2('occasions',occ.id) : '\u2014'}</div>
+    <div><span>${t('summary_budget')}</span>${gift.budget ? gift.budget.toLocaleString('ru-RU')+' \u20b8' : '\u2014'}</div>
+    <div><span>${t('summary_interest')}</span>${intr? intr.emoji+' '+t2('interests',intr.id) : t2('interests','universal')}</div>`;
+}
+function renderGiftSort(){
+  const modes = [{id:'price',label:t('sort_price')},{id:'match',label:t('sort_match')},{id:'rating',label:t('sort_rating')}];
+  document.getElementById('giftSort').innerHTML = modes.map(m=>
+    `<button class="sort-btn ${giftSortMode===m.id?'active':''}" onclick="setGiftSort('${m.id}')">${m.label}</button>`).join('');
+}
+function setGiftSort(mode){ giftSortMode=mode; renderGiftList(); renderGiftSort(); }
+function renderGiftList(){
+  let items = (window.__giftResults||[]).slice();
+  const budget = gift.budget || 999999;
+  if(giftSortMode==='price') items.sort((a,b)=>a.price-b.price);
+  else if(giftSortMode==='rating') items.sort((a,b)=>b.rating-a.rating);
+  else items.sort((a,b)=> Math.abs(a.price-budget) - Math.abs(b.price-budget));
+
+  const list = document.getElementById('giftList');
+  if(items.length===0){ list.innerHTML = `<div class="empty-state">${t('gift_empty')}</div>`; return; }
+  list.innerHTML = items.map((g,i)=>{
+    const favKey = 'gift:'+g.id;
+    const isFav = isFavorite(favKey);
+    const gname = tGift(g.id);
+    return `<div class="gift-card">
+      <button class="heart ${isFav?'active':''}" onclick="toggleFavorite('${favKey.replace(/'/g,"\\'")}', ${JSON.stringify({type:'gift',id:g.id,price:g.price,rating:g.rating}).replace(/"/g,'&quot;')})">${isFav?'\u2665':'\u2661'}</button>
+      <h3>${gname}</h3>
+      <div class="gift-price">\ud83d\udcb0 ${g.price.toLocaleString('ru-RU')} \u20b8</div>
+      <div class="gift-rating">\u2b50 ${g.rating}</div>
+      <button class="detail" onclick="alert('${gname.replace(/'/g,"\\'")} ' + t('gift_detail_alert'))">${t('gift_detail_btn')}</button>
+    </div>`;
+  }).join('');
+}
+
+/* ===================== TRIP WIZARD ===================== */
+function selectCity(c){ trip.city=c; renderTripStep(); }
+function selectCompanion(id){ trip.companion=id; renderTripStep(); }
+function setTripBudgetPreset(v){ trip.budget=v; renderTripStep(); }
+function setTripBudgetCustom(v){ trip.budget = v? parseInt(v): null; renderTripStep(true); }
+function selectTripType(id){ trip.type=id; renderTripStep(); }
+function tripBack(){ if(tripStep>1){tripStep--; renderTripStep();} }
+function tripNext(){
+  if(tripStep<4){ tripStep++; renderTripStep(); }
+  else { computeTripResults(); go('trip-results'); }
+}
+function renderTripStep(skipScroll){
+  progressDots('tripProgress',4,tripStep);
+  const body = document.getElementById('tripStepBody');
+  let html='';
+  if(tripStep===1){
+    html = `<h2 class="step-title">${t('trip_step1_title')}</h2><p class="step-sub">1-${t('step_of')}</p>
+      <div class="option-grid">${CITIES.map(c=>`<button class="option ${trip.city===c?'selected':''}" onclick="selectCity('${c}')"><span>${t2('cities',c)}</span></button>`).join('')}</div>
+      ${navButtons(false, !!trip.city, '', 'tripNext()')}`;
+  } else if(tripStep===2){
+    html = `<h2 class="step-title">${t('trip_step2_title')}</h2><p class="step-sub">2-${t('step_of')}</p>
+      ${optionGrid(COMPANIONS, trip.companion, 'selectCompanion', 'companions')}
+      ${navButtons(true, !!trip.companion, 'tripBack()', 'tripNext()')}`;
+  } else if(tripStep===3){
+    html = `<h2 class="step-title">${t('trip_step3_title')}</h2><p class="step-sub">3-${t('step_of')}</p>
+      ${budgetPicker(trip.budget, [5000,10000,20000,50000], 'setTripBudgetPreset', 'setTripBudgetCustom')}
+      ${navButtons(true, !!trip.budget, 'tripBack()', 'tripNext()')}`;
+  } else if(tripStep===4){
+    html = `<h2 class="step-title">${t('trip_step4_title')}</h2><p class="step-sub">4-${t('step_of')}</p>
+      ${optionGrid(TRIP_TYPES, trip.type, 'selectTripType', 'trip_types')}
+      ${navButtons(true, !!trip.type, 'tripBack()', 'tripNext()', t('see_plan_btn'))}`;
+  }
+  body.innerHTML = html;
+  if(!skipScroll) window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function buildPlan(budget, typeId){
+  const pool = typeId==='aralash' ? aralashPool() : (ACTIVITIES[typeId] || aralashPool());
+  const shuffled = pool.slice().sort(()=>Math.random()-0.5);
+  const plan = [];
+  let total = 0;
+  for(const item of shuffled){
+    if(plan.length>=4) break;
+    if(total + item.price <= budget || plan.length<2){
+      plan.push(item);
+      total += item.price;
+    }
+  }
+  return {plan, total};
+}
+function computeTripResults(){
+  const {plan, total} = buildPlan(trip.budget, trip.type);
+  window.__tripPlan = plan;
+  window.__tripTotal = total;
+  renderTripSummary();
+  renderPlanTimeline(plan);
+  renderTotalCard(total, trip.budget);
+  renderMapBox(plan);
+}
+function renderTripSummary(){
+  const comp = COMPANIONS.find(c=>c.id===trip.companion);
+  const type = TRIP_TYPES.find(t=>t.id===trip.type);
+  document.getElementById('tripSummary').innerHTML = `
+    <div><span>${t('summary_city')}</span>${t2('cities',trip.city)}</div>
+    <div><span>${t('summary_with')}</span>${comp? comp.emoji+' '+t2('companions',comp.id):'\u2014'}</div>
+    <div><span>${t('summary_budget')}</span>${trip.budget.toLocaleString('ru-RU')} \u20b8</div>
+    <div><span>${t('summary_style')}</span>${type? type.emoji+' '+t2('trip_types',type.id):'\u2014'}</div>`;
+}
+function renderPlanTimeline(plan){
+  let hour = 14;
+  const el = document.getElementById('planTimeline');
+  el.innerHTML = plan.map((item,i)=>{
+    const timeLabel = `${String(hour).padStart(2,'0')}:00`;
+    hour += 2;
+    const favKey = 'trip:'+item.id;
+    const isFav = isFavorite(favKey);
+    const name = tActField(item.id,'name');
+    const note = tActField(item.id,'note');
+    return `<div class="plan-item">
+      <div class="plan-time">${timeLabel}</div>
+      <h3>${item.emoji} ${name} <button class="heart" style="position:static;font-size:15px;" onclick="toggleFavorite('${favKey.replace(/'/g,"\\'")}', ${JSON.stringify({type:'trip',id:item.id,price:item.price}).replace(/"/g,'&quot;')})">${isFav?'\u2665':'\u2661'}</button></h3>
+      <p>${note}</p>
+      <div class="plan-cost">\ud83d\udcb0 ${item.price ? item.price.toLocaleString('ru-RU')+' \u20b8' : "0 \u20b8"}</div>
+    </div>`;
+  }).join('');
+}
+function renderTotalCard(total, budget){
+  const remain = budget - total;
+  const remainText = remain>=0
+    ? remain.toLocaleString('ru-RU')+' \u20b8 '+t('remain_label')
+    : t('over_label')+' '+Math.abs(remain).toLocaleString('ru-RU')+' \u20b8 '+t('over_label2');
+  document.getElementById('totalCard').innerHTML = `
+    <div><small>${t('total_label')}</small><div class="num">\ud83d\udcb0 ~${total.toLocaleString('ru-RU')} \u20b8</div></div>
+    <div style="text-align:right;"><small>${t('summary_budget')}</small><div class="num" style="font-size:20px;color:${remain>=0?'var(--forest)':'var(--rose)'}">${remainText}</div></div>`;
+}
+function renderMapBox(plan){
+  document.getElementById('mapBox').innerHTML = `
+    <div class="label">${t('map_label')}</div>
+    <div class="map-route">\ud83d\uddfa\ufe0f<br>${plan.map(p=>p.emoji+' '+tActField(p.id,'name')).join('<br>\u2193<br>')}</div>`;
+}
+
+/* ===================== RANDOM PLAN ===================== */
+function fillRandomSelectors(){
+  const citySel = document.getElementById('randCity');
+  const withSel = document.getElementById('randWith');
+  citySel.innerHTML = CITIES.map(c=>`<option value="${c}">${t2('cities',c)}</option>`).join('');
+  withSel.innerHTML = COMPANIONS.map(c=>`<option value="${c.id}">${c.emoji} ${t2('companions',c.id)}</option>`).join('');
+  if(trip.city) citySel.value = trip.city;
+  document.getElementById('randBudget').value = trip.budget || '';
+}
+function randomPlan(){
+  const city = document.getElementById('randCity').value;
+  const budget = parseInt(document.getElementById('randBudget').value) || 15000;
+  const withWhom = document.getElementById('randWith').value;
+  trip = {city, companion: withWhom, budget, type:'aralash'};
+  computeTripResults();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ===================== FAVORITES ===================== */
+function getFavorites(){
+  try{ return JSON.parse(localStorage.getItem('surprise_favs')||'[]'); }catch(e){ return []; }
+}
+function isFavorite(key){
+  return getFavorites().some(f=>f.key===key);
+}
+function toggleFavorite(key, data){
+  let favs = getFavorites();
+  const idx = favs.findIndex(f=>f.key===key);
+  if(idx>=0){ favs.splice(idx,1); } else { favs.push({key, ...data}); }
+  localStorage.setItem('surprise_favs', JSON.stringify(favs));
+  if(document.getElementById('view-gift-results').classList.contains('active')) renderGiftList();
+  if(document.getElementById('view-trip-results').classList.contains('active')) renderPlanTimeline(window.__tripPlan||[]);
+  if(document.getElementById('view-favorites').classList.contains('active')) renderFavorites();
+}
+function favDisplayName(f){
+  if(f.type==='gift') return tGift(f.id);
+  if(f.type==='trip') return tActField(f.id,'name');
+  return f.name || '';
+}
+function renderFavorites(){
+  const favs = getFavorites();
+  const el = document.getElementById('favContainer');
+  if(favs.length===0){ el.innerHTML = `<div class="empty-state">${t('fav_empty')}</div>`; return; }
+  el.innerHTML = `<div class="fav-list">` + favs.map(f=>`
+    <div class="gift-card">
+      <button class="heart active" onclick="toggleFavorite('${f.key.replace(/'/g,"\\'")}', {})">\u2665</button>
+      <h3>${favDisplayName(f)}</h3>
+      <div class="gift-price">\ud83d\udcb0 ${f.price ? f.price.toLocaleString('ru-RU')+' \u20b8' : '\u2014'}</div>
+      <div class="gift-rating">${f.type==='gift' ? t('fav_gift_label') : t('fav_trip_label')}</div>
+    </div>`).join('') + `</div>`;
+}
+
+/* ===================== SEARCH ===================== */
+function handleSearch(e){
+  e.preventDefault();
+  const q = document.getElementById('searchInput').value.trim();
+  if(!q) return;
+  const budgetMatch = q.match(/(\d[\d\s]{2,})\s*(\u20b8|so'm|tenge|\u0442\u0433)?/);
+  let budget = 15000;
+  if(budgetMatch){
+    const num = parseInt(budgetMatch[1].replace(/\s/g,''));
+    if(!isNaN(num) && num>0) budget = num;
+  }
+  let city = CITIES.find(c=> q.toLowerCase().includes(t2('cities',c).toLowerCase()) || q.toLowerCase().includes(c));
+  if(!city) city = 'astana';
+  trip = {city, companion:'yolgiz', budget, type:'aralash'};
+  computeTripResults();
+  go('trip-results');
+}
+
+/* init */
+applyStaticI18n();
+renderGiftStep(true);
+renderTripStep(true);
+showAuthTab('signin');
+
+/* scroll reveal for non-hero sections (progressive enhancement: visible by default) */
+if('IntersectionObserver' in window){
+  const revealEls = document.querySelectorAll('.reveal');
+  revealEls.forEach(el=>el.classList.add('pre'));
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('in'); entry.target.classList.remove('pre'); revealObserver.unobserve(entry.target); }
+    });
+  },{threshold:0.15});
+  revealEls.forEach(el=>revealObserver.observe(el));
+}
+</script>
+</body>
+</html>
