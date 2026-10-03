@@ -484,6 +484,18 @@
   .price-feats span::before{content:'— ';color:var(--gold);}
 
 .group-size-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;max-width:520px}.group-size-grid .chip{margin:0;text-align:center}.weather-note{margin-top:18px;padding:14px 16px;border:1px solid var(--line);background:var(--paper-raised);color:var(--ink-soft);font-size:13px;line-height:1.55}@media(max-width:560px){.group-size-grid{grid-template-columns:repeat(3,1fr)}}
+
+/* === UX FIXES 2026-09-25 === */
+.hero{min-height:500px;padding-top:64px;padding-bottom:36px}
+.hero h1{font-size:clamp(38px,4.8vw,62px)!important;line-height:1.02!important;max-width:680px!important}
+.hero p.lede{font-size:15.5px!important;line-height:1.65;max-width:540px}
+.hero .kicker{font-size:12px}
+.budget-custom{max-width:420px!important;display:grid!important;grid-template-columns:auto 1fr;gap:12px!important;align-items:center}
+.budget-custom input{color:#F7F5FF!important;background:rgba(255,255,255,.075)!important;border:1px solid rgba(183,165,255,.34)!important;border-radius:10px!important;padding:10px 12px!important;min-width:150px!important;font-size:16px!important;font-weight:700!important;caret-color:#FFB86B}
+.budget-custom input::placeholder{color:#A7A4BA!important;opacity:1!important;font-weight:500}
+.budget-custom input:focus{border-color:#B7A5FF!important;box-shadow:0 0 0 3px rgba(183,165,255,.12)!important}
+@media(max-width:640px){.hero h1{font-size:36px!important}.hero p.lede{font-size:14px!important}.budget-custom{grid-template-columns:1fr!important}.budget-custom input{width:100%!important}}
+
 </style>
 
 <style>
@@ -548,6 +560,92 @@ footer{border-top-color:rgba(255,255,255,.08);background:rgba(5,7,12,.36)}
 @media(max-width:640px){.wrap,.topbar-inner{padding-left:18px;padding-right:18px}.hero h1{font-size:43px}.nav-links{gap:8px}.nav-links>a:not(.cta){display:none}.choice-card{border-radius:22px;padding:24px}.choice-card h2{font-size:29px}.auth-card{padding:28px 22px}.wizard-actions{gap:10px}.wizard-actions .btn{flex:1;justify-content:center}}
 </style>
 
+
+<style>
+.feature-toggle{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:20px 0;padding:18px;border:1px solid #353849;border-radius:16px;background:#151826}
+.feature-toggle small{display:block;color:#999baa;margin-top:5px}.switch{width:54px;height:30px;border-radius:99px;border:1px solid #3b3e50;background:#202333;padding:3px}.switch i{display:block;width:22px;height:22px;border-radius:50%;background:#888b99;transition:.2s}.switch.on{background:#332a61;border-color:#a992ff}.switch.on i{transform:translateX(24px);background:#c9bdff}
+.time-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.time-field{padding:16px;border:1px solid #353849;border-radius:14px;background:#151826}.time-field label{display:block;color:#999baa;font-size:12px;margin-bottom:8px}.time-field input{width:100%;border:0;outline:0;background:transparent;color:#fff;font:inherit;color-scheme:dark}
+.compare-check{display:flex;align-items:center;gap:7px;color:#aaa;font-size:12px;margin-top:8px}.compare-check input{accent-color:#a992ff}
+.feature-box{grid-column:1/-1;margin:12px 0;padding:20px;border:1px solid #40386a;border-radius:18px;background:#17172a}.feature-box h3{margin:0 0 10px}.mini-pills{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.mini-pills span{padding:8px 11px;border:1px solid #353849;border-radius:99px;font-size:12px}
+.compare-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}.compare-item{padding:14px;border:1px solid #353849;border-radius:13px;background:#10121c}
+@media(max-width:640px){.time-row{grid-template-columns:1fr}}
+</style>
+
+<style>
+/* Cross-language form visibility repair */
+.budget-custom input,
+.budget-custom input[type="number"],
+.time-field input,
+input[type="number"],
+input[type="time"]{
+  color:#F7F5FF !important;
+  -webkit-text-fill-color:#F7F5FF !important;
+  opacity:1 !important;
+  background:#202234 !important;
+  border:1px solid rgba(183,165,255,.55) !important;
+  caret-color:#FFB86B !important;
+  color-scheme:dark !important;
+}
+.budget-custom input::placeholder,
+input[type="number"]::placeholder{
+  color:#B9B6C9 !important;
+  -webkit-text-fill-color:#B9B6C9 !important;
+  opacity:1 !important;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button{opacity:1}
+</style>
+
+<style>
+/* Budget preset buttons — visible in all languages */
+.budget-row .chip,
+button.chip{
+  color:#F7F5FF !important;
+  -webkit-text-fill-color:#F7F5FF !important;
+  background:#181A27 !important;
+  border:1px solid #3A3D4D !important;
+  opacity:1 !important;
+  font-weight:600 !important;
+}
+.budget-row .chip:hover,
+button.chip:hover{
+  color:#FFFFFF !important;
+  -webkit-text-fill-color:#FFFFFF !important;
+  border-color:#9E87FF !important;
+  background:#242039 !important;
+}
+.budget-row .chip.selected,
+button.chip.selected{
+  color:#FFFFFF !important;
+  -webkit-text-fill-color:#FFFFFF !important;
+  background:linear-gradient(135deg,#6950D8,#9B6BEE) !important;
+  border-color:#B9A6FF !important;
+  box-shadow:0 0 0 1px rgba(185,166,255,.18),0 8px 24px rgba(104,79,215,.22) !important;
+}
+</style>
+
+
+<style>
+.api-gift-card{overflow:hidden;padding:0!important}
+.api-gift-img{width:100%;height:190px;object-fit:contain;background:linear-gradient(145deg,#171b2a,#10131f);display:block;border-bottom:1px solid rgba(255,255,255,.08)}
+.api-gift-body{padding:20px;display:flex;flex-direction:column;gap:9px;min-height:190px}
+.api-gift-meta{font-size:12px;color:var(--ink-soft)}
+.api-loading{grid-column:1/-1;padding:28px;border:1px dashed var(--line);border-radius:18px;color:var(--ink-soft)}
+.api-source{grid-column:1/-1;font-size:12px;color:var(--ink-faint);margin-bottom:-4px}
+</style>
+
+<style>
+.real-place-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:18px}
+.real-place-card{border:1px solid rgba(255,255,255,.09);background:rgba(16,20,34,.72);border-radius:20px;overflow:hidden}
+.real-place-photo{width:100%;height:180px;object-fit:cover;display:block;background:#151927}
+.real-place-body{padding:18px}.real-place-body h3{font:600 18px 'Manrope',sans-serif;margin-bottom:8px}
+.real-place-meta{font-size:13px;color:var(--ink-soft);line-height:1.6;margin:5px 0}
+.real-place-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.real-place-actions a{padding:8px 12px;border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#d8d0ff;text-decoration:none;font-size:12px}
+.live-weather-strip{margin:0 0 20px;padding:14px 17px;border:1px solid rgba(169,146,255,.28);border-radius:15px;background:rgba(124,92,255,.07);color:#d8d0ff;font-size:13px}
+.place-loading{padding:24px;border:1px dashed rgba(255,255,255,.14);border-radius:16px;color:var(--ink-soft)}
+.place-source{font-size:11px;color:var(--ink-faint);margin-top:12px}
+</style>
 </head>
 <body>
 
@@ -1029,7 +1127,7 @@ footer{border-top-color:rgba(255,255,255,.08);background:rgba(5,7,12,.36)}
 
 <script>
 /* ===================== I18N ===================== */
-const I18N = {"uz": {"nav_pricing": "Narxlar", "nav_faq": "FAQ", "nav_fav": "Sevimlilar", "nav_login": "Kirish", "search_ph": "Masalan: Astana'da 10 000 ₸ ga nima qilsam bo'ladi?", "hero_kicker": "Sovg'a va sayr — bir joyda", "hero_title_1": "Buguningizni", "hero_title_em": "rejalashtirishga", "hero_title_2": "yordam beramiz.", "hero_lede": "Kimga sovg'a olishni bilmayapsizmi, yoki qayerga borishni? Bir necha savolga javob bering — qolganini biz o'ylab beramiz.", "hero_feat1": "30 soniyada natija", "hero_feat2": "Budjetingizga moslashadi", "hero_feat3": "To'liq bepul", "card_gift_badge": "Sovg'a", "card_gift_title": "Sovg'a topish", "card_gift_desc": "Yaqin insoningiz uchun mos sovg'ani, budjetingiz va uning qiziqishlariga qarab tanlab beramiz.", "card_trip_badge": "Sayr", "card_trip_title": "Sayr rejalashtirish", "card_trip_desc": "Budjetingizga mos, soatma-soat qiziqarli kun rejasini tuzib beramiz.", "btn_start": "Boshlash", "how_eyebrow": "Qanday ishlaydi", "how_title": "Uch qadamda tayyor.", "how1_title": "Yo'nalishni tanlang", "how1_desc": "Sovg'a kerakmi yoki sayr rejasimi — shundan boshlaymiz.", "how2_title": "Bir necha savolga javob bering", "how2_desc": "Kim uchun, qanday budjetda, nima kayfiyatda — bir daqiqa vaqt oladi.", "how3_title": "Tayyor natijani oling", "how3_desc": "Budjetingizga mos variantlarni ko'rib, sevimlilaringizni saqlab qo'ying.", "footer_about": "Biz haqimizda", "footer_faq": "FAQ", "footer_pricing": "Narxlar", "footer_contact": "Aloqa", "footer_terms": "Shartlar & Maxfiylik", "footer_copy": "© GiftTrip, 2026", "back_home": "← Bosh sahifa", "about_title": "Biz haqimizda", "about_p1": "GiftTrip — kundalik qarorlarni osonlashtirish uchun yaratilgan kichik xizmat: kimgadir sovg'a tanlash yoki bo'sh kuningizni rejalashtirish endi vaqt talab qilmaydi. Bir nechta savolga javob bering, qolganini biz taklif qilamiz.", "about_p2": "G'oyamiz oddiy: eng yaxshi qarorlar ko'pincha eng ko'p vaqt talab qiladiganlari emas. Shuning uchun har bir savolni minimal darajaga tushirdik — sovg'a yoki sayr rejasi bir necha bosishda tayyor bo'ladi.", "team_title": "Jamoa", "team1_name": "Aziza Rahimova", "team1_role": "Asoschi & mahsulot", "team1_desc": "Foydalanuvchi tajribasi va mahsulot strategiyasiga mas'ul.", "team2_name": "Diyor Nazarov", "team2_role": "Dizayn yo'nalishi", "team2_desc": "Sayt va ilova dizaynini yaratadi, brend uslubini belgilaydi.", "team3_name": "Madina Yusupova", "team3_role": "Ishlab chiqish", "team3_desc": "Texnik qism va yangi funksiyalarni amalga oshiradi.", "contact_title": "Aloqa", "contact_p": "Savol yoki taklifingiz bo'lsa, biz bilan bog'laning:", "faq_title": "Ko'p so'raladigan savollar", "faq_sub_pre": "Agar javobini topa olmasangiz,", "faq_sub_link": "bizga yozing", "faq_q1": "GiftTrip qanday ishlaydi?", "faq_a1": "Bosh sahifada \"Sovg'a topish\" yoki \"Sayr rejalashtirish\"ni tanlaysiz, bir nechta qisqa savolga javob berasiz — kim uchun, qanday budjetda — va sayt sizga mos variantlarni taklif qiladi.", "faq_q2": "Xizmat pullikmi?", "faq_a2": "Asosiy funksiyalar (sovg'a va sayr takliflari, sevimlilar) to'liq bepul. Cheksiz qidiruv va qo'shimcha imkoniyatlar uchun Premium reja mavjud.", "faq_q3": "Takliflar qayerdan olinadi?", "faq_a3": "Hozircha namunaviy ma'lumotlar bazasidan. Kelajakda haqiqiy do'kon va joylar bilan integratsiya qilinadi.", "faq_q4": "Sevimlilarim qayerda saqlanadi?", "faq_a4": "Hisobingiz bo'lmasa, brauzeringizda saqlanadi. Ro'yxatdan o'tsangiz, barcha qurilmalaringizda sinxronlanadi.", "faq_q5": "Xaritada ko'rish funksiyasi ishlaydimi?", "faq_a5": "Hozircha bu qism namuna ko'rinishida. Xarita API'si keyingi versiyada to'liq ulanadi.", "pricing_title": "Narxlar", "pricing_sub": "Asosiy xizmat har doim bepul. Ko'proq imkoniyat kerak bo'lsa — Premium mavjud.", "plan_free": "Bepul", "plan_premium": "Premium", "price_premium_period": "/oy", "badge_recommended": "Tavsiya etiladi", "free_feat1": "Sovg'a va sayr takliflari", "free_feat2": "Kuniga 5 tagacha qidiruv", "free_feat3": "Sevimlilarni saqlash", "premium_feat1": "Cheksiz qidiruv va random reja", "premium_feat2": "Xarita bilan batafsil marshrut", "premium_feat3": "Ustuvor takliflar va chegirmalar", "premium_feat4": "Reklamasiz tajriba", "plan_start": "Boshlash", "plan_premium_cta": "Premium olish", "terms_title": "Foydalanish shartlari", "terms_p": "GiftTrip xizmatidan foydalanish orqali siz quyidagi shartlarga rozilik bildirasiz: xizmat taklif qilingan sovg'a va sayr variantlari faqat tavsiya xarakteriga ega bo'lib, yakuniy qarorni foydalanuvchi o'zi qabul qiladi. Xizmat vaqti-vaqti bilan yangilanib, funksiyalar o'zgarishi mumkin.", "privacy_title": "Maxfiylik siyosati", "privacy_p": "Biz shaxsiy ma'lumotlaringizni faqat xizmat sifatini yaxshilash uchun ishlatamiz va uchinchi tomonlarga sotmaymiz. Sevimlilar ro'yxati kabi ma'lumotlar brauzeringizda saqlanadi; hisob yaratganingizda esa xavfsiz serverda saqlanadi.", "auth_tab_signin": "Kirish", "auth_tab_signup": "Ro'yxatdan o'tish", "auth_welcome_title": "Xush kelibsiz", "auth_welcome_sub": "Sevimlilaringiz va rejalaringizga kirish uchun tizimga kiring.", "label_email": "Email", "label_pass": "Parol", "remember_me": "Meni eslab qol", "forgot_pass": "Parolni unutdingizmi?", "btn_signin": "Kirish", "or_divider": "yoki", "no_account": "Hisobingiz yo'qmi?", "go_signup": "Ro'yxatdan o'ting", "auth_signup_title": "Hisob yarating", "auth_signup_sub": "Bir necha soniyada ro'yxatdan o'ting va rejalaringizni saqlab boring.", "label_name": "Ism", "label_name_ph": "Ismingiz", "label_pass2_ph": "Kamida 8 belgi", "btn_signup": "Hisob yaratish", "have_account": "Hisobingiz bormi?", "go_signin": "Kiring", "demo_alert": "Demo: hali backend ulanmagan.", "demo_alert2": "Demo: hali ulanmagan.", "fav_title": "❤️ Mening saqlangan joylarim", "fav_sub": "Keyinchalik bu ro'yxat login tizimi orqali barcha qurilmalaringizda saqlanadi.", "fav_empty": "Hali hech narsa saqlanmagan. Sovg'a yoki sayr natijalarida ♡ belgisini bosing.", "fav_gift_label": "🎁 Sovg'a", "fav_trip_label": "🗺️ Sayr faoliyati", "gift_step1_title": "Kimga sovg'a olmoqchisiz?", "gift_step2_title": "Qanday sabab bilan?", "gift_step3_title": "Budjetingiz qancha?", "gift_step4_title": "Nimaga qiziqadi?", "step_of": "qadam / 4", "optional": "ixtiyoriy", "budget_custom_label": "Yoki o'zingiz kiriting:", "budget_custom_ph": "masalan 25000", "back_btn": "← Orqaga", "next_btn": "Davom etish →", "see_results_btn": "Natijalarni ko'rish →", "see_plan_btn": "Rejani ko'rish →", "gift_results_title": "🎁 Siz uchun topilgan sovg'alar", "summary_to": "Kimga", "summary_reason": "Sabab", "summary_budget": "Budjet", "summary_interest": "Qiziqish", "sort_price": "Narx bo'yicha", "sort_match": "Moslik bo'yicha", "sort_rating": "Mashhurlik bo'yicha", "gift_detail_btn": "Batafsil", "gift_detail_alert": "haqida batafsil ma'lumot tez orada qo'shiladi.", "gift_empty": "Hozircha mos variant topilmadi. Budjetni oshirib ko'ring.", "back_to_questions": "← Savollarga qaytish", "trip_step1_title": "Qaysi shaharda?", "trip_step2_title": "Kim bilan borasiz?", "trip_step3_title": "Budjetingiz", "trip_step4_title": "Qanday sayr xohlaysiz?", "trip_results_title": "🌟 Siz uchun tayyor reja", "summary_city": "Shahar", "summary_with": "Kim bilan", "summary_style": "Uslub", "total_label": "Umumiy", "remain_label": "qoladi", "over_label": "budjetdan", "over_label2": "oshadi", "map_label": "📍 Xaritada ko'rish (keyingi versiyada xarita API'si bilan)", "random_title": "🎲 Aralashtirib ber", "random_sub": "Shahar va budjetni kiriting — biz sizga butunlay tasodifiy reja tuzib beramiz.", "random_budget_ph": "Budjet, ₸", "random_btn": "🎲 Menga random reja ber", "recipients": {"ona": "Onam", "ota": "Otam", "dost": "Do'stim", "yaqin": "Yaqin insonim", "akauka": "Aka/uka", "opasingil": "Opa/singil", "boshqa": "Boshqa"}, "occasions": {"tugilgan": "Tug'ilgan kun", "bitiruv": "Bitiruv", "bayram": "Bayram", "shunchaki": "Shunchaki", "maxsus": "Maxsus kun", "boshqaOc": "Boshqa"}, "interests": {"gaming": "Gaming", "kitob": "Kitob", "musiqa": "Musiqa", "kiyim": "Kiyim", "tech": "Texnologiya", "sport": "Sport", "sanat": "San'at", "shirinlik": "Shirinlik", "universal": "Universal"}, "companions": {"dost": "Do'stim", "oila": "Oila", "yaqin": "Yaqin inson", "yolgiz": "Yolg'iz", "guruh": "Guruh"}, "trip_types": {"tabiat": "Tabiat", "kongilochar": "Ko'ngilochar", "ovqat": "Ovqatlanish", "madaniy": "Madaniy", "faol": "Faol", "tinch": "Tinch / Chill", "aralash": "Aralash"}, "cities": {"astana": "Astana", "almaty": "Almaty", "shymkent": "Shymkent", "karaganda": "Qarag'anda", "aktobe": "Aktobe", "taraz": "Taraz"}, "gifts": {"g_headset": "Gaming quloqchin", "g_mouse": "Gaming mouse", "g_pad": "Gaming mouse pad", "g_grip": "Kontroller uchun grip", "g_gamecard": "Oyin kodlari kartasi", "g_novel": "Bestseller roman", "g_motiv": "Motivatsion kitob to'plami", "g_bookmark": "Chiroyli kitob belgisi to'plami", "g_audiobook": "Ovozli kitob obunasi (3 oy)", "g_earbuds": "Simsiz quloqchin", "g_speaker": "Bluetooth kolonka (kichik)", "g_vinyl": "Vinil plastinka", "g_musicsub": "Musiqa xizmati obunasi (3 oy)", "g_sweater": "Yumshoq trikotaj kofta", "g_pants": "Sport shim", "g_scarf": "Sharf", "g_cap": "Beysbol qalpoq", "g_powerbank": "Quvvatlash banki (powerbank)", "g_charger": "Simsiz zaryadlagich", "g_stand": "Telefon uchun stend", "g_watchband": "Aqlli soat bandi", "g_bands": "Fitnes rezinka to'plami", "g_bottle": "Sport suv butilkasi", "g_yoga": "Yoga gilamchasi", "g_bag": "Sport sumka", "g_paint": "Akvarel bo'yoq to'plami", "g_sketch": "Eskiz daftari", "g_tablet": "Rasm chizish uchun planshet", "g_choc": "Shokolad to'plami", "g_candy": "Qo'lda tayyorlangan konfetlar", "g_sweetbox": "Shirinliklar sovg'a qutisi", "g_candle": "Aromatik sham", "g_card": "Sovg'a otkritkasi + kichik gift", "g_mug": "Termokружка", "g_album": "Fotoalbom"}, "activities": {"a_park": {"name": "Parkda sayr", "note": "Sayr qilish va suratga tushish."}, "a_lake": {"name": "Ko'l bo'yida dam olish", "note": "Sokin muhitda vaqt o'tkazish."}, "a_cinema": {"name": "Kinoteatr", "note": "Yangi filmga borish."}, "a_bowling": {"name": "Bowling", "note": "Do'stlar bilan musobaqa."}, "a_quest": {"name": "Kvest xona", "note": "Jamoaviy topishmoq o'yini."}, "a_pizza": {"name": "Pizza", "note": "Yengil tushlik."}, "a_cafe": {"name": "Kafeda choy-poy", "note": "Kafeda vaqt o'tkazish."}, "a_dessert": {"name": "Dessert", "note": "Shirinlik bilan yakunlash."}, "a_gallery": {"name": "San'at galereyasi", "note": "Zamonaviy ko'rgazmani ko'rish."}, "a_museum": {"name": "Muzey", "note": "Tarixiy eksponatlarni ko'rish."}, "a_trampoline": {"name": "Trambolin park", "note": "Energiyani sarflash."}, "a_bookshop": {"name": "Kitob do'konida aylanish", "note": "Shoshilmasdan aylanish."}, "a_bowling_active": {"name": "Bowling", "note": "Faol dam olish."}, "a_cafe_chill": {"name": "Kafeda choy-poy", "note": "Sokin suhbat uchun ideal."}}, "search_examples": "masalan"}, "kk": {"nav_pricing": "Бағалар", "nav_faq": "Жиі қойылатын сұрақтар", "nav_fav": "Таңдаулылар", "nav_login": "Кіру", "search_ph": "Мысалы: Астанада 10 000 ₸-ге не істеуге болады?", "hero_kicker": "Сыйлық пен серуен — бір жерде", "hero_title_1": "Бүгініңізді", "hero_title_em": "жоспарлауға", "hero_title_2": "көмектесеміз.", "hero_lede": "Кімге сыйлық алуды білмейсіз бе, әлде қайда барарыңызды? Бірнеше сұраққа жауап беріңіз — қалғанын біз ойлап табамыз.", "hero_feat1": "30 секундта нәтиже", "hero_feat2": "Бюджетіңізге сай", "hero_feat3": "Толығымен тегін", "card_gift_badge": "Сыйлық", "card_gift_title": "Сыйлық табу", "card_gift_desc": "Жақын адамыңыз үшін лайықты сыйлықты бюджетіңіз бен қызығушылығына қарай таңдап береміз.", "card_trip_badge": "Серуен", "card_trip_title": "Серуенді жоспарлау", "card_trip_desc": "Бюджетіңізге сай, сағат сайынғы қызықты күн жоспарын құрып береміз.", "btn_start": "Бастау", "how_eyebrow": "Қалай жұмыс істейді", "how_title": "Үш қадамда дайын.", "how1_title": "Бағытты таңдаңыз", "how1_desc": "Сыйлық керек пе, әлде серуен жоспары ма — содан бастаймыз.", "how2_title": "Бірнеше сұраққа жауап беріңіз", "how2_desc": "Кім үшін, қандай бюджетте, қандай көңіл-күйде — бір минут уақыт алады.", "how3_title": "Дайын нәтижені алыңыз", "how3_desc": "Бюджетіңізге сай нұсқаларды көріп, таңдаулыларыңызды сақтап қойыңыз.", "footer_about": "Біз туралы", "footer_faq": "Жиі қойылатын сұрақтар", "footer_pricing": "Бағалар", "footer_contact": "Байланыс", "footer_terms": "Шарттар және құпиялылық", "footer_copy": "© GiftTrip, 2026", "back_home": "← Басты бет", "about_title": "Біз туралы", "about_p1": "GiftTrip — күнделікті шешімдерді жеңілдету үшін жасалған шағын қызмет: біреуге сыйлық таңдау немесе бос күніңізді жоспарлау енді уақыт алмайды. Бірнеше сұраққа жауап беріңіз, қалғанын біз ұсынамыз.", "about_p2": "Идеямыз қарапайым: ең жақсы шешімдер көбіне ең көп уақыт алатындары емес. Сондықтан әр сұрақты барынша қысқартып шықтық — сыйлық немесе серуен жоспары бірнеше басу арқылы дайын болады.", "team_title": "Команда", "team1_name": "Aziza Rahimova", "team1_role": "Негізін салушы және өнім", "team1_desc": "Пайдаланушы тәжірибесі мен өнім стратегиясына жауапты.", "team2_name": "Diyor Nazarov", "team2_role": "Дизайн бағыты", "team2_desc": "Сайт пен қосымша дизайнын жасайды, брендтің стилін анықтайды.", "team3_name": "Madina Yusupova", "team3_role": "Әзірлеу", "team3_desc": "Техникалық бөлім мен жаңа функцияларды іске асырады.", "contact_title": "Байланыс", "contact_p": "Сұрағыңыз немесе ұсынысыңыз болса, бізбен байланысыңыз:", "faq_title": "Жиі қойылатын сұрақтар", "faq_sub_pre": "Егер жауабын таппасаңыз,", "faq_sub_link": "бізге жазыңыз", "faq_q1": "GiftTrip қалай жұмыс істейді?", "faq_a1": "Басты бетте \"Сыйлық табу\" немесе \"Серуенді жоспарлау\"ды таңдайсыз, бірнеше қысқа сұраққа жауап бересіз — кім үшін, қандай бюджетте — сайт сізге сай нұсқаларды ұсынады.", "faq_q2": "Қызмет ақылы ма?", "faq_a2": "Негізгі функциялар (сыйлық пен серуен ұсыныстары, таңдаулылар) толығымен тегін. Шексіз іздеу және қосымша мүмкіндіктер үшін Premium жоспары бар.", "faq_q3": "Ұсыныстар қайдан алынады?", "faq_a3": "Қазірше үлгілік дерекқордан. Болашақта нақты дүкендер мен орындармен интеграцияланады.", "faq_q4": "Таңдаулыларым қайда сақталады?", "faq_a4": "Есептік жазбаңыз болмаса, браузеріңізде сақталады. Тіркелсеңіз, барлық құрылғыларыңызда синхрондалады.", "faq_q5": "Картадан көру функциясы жұмыс істей ме?", "faq_a5": "Қазірше бұл бөлім үлгі түрінде. Карта API келесі нұсқада толық қосылады.", "pricing_title": "Бағалар", "pricing_sub": "Негізгі қызмет әрқашан тегін. Көбірек мүмкіндік керек болса — Premium бар.", "plan_free": "Тегін", "plan_premium": "Premium", "price_premium_period": "/ай", "badge_recommended": "Ұсынылады", "free_feat1": "Сыйлық пен серуен ұсыныстары", "free_feat2": "Күніне 5-ке дейін іздеу", "free_feat3": "Таңдаулыларды сақтау", "premium_feat1": "Шексіз іздеу және кездейсоқ жоспар", "premium_feat2": "Картамен толық маршрут", "premium_feat3": "Басым ұсыныстар мен жеңілдіктер", "premium_feat4": "Жарнамасыз тәжірибе", "plan_start": "Бастау", "plan_premium_cta": "Premium алу", "terms_title": "Пайдалану шарттары", "terms_p": "GiftTrip қызметін пайдалану арқылы сіз келесі шарттарға келісім бересіз: қызмет ұсынған сыйлық пен серуен нұсқалары тек ұсынымдық сипатта болады, соңғы шешімді пайдаланушы өзі қабылдайды. Қызмет уақыт өте жаңарып, функциялар өзгеруі мүмкін.", "privacy_title": "Құпиялылық саясаты", "privacy_p": "Біз жеке деректеріңізді тек қызмет сапасын жақсарту үшін пайдаланамыз және үшінші тарапқа сатпаймыз. Таңдаулылар тізімі сияқты деректер браузеріңізде сақталады; есептік жазба жасағанда қауіпсіз серверде сақталады.", "auth_tab_signin": "Кіру", "auth_tab_signup": "Тіркелу", "auth_welcome_title": "Қош келдіңіз", "auth_welcome_sub": "Таңдаулыларыңыз бен жоспарларыңызға кіру үшін жүйеге кіріңіз.", "label_email": "Email", "label_pass": "Құпия сөз", "remember_me": "Мені есте сақта", "forgot_pass": "Құпия сөзді ұмыттыңыз ба?", "btn_signin": "Кіру", "or_divider": "немесе", "no_account": "Есептік жазбаңыз жоқ па?", "go_signup": "Тіркеліңіз", "auth_signup_title": "Есептік жазба жасаңыз", "auth_signup_sub": "Бірнеше секундта тіркеліп, жоспарларыңызды сақтап қойыңыз.", "label_name": "Аты", "label_name_ph": "Атыңыз", "label_pass2_ph": "Кемінде 8 таңба", "btn_signup": "Есептік жазба жасау", "have_account": "Есептік жазбаңыз бар ма?", "go_signin": "Кіріңіз", "demo_alert": "Демо: backend әлі қосылмаған.", "demo_alert2": "Демо: әлі қосылмаған.", "fav_title": "❤️ Менің сақталған орындарым", "fav_sub": "Кейінірек бұл тізім кіру жүйесі арқылы барлық құрылғыларыңызда сақталады.", "fav_empty": "Әзірше ештеңе сақталмаған. Сыйлық немесе серуен нәтижелерінде ♡ белгісін басыңыз.", "fav_gift_label": "🎁 Сыйлық", "fav_trip_label": "🗺️ Серуен әрекеті", "gift_step1_title": "Кімге сыйлық алғыңыз келеді?", "gift_step2_title": "Қандай себеппен?", "gift_step3_title": "Бюджетіңіз қанша?", "gift_step4_title": "Немен қызығады?", "step_of": "қадам / 4", "optional": "міндетті емес", "budget_custom_label": "Немесе өзіңіз енгізіңіз:", "budget_custom_ph": "мысалы 25000", "back_btn": "← Артқа", "next_btn": "Жалғастыру →", "see_results_btn": "Нәтижелерді көру →", "see_plan_btn": "Жоспарды көру →", "gift_results_title": "🎁 Сізге табылған сыйлықтар", "summary_to": "Кімге", "summary_reason": "Себебі", "summary_budget": "Бюджет", "summary_interest": "Қызығушылық", "sort_price": "Баға бойынша", "sort_match": "Сәйкестік бойынша", "sort_rating": "Танымалдық бойынша", "gift_detail_btn": "Толығырақ", "gift_detail_alert": "туралы толық ақпарат жақында қосылады.", "gift_empty": "Әзірше сәйкес нұсқа табылмады. Бюджетті арттырып көріңіз.", "back_to_questions": "← Сұрақтарға оралу", "trip_step1_title": "Қай қалада?", "trip_step2_title": "Кіммен барасыз?", "trip_step3_title": "Бюджетіңіз", "trip_step4_title": "Қандай серуен қалайсыз?", "trip_results_title": "🌟 Сізге дайын жоспар", "summary_city": "Қала", "summary_with": "Кіммен", "summary_style": "Стиль", "total_label": "Жалпы", "remain_label": "қалады", "over_label": "бюджеттен", "over_label2": "артады", "map_label": "📍 Картадан көру (келесі нұсқада карта API-мен)", "random_title": "🎲 Араластырып бер", "random_sub": "Қала мен бюджетті енгізіңіз — біз сізге мүлдем кездейсоқ жоспар құрып береміз.", "random_budget_ph": "Бюджет, ₸", "random_btn": "🎲 Маған кездейсоқ жоспар бер", "recipients": {"ona": "Анам", "ota": "Әкем", "dost": "Досым", "yaqin": "Жақын адамым", "akauka": "Аға/іні", "opasingil": "Апа/сіңлі", "boshqa": "Басқа"}, "occasions": {"tugilgan": "Туған күн", "bitiruv": "Бітіру", "bayram": "Мереке", "shunchaki": "Жай ғана", "maxsus": "Ерекше күн", "boshqaOc": "Басқа"}, "interests": {"gaming": "Гейминг", "kitob": "Кітап", "musiqa": "Музыка", "kiyim": "Киім", "tech": "Технология", "sport": "Спорт", "sanat": "Өнер", "shirinlik": "Тәттілер", "universal": "Әмбебап"}, "companions": {"dost": "Досым", "oila": "Отбасы", "yaqin": "Жақын адам", "yolgiz": "Жалғыз", "guruh": "Топ"}, "trip_types": {"tabiat": "Табиғат", "kongilochar": "Ойын-сауық", "ovqat": "Тамақтану", "madaniy": "Мәдени", "faol": "Белсенді", "tinch": "Тыныш / Chill", "aralash": "Аралас"}, "cities": {"astana": "Астана", "almaty": "Алматы", "shymkent": "Шымкент", "karaganda": "Қарағанды", "aktobe": "Ақтөбе", "taraz": "Тараз"}, "gifts": {"g_headset": "Гейминг құлаққап", "g_mouse": "Гейминг тышқан", "g_pad": "Гейминг тышқан төсемі", "g_grip": "Контроллерге арналған грип", "g_gamecard": "Ойын кодтары картасы", "g_novel": "Бестселлер роман", "g_motiv": "Мотивациялық кітаптар жиынтығы", "g_bookmark": "Әдемі кітап белгісі жиынтығы", "g_audiobook": "Аудиокітап жазылымы (3 ай)", "g_earbuds": "Сымсыз құлаққап", "g_speaker": "Bluetooth колонка (кішкентай)", "g_vinyl": "Винил пластинка", "g_musicsub": "Музыка қызметі жазылымы (3 ай)", "g_sweater": "Жұмсақ трикотаж свитер", "g_pants": "Спорттық шалбар", "g_scarf": "Шарф", "g_cap": "Бейсболка", "g_powerbank": "Powerbank", "g_charger": "Сымсыз зарядтағыш", "g_stand": "Телефонға арналған тұғырық", "g_watchband": "Смарт-сағат белдігі", "g_bands": "Фитнес резеңкелер жиынтығы", "g_bottle": "Спорттық су бөтелкесі", "g_yoga": "Йога кілемшесі", "g_bag": "Спорттық сөмке", "g_paint": "Акварель бояулар жиынтығы", "g_sketch": "Эскиз дәптері", "g_tablet": "Сурет салуға арналған планшет", "g_choc": "Шоколад жиынтығы", "g_candy": "Қолдан жасалған конфеттер", "g_sweetbox": "Тәтті сыйлық қорабы", "g_candle": "Хош иісті шам", "g_card": "Сыйлық открыткасы + шағын сыйлық", "g_mug": "Термокружка", "g_album": "Фотоальбом"}, "activities": {"a_park": {"name": "Саябақта серуендеу", "note": "Серуендеу және суретке түсу."}, "a_lake": {"name": "Көл жағасында демалу", "note": "Тыныш ортада уақыт өткізу."}, "a_cinema": {"name": "Кинотеатр", "note": "Жаңа фильмге бару."}, "a_bowling": {"name": "Боулинг", "note": "Достарыңызбен жарыс."}, "a_quest": {"name": "Квест бөлме", "note": "Топтық жұмбақ ойын."}, "a_pizza": {"name": "Пицца", "note": "Жеңіл түскі ас."}, "a_cafe": {"name": "Кафеде шай ішу", "note": "Кафеде уақыт өткізу."}, "a_dessert": {"name": "Десерт", "note": "Тәттімен аяқтау."}, "a_gallery": {"name": "Өнер галереясы", "note": "Заманауи көрмені көру."}, "a_museum": {"name": "Мұражай", "note": "Тарихи жәдігерлерді көру."}, "a_trampoline": {"name": "Батут паркі", "note": "Энергияны жұмсау."}, "a_bookshop": {"name": "Кітап дүкенінде аралау", "note": "Асықпай аралау."}, "a_bowling_active": {"name": "Боулинг", "note": "Белсенді демалыс."}, "a_cafe_chill": {"name": "Кафеде шай ішу", "note": "Тыныш әңгіме үшін тамаша."}}, "search_examples": "мысалы"}, "ru": {"nav_pricing": "Цены", "nav_faq": "Вопросы", "nav_fav": "Избранное", "nav_login": "Войти", "search_ph": "Например: что делать в Астане на 10 000 ₸?", "hero_kicker": "Подарки и прогулки — в одном месте", "hero_title_1": "Помогаем", "hero_title_em": "спланировать", "hero_title_2": "ваш день.", "hero_lede": "Не знаете, что подарить, или куда пойти? Ответьте на несколько вопросов — остальное придумаем мы.", "hero_feat1": "Результат за 30 секунд", "hero_feat2": "Под ваш бюджет", "hero_feat3": "Полностью бесплатно", "card_gift_badge": "Подарок", "card_gift_title": "Найти подарок", "card_gift_desc": "Подберём подходящий подарок для близкого человека с учётом бюджета и интересов.", "card_trip_badge": "Прогулка", "card_trip_title": "Спланировать прогулку", "card_trip_desc": "Составим интересный план дня по часам, который впишется в ваш бюджет.", "btn_start": "Начать", "how_eyebrow": "Как это работает", "how_title": "Готово за три шага.", "how1_title": "Выберите направление", "how1_desc": "Нужен подарок или план прогулки — с этого и начнём.", "how2_title": "Ответьте на несколько вопросов", "how2_desc": "Для кого, какой бюджет, какое настроение — займёт минуту.", "how3_title": "Получите готовый результат", "how3_desc": "Посмотрите подходящие варианты и сохраните понравившиеся.", "footer_about": "О нас", "footer_faq": "Вопросы", "footer_pricing": "Цены", "footer_contact": "Контакты", "footer_terms": "Условия и конфиденциальность", "footer_copy": "© GiftTrip, 2026", "back_home": "← На главную", "about_title": "О нас", "about_p1": "GiftTrip — сервис, который упрощает повседневные решения: выбрать подарок или спланировать свободный день теперь не занимает времени. Ответьте на несколько вопросов — остальное предложим мы.", "about_p2": "Наша идея проста: лучшие решения не всегда требуют больше всего времени. Поэтому мы свели каждый вопрос к минимуму — план готов за несколько нажатий.", "team_title": "Команда", "team1_name": "Азиза Рахимова", "team1_role": "Основатель и продукт", "team1_desc": "Отвечает за пользовательский опыт и продуктовую стратегию.", "team2_name": "Диёр Назаров", "team2_role": "Дизайн-направление", "team2_desc": "Создаёт дизайн сайта и приложения, определяет стиль бренда.", "team3_name": "Мадина Юсупова", "team3_role": "Разработка", "team3_desc": "Реализует техническую часть и новые функции.", "contact_title": "Контакты", "contact_p": "Если у вас есть вопрос или предложение, свяжитесь с нами:", "faq_title": "Часто задаваемые вопросы", "faq_sub_pre": "Если не нашли ответ,", "faq_sub_link": "напишите нам", "faq_q1": "Как работает GiftTrip?", "faq_a1": "На главной странице выберите «Найти подарок» или «Спланировать прогулку», ответьте на несколько коротких вопросов — для кого, какой бюджет — и сайт предложит подходящие варианты.", "faq_q2": "Сервис платный?", "faq_a2": "Основные функции (подарки, прогулки, избранное) полностью бесплатны. Для неограниченного поиска и доп. возможностей есть план Premium.", "faq_q3": "Откуда берутся предложения?", "faq_a3": "Пока — из демонстрационной базы данных. В будущем появится интеграция с реальными магазинами и местами.", "faq_q4": "Где хранится избранное?", "faq_a4": "Без аккаунта — в вашем браузере. После регистрации данные синхронизируются на всех устройствах.", "faq_q5": "Работает ли просмотр на карте?", "faq_a5": "Пока это демонстрационный блок. Полноценный Карта API будет подключён в следующей версии.", "pricing_title": "Цены", "pricing_sub": "Основной сервис всегда бесплатен. Нужно больше возможностей — есть Premium.", "plan_free": "Бесплатно", "plan_premium": "Premium", "price_premium_period": "/мес", "badge_recommended": "Рекомендуем", "free_feat1": "Подборки подарков и прогулок", "free_feat2": "До 5 поисков в день", "free_feat3": "Сохранение избранного", "premium_feat1": "Безлимитный поиск и случайный план", "premium_feat2": "Подробный маршрут на карте", "premium_feat3": "Приоритетные предложения и скидки", "premium_feat4": "Без рекламы", "plan_start": "Начать", "plan_premium_cta": "Оформить Premium", "terms_title": "Условия использования", "terms_p": "Используя GiftTrip, вы соглашаетесь со следующим: предложенные варианты подарков и прогулок носят исключительно рекомендательный характер, окончательное решение принимаете вы сами. Сервис может обновляться, функции могут меняться.", "privacy_title": "Политика конфиденциальности", "privacy_p": "Мы используем ваши персональные данные только для улучшения качества сервиса и не передаём их третьим лицам. Данные вроде списка избранного хранятся в браузере; после регистрации — на защищённом сервере.", "auth_tab_signin": "Войти", "auth_tab_signup": "Регистрация", "auth_welcome_title": "Добро пожаловать", "auth_welcome_sub": "Войдите, чтобы получить доступ к избранному и вашим планам.", "label_email": "Email", "label_pass": "Пароль", "remember_me": "Запомнить меня", "forgot_pass": "Забыли пароль?", "btn_signin": "Войти", "or_divider": "или", "no_account": "Нет аккаунта?", "go_signup": "Зарегистрируйтесь", "auth_signup_title": "Создать аккаунт", "auth_signup_sub": "Зарегистрируйтесь за пару секунд и сохраняйте свои планы.", "label_name": "Имя", "label_name_ph": "Ваше имя", "label_pass2_ph": "Минимум 8 символов", "btn_signup": "Создать аккаунт", "have_account": "Уже есть аккаунт?", "go_signin": "Войдите", "demo_alert": "Демо: бэкенд пока не подключён.", "demo_alert2": "Демо: пока не подключено.", "fav_title": "❤️ Мои сохранённые", "fav_sub": "Позже этот список будет синхронизироваться на всех устройствах через вход в аккаунт.", "fav_empty": "Пока ничего не сохранено. Нажмите ♡ на карточке подарка или прогулки.", "fav_gift_label": "🎁 Подарок", "fav_trip_label": "🗺️ Активность", "gift_step1_title": "Кому хотите подарить?", "gift_step2_title": "По какому поводу?", "gift_step3_title": "Какой у вас бюджет?", "gift_step4_title": "Чем увлекается?", "step_of": "шаг / 4", "optional": "необязательно", "budget_custom_label": "Или введите сами:", "budget_custom_ph": "например 25000", "back_btn": "← Назад", "next_btn": "Продолжить →", "see_results_btn": "Смотреть результаты →", "see_plan_btn": "Смотреть план →", "gift_results_title": "🎁 Подходящие подарки", "summary_to": "Кому", "summary_reason": "Повод", "summary_budget": "Бюджет", "summary_interest": "Интерес", "sort_price": "По цене", "sort_match": "По соответствию", "sort_rating": "По популярности", "gift_detail_btn": "Подробнее", "gift_detail_alert": "подробная информация скоро появится.", "gift_empty": "Пока нет подходящих вариантов. Попробуйте увеличить бюджет.", "back_to_questions": "← Назад к вопросам", "trip_step1_title": "В каком городе?", "trip_step2_title": "С кем пойдёте?", "trip_step3_title": "Ваш бюджет", "trip_step4_title": "Какую прогулку хотите?", "trip_results_title": "🌟 Ваш готовый план", "summary_city": "Город", "summary_with": "С кем", "summary_style": "Стиль", "total_label": "Итого", "remain_label": "останется", "over_label": "превышение бюджета на", "over_label2": "", "map_label": "📍 Смотреть на карте (в следующей версии с картой API)", "random_title": "🎲 Смешать всё", "random_sub": "Укажите город и бюджет — мы составим полностью случайный план.", "random_budget_ph": "Бюджет, ₸", "random_btn": "🎲 Дать случайный план", "recipients": {"ona": "Мама", "ota": "Папа", "dost": "Друг", "yaqin": "Близкий человек", "akauka": "Брат", "opasingil": "Сестра", "boshqa": "Другое"}, "occasions": {"tugilgan": "День рождения", "bitiruv": "Выпускной", "bayram": "Праздник", "shunchaki": "Просто так", "maxsus": "Особый день", "boshqaOc": "Другое"}, "interests": {"gaming": "Игры", "kitob": "Книги", "musiqa": "Музыка", "kiyim": "Одежда", "tech": "Технологии", "sport": "Спорт", "sanat": "Искусство", "shirinlik": "Сладости", "universal": "Универсальный"}, "companions": {"dost": "Друг", "oila": "Семья", "yaqin": "Близкий человек", "yolgiz": "Один", "guruh": "Группа"}, "trip_types": {"tabiat": "Природа", "kongilochar": "Развлечения", "ovqat": "Еда", "madaniy": "Культурное", "faol": "Активное", "tinch": "Спокойное", "aralash": "Смешанное"}, "cities": {"astana": "Астана", "almaty": "Алматы", "shymkent": "Шымкент", "karaganda": "Караганда", "aktobe": "Актобе", "taraz": "Тараз"}, "gifts": {"g_headset": "Игровая гарнитура", "g_mouse": "Игровая мышь", "g_pad": "Коврик для мыши", "g_grip": "Грип для геймпада", "g_gamecard": "Карта игровых кодов", "g_novel": "Роман-бестселлер", "g_motiv": "Набор мотивационных книг", "g_bookmark": "Набор красивых закладок", "g_audiobook": "Подписка на аудиокниги (3 мес)", "g_earbuds": "Беспроводные наушники", "g_speaker": "Bluetooth-колонка (компактная)", "g_vinyl": "Виниловая пластинка", "g_musicsub": "Подписка на музыку (3 мес)", "g_sweater": "Мягкий трикотажный свитер", "g_pants": "Спортивные штаны", "g_scarf": "Шарф", "g_cap": "Бейсболка", "g_powerbank": "Повербанк", "g_charger": "Беспроводное зарядное устройство", "g_stand": "Подставка для телефона", "g_watchband": "Ремешок для смарт-часов", "g_bands": "Набор фитнес-резинок", "g_bottle": "Спортивная бутылка для воды", "g_yoga": "Коврик для йоги", "g_bag": "Спортивная сумка", "g_paint": "Набор акварельных красок", "g_sketch": "Скетчбук", "g_tablet": "Планшет для рисования", "g_choc": "Набор шоколада", "g_candy": "Конфеты ручной работы", "g_sweetbox": "Коробка сладостей", "g_candle": "Ароматическая свеча", "g_card": "Открытка + небольшой подарок", "g_mug": "Термокружка", "g_album": "Фотоальбом"}, "activities": {"a_park": {"name": "Прогулка в парке", "note": "Прогулка и фотографии."}, "a_lake": {"name": "Отдых у озера", "note": "Время в спокойной обстановке."}, "a_cinema": {"name": "Кинотеатр", "note": "Сходить на новый фильм."}, "a_bowling": {"name": "Боулинг", "note": "Соревнование с друзьями."}, "a_quest": {"name": "Квест-комната", "note": "Командная игра-головоломка."}, "a_pizza": {"name": "Пицца", "note": "Лёгкий обед."}, "a_cafe": {"name": "Чай в кафе", "note": "Время в кафе."}, "a_dessert": {"name": "Десерт", "note": "Завершить сладким."}, "a_gallery": {"name": "Арт-галерея", "note": "Посмотреть современную выставку."}, "a_museum": {"name": "Музей", "note": "Посмотреть исторические экспонаты."}, "a_trampoline": {"name": "Батутный парк", "note": "Потратить энергию."}, "a_bookshop": {"name": "Прогулка по книжному", "note": "Неспешно полистать книги."}, "a_bowling_active": {"name": "Боулинг", "note": "Активный отдых."}, "a_cafe_chill": {"name": "Чай в кафе", "note": "Идеально для спокойной беседы."}}, "search_examples": "например"}, "en": {"nav_pricing": "Pricing", "nav_faq": "FAQ", "nav_fav": "Favorites", "nav_login": "Sign in", "search_ph": "e.g. What can I do in Astana with 10,000 ₸?", "hero_kicker": "Gifts and outings — in one place", "hero_title_1": "We help you", "hero_title_em": "plan", "hero_title_2": "your day.", "hero_lede": "Not sure what to give, or where to go? Answer a few questions — we'll figure out the rest.", "hero_feat1": "Results in 30 seconds", "hero_feat2": "Fits your budget", "hero_feat3": "Completely free", "card_gift_badge": "Gift", "card_gift_title": "Find a gift", "card_gift_desc": "We'll pick the right gift for someone close to you, based on your budget and their interests.", "card_trip_badge": "Outing", "card_trip_title": "Plan an outing", "card_trip_desc": "We'll build an hour-by-hour day plan that fits your budget.", "btn_start": "Get started", "how_eyebrow": "How it works", "how_title": "Ready in three steps.", "how1_title": "Choose a direction", "how1_desc": "A gift or a day plan — that's where we start.", "how2_title": "Answer a few questions", "how2_desc": "Who it's for, what budget, what mood — takes about a minute.", "how3_title": "Get your result", "how3_desc": "Browse options that fit your budget and save your favorites.", "footer_about": "About", "footer_faq": "FAQ", "footer_pricing": "Pricing", "footer_contact": "Contact", "footer_terms": "Terms & Privacy", "footer_copy": "© GiftTrip, 2026", "back_home": "← Home", "about_title": "About us", "about_p1": "GiftTrip is a small service built to make everyday decisions easier: choosing a gift or planning a free day no longer takes time. Answer a few questions and we'll suggest the rest.", "about_p2": "Our idea is simple: the best decisions aren't always the ones that take the most time. So we cut every question down to the essentials — a gift or a day plan is ready in a few clicks.", "team_title": "Team", "team1_name": "Aziza Rahimova", "team1_role": "Founder & product", "team1_desc": "Responsible for user experience and product strategy.", "team2_name": "Diyor Nazarov", "team2_role": "Design lead", "team2_desc": "Creates the site and app design, defines the brand style.", "team3_name": "Madina Yusupova", "team3_role": "Engineering", "team3_desc": "Builds the technical side and new features.", "contact_title": "Contact", "contact_p": "If you have a question or a suggestion, reach out to us:", "faq_title": "Frequently asked questions", "faq_sub_pre": "Can't find an answer?", "faq_sub_link": "Write to us", "faq_q1": "How does GiftTrip work?", "faq_a1": "On the home page, choose \"Find a gift\" or \"Plan an outing\", answer a few short questions — who it's for, what budget — and the site suggests matching options.", "faq_q2": "Is the service paid?", "faq_a2": "Core features (gift and outing suggestions, favorites) are completely free. A Premium plan is available for unlimited search and extra features.", "faq_q3": "Where do the suggestions come from?", "faq_a3": "Currently from a sample dataset. Real store and venue integrations are planned for the future.", "faq_q4": "Where are my favorites stored?", "faq_a4": "Without an account, they're stored in your browser. Once you sign up, they sync across all your devices.", "faq_q5": "Does the map view work?", "faq_a5": "It's currently a preview. Full map API support is coming in a future version.", "pricing_title": "Pricing", "pricing_sub": "The core service is always free. Need more? Premium is available.", "plan_free": "Free", "plan_premium": "Premium", "price_premium_period": "/mo", "badge_recommended": "Recommended", "free_feat1": "Gift and outing suggestions", "free_feat2": "Up to 5 searches a day", "free_feat3": "Save favorites", "premium_feat1": "Unlimited search and random plans", "premium_feat2": "Detailed map routes", "premium_feat3": "Priority offers and discounts", "premium_feat4": "Ad-free experience", "plan_start": "Get started", "plan_premium_cta": "Get Premium", "terms_title": "Terms of use", "terms_p": "By using GiftTrip, you agree to the following: the gift and outing options suggested by the service are recommendations only, and the final decision is yours. The service may be updated over time, and features may change.", "privacy_title": "Privacy policy", "privacy_p": "We use your personal data only to improve the quality of the service and never sell it to third parties. Data such as your favorites list is stored in your browser; once you create an account, it's stored on a secure server.", "auth_tab_signin": "Sign in", "auth_tab_signup": "Sign up", "auth_welcome_title": "Welcome back", "auth_welcome_sub": "Sign in to access your favorites and plans.", "label_email": "Email", "label_pass": "Password", "remember_me": "Remember me", "forgot_pass": "Forgot password?", "btn_signin": "Sign in", "or_divider": "or", "no_account": "Don't have an account?", "go_signup": "Sign up", "auth_signup_title": "Create an account", "auth_signup_sub": "Sign up in seconds and start saving your plans.", "label_name": "Name", "label_name_ph": "Your name", "label_pass2_ph": "At least 8 characters", "btn_signup": "Create account", "have_account": "Already have an account?", "go_signin": "Sign in", "demo_alert": "Demo: backend not connected yet.", "demo_alert2": "Demo: not connected yet.", "fav_title": "❤️ My saved items", "fav_sub": "Later, this list will sync across all your devices once you sign in.", "fav_empty": "Nothing saved yet. Tap ♡ on a gift or outing result.", "fav_gift_label": "🎁 Gift", "fav_trip_label": "🗺️ Outing activity", "gift_step1_title": "Who is the gift for?", "gift_step2_title": "What's the occasion?", "gift_step3_title": "What's your budget?", "gift_step4_title": "What are they into?", "step_of": "step / 4", "optional": "optional", "budget_custom_label": "Or enter your own:", "budget_custom_ph": "e.g. 25000", "back_btn": "← Back", "next_btn": "Continue →", "see_results_btn": "See results →", "see_plan_btn": "See plan →", "gift_results_title": "🎁 Gifts we found for you", "summary_to": "For", "summary_reason": "Occasion", "summary_budget": "Budget", "summary_interest": "Interest", "sort_price": "By price", "sort_match": "By match", "sort_rating": "By popularity", "gift_detail_btn": "Details", "gift_detail_alert": "details coming soon.", "gift_empty": "No matching options yet. Try increasing your budget.", "back_to_questions": "← Back to questions", "trip_step1_title": "Which city?", "trip_step2_title": "Who are you going with?", "trip_step3_title": "Your budget", "trip_step4_title": "What kind of outing do you want?", "trip_results_title": "🌟 Your ready plan", "summary_city": "City", "summary_with": "With", "summary_style": "Style", "total_label": "Total", "remain_label": "left", "over_label": "over budget by", "over_label2": "", "map_label": "📍 View on map (full map API coming in a future version)", "random_title": "🎲 Surprise me", "random_sub": "Enter a city and budget — we'll build a completely random plan for you.", "random_budget_ph": "Budget, ₸", "random_btn": "🎲 Give me a random plan", "recipients": {"ona": "Mom", "ota": "Dad", "dost": "Friend", "yaqin": "Partner", "akauka": "Brother", "opasingil": "Sister", "boshqa": "Other"}, "occasions": {"tugilgan": "Birthday", "bitiruv": "Graduation", "bayram": "Holiday", "shunchaki": "Just because", "maxsus": "Special day", "boshqaOc": "Other"}, "interests": {"gaming": "Gaming", "kitob": "Books", "musiqa": "Music", "kiyim": "Clothing", "tech": "Tech", "sport": "Sport", "sanat": "Art", "shirinlik": "Sweets", "universal": "Universal"}, "companions": {"dost": "Friend", "oila": "Family", "yaqin": "Partner", "yolgiz": "Alone", "guruh": "Group"}, "trip_types": {"tabiat": "Nature", "kongilochar": "Entertainment", "ovqat": "Food", "madaniy": "Cultural", "faol": "Active", "tinch": "Relaxed / Chill", "aralash": "Mixed"}, "cities": {"astana": "Astana", "almaty": "Almaty", "shymkent": "Shymkent", "karaganda": "Karaganda", "aktobe": "Aktobe", "taraz": "Taraz"}, "gifts": {"g_headset": "Gaming headset", "g_mouse": "Gaming mouse", "g_pad": "Gaming mouse pad", "g_grip": "Controller grip", "g_gamecard": "Game gift card", "g_novel": "Bestseller novel", "g_motiv": "Motivational book set", "g_bookmark": "Nice bookmark set", "g_audiobook": "Audiobook subscription (3 mo)", "g_earbuds": "Wireless earbuds", "g_speaker": "Compact Bluetooth speaker", "g_vinyl": "Vinyl record", "g_musicsub": "Music service subscription (3 mo)", "g_sweater": "Soft knit sweater", "g_pants": "Sweatpants", "g_scarf": "Scarf", "g_cap": "Baseball cap", "g_powerbank": "Power bank", "g_charger": "Wireless charger", "g_stand": "Phone stand", "g_watchband": "Smartwatch band", "g_bands": "Resistance bands set", "g_bottle": "Sports water bottle", "g_yoga": "Yoga mat", "g_bag": "Sports bag", "g_paint": "Watercolor paint set", "g_sketch": "Sketchbook", "g_tablet": "Drawing tablet", "g_choc": "Chocolate box", "g_candy": "Handmade candy", "g_sweetbox": "Sweets gift box", "g_candle": "Scented candle", "g_card": "Greeting card + small gift", "g_mug": "Thermo mug", "g_album": "Photo album"}, "activities": {"a_park": {"name": "Walk in the park", "note": "A walk and some photos."}, "a_lake": {"name": "Time by the lake", "note": "Relaxing by the water."}, "a_cinema": {"name": "Cinema", "note": "Catch a new movie."}, "a_bowling": {"name": "Bowling", "note": "A friendly competition."}, "a_quest": {"name": "Escape room", "note": "A team puzzle game."}, "a_pizza": {"name": "Pizza", "note": "A light meal."}, "a_cafe": {"name": "Coffee at a cafe", "note": "Time to relax over coffee."}, "a_dessert": {"name": "Dessert", "note": "End on something sweet."}, "a_gallery": {"name": "Art gallery", "note": "See a contemporary exhibit."}, "a_museum": {"name": "Museum", "note": "See historical exhibits."}, "a_trampoline": {"name": "Trampoline park", "note": "Burn off some energy."}, "a_bookshop": {"name": "Browsing a bookshop", "note": "Take your time browsing."}, "a_bowling_active": {"name": "Bowling", "note": "An active break."}, "a_cafe_chill": {"name": "Coffee at a cafe", "note": "Perfect for quiet conversation."}}, "search_examples": "e.g."}};
+const I18N = {"uz": {"nav_pricing": "Narxlar", "nav_faq": "FAQ", "nav_fav": "Sevimlilar", "nav_login": "Kirish", "search_ph": "Masalan: Astana'da 10 000 ₸ ga nima qilsam bo'ladi?", "hero_kicker": "Sovg'a va sayr — bir joyda", "hero_title_1": "Buguningizni", "hero_title_em": "rejalashtirishga", "hero_title_2": "yordam beramiz.", "hero_lede": "Kimga sovg'a olishni bilmayapsizmi, yoki qayerga borishni? Bir necha savolga javob bering — qolganini biz o'ylab beramiz.", "hero_feat1": "30 soniyada natija", "hero_feat2": "Budjetingizga moslashadi", "hero_feat3": "To'liq bepul", "card_gift_badge": "Sovg'a", "card_gift_title": "Sovg'a topish", "card_gift_desc": "Yaqin insoningiz uchun mos sovg'ani, budjetingiz va uning qiziqishlariga qarab tanlab beramiz.", "card_trip_badge": "Sayr", "card_trip_title": "Sayr rejalashtirish", "card_trip_desc": "Budjetingizga mos, soatma-soat qiziqarli kun rejasini tuzib beramiz.", "btn_start": "Boshlash", "how_eyebrow": "Qanday ishlaydi", "how_title": "Uch qadamda tayyor.", "how1_title": "Yo'nalishni tanlang", "how1_desc": "Sovg'a kerakmi yoki sayr rejasimi — shundan boshlaymiz.", "how2_title": "Bir necha savolga javob bering", "how2_desc": "Kim uchun, qanday budjetda, nima kayfiyatda — bir daqiqa vaqt oladi.", "how3_title": "Tayyor natijani oling", "how3_desc": "Budjetingizga mos variantlarni ko'rib, sevimlilaringizni saqlab qo'ying.", "footer_about": "Biz haqimizda", "footer_faq": "FAQ", "footer_pricing": "Narxlar", "footer_contact": "Aloqa", "footer_terms": "Shartlar & Maxfiylik", "footer_copy": "© GiftTrip, 2026", "back_home": "← Bosh sahifa", "about_title": "Biz haqimizda", "about_p1": "GiftTrip — kundalik qarorlarni osonlashtirish uchun yaratilgan kichik xizmat: kimgadir sovg'a tanlash yoki bo'sh kuningizni rejalashtirish endi vaqt talab qilmaydi. Bir nechta savolga javob bering, qolganini biz taklif qilamiz.", "about_p2": "G'oyamiz oddiy: eng yaxshi qarorlar ko'pincha eng ko'p vaqt talab qiladiganlari emas. Shuning uchun har bir savolni minimal darajaga tushirdik — sovg'a yoki sayr rejasi bir necha bosishda tayyor bo'ladi.", "team_title": "Jamoa", "team1_name": "Aziza Rahimova", "team1_role": "Asoschi & mahsulot", "team1_desc": "Foydalanuvchi tajribasi va mahsulot strategiyasiga mas'ul.", "team2_name": "Diyor Nazarov", "team2_role": "Dizayn yo'nalishi", "team2_desc": "Sayt va ilova dizaynini yaratadi, brend uslubini belgilaydi.", "team3_name": "Madina Yusupova", "team3_role": "Ishlab chiqish", "team3_desc": "Texnik qism va yangi funksiyalarni amalga oshiradi.", "contact_title": "Aloqa", "contact_p": "Savol yoki taklifingiz bo'lsa, biz bilan bog'laning:", "faq_title": "Ko'p so'raladigan savollar", "faq_sub_pre": "Agar javobini topa olmasangiz,", "faq_sub_link": "bizga yozing", "faq_q1": "GiftTrip qanday ishlaydi?", "faq_a1": "Bosh sahifada \"Sovg'a topish\" yoki \"Sayr rejalashtirish\"ni tanlaysiz, bir nechta qisqa savolga javob berasiz — kim uchun, qanday budjetda — va sayt sizga mos variantlarni taklif qiladi.", "faq_q2": "Xizmat pullikmi?", "faq_a2": "Asosiy funksiyalar (sovg'a va sayr takliflari, sevimlilar) to'liq bepul. Cheksiz qidiruv va qo'shimcha imkoniyatlar uchun Premium reja mavjud.", "faq_q3": "Takliflar qayerdan olinadi?", "faq_a3": "Hozircha namunaviy ma'lumotlar bazasidan. Kelajakda haqiqiy do'kon va joylar bilan integratsiya qilinadi.", "faq_q4": "Sevimlilarim qayerda saqlanadi?", "faq_a4": "Hisobingiz bo'lmasa, brauzeringizda saqlanadi. Ro'yxatdan o'tsangiz, barcha qurilmalaringizda sinxronlanadi.", "faq_q5": "Xaritada ko'rish funksiyasi ishlaydimi?", "faq_a5": "Hozircha bu qism namuna ko'rinishida. Xarita API'si keyingi versiyada to'liq ulanadi.", "pricing_title": "Narxlar", "pricing_sub": "Asosiy xizmat har doim bepul. Ko'proq imkoniyat kerak bo'lsa — Premium mavjud.", "plan_free": "Bepul", "plan_premium": "Premium", "price_premium_period": "/oy", "badge_recommended": "Tavsiya etiladi", "free_feat1": "Sovg'a va sayr takliflari", "free_feat2": "Kuniga 5 tagacha qidiruv", "free_feat3": "Sevimlilarni saqlash", "premium_feat1": "Cheksiz qidiruv va random reja", "premium_feat2": "Xarita bilan batafsil marshrut", "premium_feat3": "Ustuvor takliflar va chegirmalar", "premium_feat4": "Reklamasiz tajriba", "plan_start": "Boshlash", "plan_premium_cta": "Premium olish", "terms_title": "Foydalanish shartlari", "terms_p": "GiftTrip xizmatidan foydalanish orqali siz quyidagi shartlarga rozilik bildirasiz: xizmat taklif qilingan sovg'a va sayr variantlari faqat tavsiya xarakteriga ega bo'lib, yakuniy qarorni foydalanuvchi o'zi qabul qiladi. Xizmat vaqti-vaqti bilan yangilanib, funksiyalar o'zgarishi mumkin.", "privacy_title": "Maxfiylik siyosati", "privacy_p": "Biz shaxsiy ma'lumotlaringizni faqat xizmat sifatini yaxshilash uchun ishlatamiz va uchinchi tomonlarga sotmaymiz. Sevimlilar ro'yxati kabi ma'lumotlar brauzeringizda saqlanadi; hisob yaratganingizda esa xavfsiz serverda saqlanadi.", "auth_tab_signin": "Kirish", "auth_tab_signup": "Ro'yxatdan o'tish", "auth_welcome_title": "Xush kelibsiz", "auth_welcome_sub": "Sevimlilaringiz va rejalaringizga kirish uchun tizimga kiring.", "label_email": "Email", "label_pass": "Parol", "remember_me": "Meni eslab qol", "forgot_pass": "Parolni unutdingizmi?", "btn_signin": "Kirish", "or_divider": "yoki", "no_account": "Hisobingiz yo'qmi?", "go_signup": "Ro'yxatdan o'ting", "auth_signup_title": "Hisob yarating", "auth_signup_sub": "Bir necha soniyada ro'yxatdan o'ting va rejalaringizni saqlab boring.", "label_name": "Ism", "label_name_ph": "Ismingiz", "label_pass2_ph": "Kamida 8 belgi", "btn_signup": "Hisob yaratish", "have_account": "Hisobingiz bormi?", "go_signin": "Kiring", "demo_alert": "Demo: hali backend ulanmagan.", "demo_alert2": "Demo: hali ulanmagan.", "fav_title": "❤️ Mening saqlangan joylarim", "fav_sub": "Keyinchalik bu ro'yxat login tizimi orqali barcha qurilmalaringizda saqlanadi.", "fav_empty": "Hali hech narsa saqlanmagan. Sovg'a yoki sayr natijalarida ♡ belgisini bosing.", "fav_gift_label": "🎁 Sovg'a", "fav_trip_label": "🗺️ Sayr faoliyati", "gift_step1_title": "Kimga sovg'a olmoqchisiz?", "gift_step2_title": "Qanday sabab bilan?", "gift_step3_title": "Budjetingiz qancha?", "gift_step4_title": "Nimaga qiziqadi?", "step_of": "qadam / 4", "optional": "ixtiyoriy", "budget_custom_label": "Yoki o'zingiz kiriting:", "budget_custom_ph": "masalan 25000", "back_btn": "← Orqaga", "next_btn": "Davom etish →", "see_results_btn": "Natijalarni ko'rish →", "see_plan_btn": "Rejani ko'rish →", "gift_results_title": "🎁 Siz uchun topilgan sovg'alar", "summary_to": "Kimga", "summary_reason": "Sabab", "summary_budget": "Budjet", "summary_interest": "Qiziqish", "sort_price": "Narx bo'yicha", "sort_match": "Moslik bo'yicha", "sort_rating": "Mashhurlik bo'yicha", "gift_detail_btn": "Batafsil", "gift_detail_alert": "haqida batafsil ma'lumot tez orada qo'shiladi.", "gift_empty": "Hozircha mos variant topilmadi. Budjetni oshirib ko'ring.", "back_to_questions": "← Savollarga qaytish", "trip_step1_title": "Qaysi shaharda?", "trip_step2_title": "Kim bilan borasiz?", "trip_step3_title": "Budjetingiz", "trip_step4_title": "Qanday sayr xohlaysiz?", "trip_results_title": "🌟 Siz uchun tayyor reja", "summary_city": "Shahar", "summary_with": "Kim bilan", "summary_style": "Uslub", "total_label": "Umumiy", "remain_label": "qoladi", "over_label": "budjetdan", "over_label2": "oshadi", "map_label": "📍 Xaritada ko'rish (keyingi versiyada xarita API'si bilan)", "random_title": "🎲 Aralashtirib ber", "random_sub": "Shahar va budjetni kiriting — biz sizga butunlay tasodifiy reja tuzib beramiz.", "random_budget_ph": "Budjet, ₸", "random_btn": "🎲 Menga random reja ber", "recipients": {"ona": "Onam", "ota": "Otam", "dost": "Do'stim", "yaqin": "Yaqin insonim", "aka": "Aka", "uka": "Uka", "apa": "Opa", "singil": "Singil", "boshqa": "Boshqa"}, "occasions": {"tugilgan": "Tug'ilgan kun", "bitiruv": "Bitiruv", "bayram": "Bayram", "shunchaki": "Shunchaki", "maxsus": "Maxsus kun", "boshqaOc": "Boshqa"}, "interests": {"gaming": "Gaming", "kitob": "Kitob", "musiqa": "Musiqa", "kiyim": "Kiyim", "tech": "Texnologiya", "sport": "Sport", "sanat": "San'at", "shirinlik": "Shirinlik", "universal": "Universal"}, "companions": {"dost": "Do'stim", "oila": "Oila", "yaqin": "Yaqin inson", "yolgiz": "Yolg'iz", "guruh": "Guruh"}, "trip_types": {"tabiat": "Tabiat", "kongilochar": "Ko'ngilochar", "ovqat": "Ovqatlanish", "madaniy": "Madaniy", "faol": "Faol", "tinch": "Tinch / Chill", "aralash": "Aralash"}, "cities": {"astana": "Astana", "almaty": "Almaty", "shymkent": "Shymkent", "karaganda": "Qarag'anda", "aktobe": "Aktobe", "taraz": "Taraz"}, "gifts": {"g_headset": "Gaming quloqchin", "g_mouse": "Gaming mouse", "g_pad": "Gaming mouse pad", "g_grip": "Kontroller uchun grip", "g_gamecard": "Oyin kodlari kartasi", "g_novel": "Bestseller roman", "g_motiv": "Motivatsion kitob to'plami", "g_bookmark": "Chiroyli kitob belgisi to'plami", "g_audiobook": "Ovozli kitob obunasi (3 oy)", "g_earbuds": "Simsiz quloqchin", "g_speaker": "Bluetooth kolonka (kichik)", "g_vinyl": "Vinil plastinka", "g_musicsub": "Musiqa xizmati obunasi (3 oy)", "g_sweater": "Yumshoq trikotaj kofta", "g_pants": "Sport shim", "g_scarf": "Sharf", "g_cap": "Beysbol qalpoq", "g_powerbank": "Quvvatlash banki (powerbank)", "g_charger": "Simsiz zaryadlagich", "g_stand": "Telefon uchun stend", "g_watchband": "Aqlli soat bandi", "g_bands": "Fitnes rezinka to'plami", "g_bottle": "Sport suv butilkasi", "g_yoga": "Yoga gilamchasi", "g_bag": "Sport sumka", "g_paint": "Akvarel bo'yoq to'plami", "g_sketch": "Eskiz daftari", "g_tablet": "Rasm chizish uchun planshet", "g_choc": "Shokolad to'plami", "g_candy": "Qo'lda tayyorlangan konfetlar", "g_sweetbox": "Shirinliklar sovg'a qutisi", "g_candle": "Aromatik sham", "g_card": "Sovg'a otkritkasi + kichik gift", "g_mug": "Termokружка", "g_album": "Fotoalbom"}, "activities": {"a_park": {"name": "Parkda sayr", "note": "Sayr qilish va suratga tushish."}, "a_lake": {"name": "Ko'l bo'yida dam olish", "note": "Sokin muhitda vaqt o'tkazish."}, "a_cinema": {"name": "Kinoteatr", "note": "Yangi filmga borish."}, "a_bowling": {"name": "Bowling", "note": "Do'stlar bilan musobaqa."}, "a_quest": {"name": "Kvest xona", "note": "Jamoaviy topishmoq o'yini."}, "a_pizza": {"name": "Pizza", "note": "Yengil tushlik."}, "a_cafe": {"name": "Kafeda choy-poy", "note": "Kafeda vaqt o'tkazish."}, "a_dessert": {"name": "Dessert", "note": "Shirinlik bilan yakunlash."}, "a_gallery": {"name": "San'at galereyasi", "note": "Zamonaviy ko'rgazmani ko'rish."}, "a_museum": {"name": "Muzey", "note": "Tarixiy eksponatlarni ko'rish."}, "a_trampoline": {"name": "Trambolin park", "note": "Energiyani sarflash."}, "a_bookshop": {"name": "Kitob do'konida aylanish", "note": "Shoshilmasdan aylanish."}, "a_bowling_active": {"name": "Bowling", "note": "Faol dam olish."}, "a_cafe_chill": {"name": "Kafeda choy-poy", "note": "Sokin suhbat uchun ideal."}}, "search_examples": "masalan"}, "kk": {"nav_pricing": "Бағалар", "nav_faq": "Жиі қойылатын сұрақтар", "nav_fav": "Таңдаулылар", "nav_login": "Кіру", "search_ph": "Мысалы: Астанада 10 000 ₸-ге не істеуге болады?", "hero_kicker": "Сыйлық пен серуен — бір жерде", "hero_title_1": "Бүгініңізді", "hero_title_em": "жоспарлауға", "hero_title_2": "көмектесеміз.", "hero_lede": "Кімге сыйлық алуды білмейсіз бе, әлде қайда барарыңызды? Бірнеше сұраққа жауап беріңіз — қалғанын біз ойлап табамыз.", "hero_feat1": "30 секундта нәтиже", "hero_feat2": "Бюджетіңізге сай", "hero_feat3": "Толығымен тегін", "card_gift_badge": "Сыйлық", "card_gift_title": "Сыйлық табу", "card_gift_desc": "Жақын адамыңыз үшін лайықты сыйлықты бюджетіңіз бен қызығушылығына қарай таңдап береміз.", "card_trip_badge": "Серуен", "card_trip_title": "Серуенді жоспарлау", "card_trip_desc": "Бюджетіңізге сай, сағат сайынғы қызықты күн жоспарын құрып береміз.", "btn_start": "Бастау", "how_eyebrow": "Қалай жұмыс істейді", "how_title": "Үш қадамда дайын.", "how1_title": "Бағытты таңдаңыз", "how1_desc": "Сыйлық керек пе, әлде серуен жоспары ма — содан бастаймыз.", "how2_title": "Бірнеше сұраққа жауап беріңіз", "how2_desc": "Кім үшін, қандай бюджетте, қандай көңіл-күйде — бір минут уақыт алады.", "how3_title": "Дайын нәтижені алыңыз", "how3_desc": "Бюджетіңізге сай нұсқаларды көріп, таңдаулыларыңызды сақтап қойыңыз.", "footer_about": "Біз туралы", "footer_faq": "Жиі қойылатын сұрақтар", "footer_pricing": "Бағалар", "footer_contact": "Байланыс", "footer_terms": "Шарттар және құпиялылық", "footer_copy": "© GiftTrip, 2026", "back_home": "← Басты бет", "about_title": "Біз туралы", "about_p1": "GiftTrip — күнделікті шешімдерді жеңілдету үшін жасалған шағын қызмет: біреуге сыйлық таңдау немесе бос күніңізді жоспарлау енді уақыт алмайды. Бірнеше сұраққа жауап беріңіз, қалғанын біз ұсынамыз.", "about_p2": "Идеямыз қарапайым: ең жақсы шешімдер көбіне ең көп уақыт алатындары емес. Сондықтан әр сұрақты барынша қысқартып шықтық — сыйлық немесе серуен жоспары бірнеше басу арқылы дайын болады.", "team_title": "Команда", "team1_name": "Aziza Rahimova", "team1_role": "Негізін салушы және өнім", "team1_desc": "Пайдаланушы тәжірибесі мен өнім стратегиясына жауапты.", "team2_name": "Diyor Nazarov", "team2_role": "Дизайн бағыты", "team2_desc": "Сайт пен қосымша дизайнын жасайды, брендтің стилін анықтайды.", "team3_name": "Madina Yusupova", "team3_role": "Әзірлеу", "team3_desc": "Техникалық бөлім мен жаңа функцияларды іске асырады.", "contact_title": "Байланыс", "contact_p": "Сұрағыңыз немесе ұсынысыңыз болса, бізбен байланысыңыз:", "faq_title": "Жиі қойылатын сұрақтар", "faq_sub_pre": "Егер жауабын таппасаңыз,", "faq_sub_link": "бізге жазыңыз", "faq_q1": "GiftTrip қалай жұмыс істейді?", "faq_a1": "Басты бетте \"Сыйлық табу\" немесе \"Серуенді жоспарлау\"ды таңдайсыз, бірнеше қысқа сұраққа жауап бересіз — кім үшін, қандай бюджетте — сайт сізге сай нұсқаларды ұсынады.", "faq_q2": "Қызмет ақылы ма?", "faq_a2": "Негізгі функциялар (сыйлық пен серуен ұсыныстары, таңдаулылар) толығымен тегін. Шексіз іздеу және қосымша мүмкіндіктер үшін Premium жоспары бар.", "faq_q3": "Ұсыныстар қайдан алынады?", "faq_a3": "Қазірше үлгілік дерекқордан. Болашақта нақты дүкендер мен орындармен интеграцияланады.", "faq_q4": "Таңдаулыларым қайда сақталады?", "faq_a4": "Есептік жазбаңыз болмаса, браузеріңізде сақталады. Тіркелсеңіз, барлық құрылғыларыңызда синхрондалады.", "faq_q5": "Картадан көру функциясы жұмыс істей ме?", "faq_a5": "Қазірше бұл бөлім үлгі түрінде. Карта API келесі нұсқада толық қосылады.", "pricing_title": "Бағалар", "pricing_sub": "Негізгі қызмет әрқашан тегін. Көбірек мүмкіндік керек болса — Premium бар.", "plan_free": "Тегін", "plan_premium": "Premium", "price_premium_period": "/ай", "badge_recommended": "Ұсынылады", "free_feat1": "Сыйлық пен серуен ұсыныстары", "free_feat2": "Күніне 5-ке дейін іздеу", "free_feat3": "Таңдаулыларды сақтау", "premium_feat1": "Шексіз іздеу және кездейсоқ жоспар", "premium_feat2": "Картамен толық маршрут", "premium_feat3": "Басым ұсыныстар мен жеңілдіктер", "premium_feat4": "Жарнамасыз тәжірибе", "plan_start": "Бастау", "plan_premium_cta": "Premium алу", "terms_title": "Пайдалану шарттары", "terms_p": "GiftTrip қызметін пайдалану арқылы сіз келесі шарттарға келісім бересіз: қызмет ұсынған сыйлық пен серуен нұсқалары тек ұсынымдық сипатта болады, соңғы шешімді пайдаланушы өзі қабылдайды. Қызмет уақыт өте жаңарып, функциялар өзгеруі мүмкін.", "privacy_title": "Құпиялылық саясаты", "privacy_p": "Біз жеке деректеріңізді тек қызмет сапасын жақсарту үшін пайдаланамыз және үшінші тарапқа сатпаймыз. Таңдаулылар тізімі сияқты деректер браузеріңізде сақталады; есептік жазба жасағанда қауіпсіз серверде сақталады.", "auth_tab_signin": "Кіру", "auth_tab_signup": "Тіркелу", "auth_welcome_title": "Қош келдіңіз", "auth_welcome_sub": "Таңдаулыларыңыз бен жоспарларыңызға кіру үшін жүйеге кіріңіз.", "label_email": "Email", "label_pass": "Құпия сөз", "remember_me": "Мені есте сақта", "forgot_pass": "Құпия сөзді ұмыттыңыз ба?", "btn_signin": "Кіру", "or_divider": "немесе", "no_account": "Есептік жазбаңыз жоқ па?", "go_signup": "Тіркеліңіз", "auth_signup_title": "Есептік жазба жасаңыз", "auth_signup_sub": "Бірнеше секундта тіркеліп, жоспарларыңызды сақтап қойыңыз.", "label_name": "Аты", "label_name_ph": "Атыңыз", "label_pass2_ph": "Кемінде 8 таңба", "btn_signup": "Есептік жазба жасау", "have_account": "Есептік жазбаңыз бар ма?", "go_signin": "Кіріңіз", "demo_alert": "Демо: backend әлі қосылмаған.", "demo_alert2": "Демо: әлі қосылмаған.", "fav_title": "❤️ Менің сақталған орындарым", "fav_sub": "Кейінірек бұл тізім кіру жүйесі арқылы барлық құрылғыларыңызда сақталады.", "fav_empty": "Әзірше ештеңе сақталмаған. Сыйлық немесе серуен нәтижелерінде ♡ белгісін басыңыз.", "fav_gift_label": "🎁 Сыйлық", "fav_trip_label": "🗺️ Серуен әрекеті", "gift_step1_title": "Кімге сыйлық алғыңыз келеді?", "gift_step2_title": "Қандай себеппен?", "gift_step3_title": "Бюджетіңіз қанша?", "gift_step4_title": "Немен қызығады?", "step_of": "қадам / 4", "optional": "міндетті емес", "budget_custom_label": "Немесе өзіңіз енгізіңіз:", "budget_custom_ph": "мысалы 25000", "back_btn": "← Артқа", "next_btn": "Жалғастыру →", "see_results_btn": "Нәтижелерді көру →", "see_plan_btn": "Жоспарды көру →", "gift_results_title": "🎁 Сізге табылған сыйлықтар", "summary_to": "Кімге", "summary_reason": "Себебі", "summary_budget": "Бюджет", "summary_interest": "Қызығушылық", "sort_price": "Баға бойынша", "sort_match": "Сәйкестік бойынша", "sort_rating": "Танымалдық бойынша", "gift_detail_btn": "Толығырақ", "gift_detail_alert": "туралы толық ақпарат жақында қосылады.", "gift_empty": "Әзірше сәйкес нұсқа табылмады. Бюджетті арттырып көріңіз.", "back_to_questions": "← Сұрақтарға оралу", "trip_step1_title": "Қай қалада?", "trip_step2_title": "Кіммен барасыз?", "trip_step3_title": "Бюджетіңіз", "trip_step4_title": "Қандай серуен қалайсыз?", "trip_results_title": "🌟 Сізге дайын жоспар", "summary_city": "Қала", "summary_with": "Кіммен", "summary_style": "Стиль", "total_label": "Жалпы", "remain_label": "қалады", "over_label": "бюджеттен", "over_label2": "артады", "map_label": "📍 Картадан көру (келесі нұсқада карта API-мен)", "random_title": "🎲 Араластырып бер", "random_sub": "Қала мен бюджетті енгізіңіз — біз сізге мүлдем кездейсоқ жоспар құрып береміз.", "random_budget_ph": "Бюджет, ₸", "random_btn": "🎲 Маған кездейсоқ жоспар бер", "recipients": {"ona": "Анам", "ota": "Әкем", "dost": "Досым", "yaqin": "Жақын адамым", "aka": "Аға", "uka": "Іні", "apa": "Апа", "singil": "Сіңлі", "boshqa": "Басқа"}, "occasions": {"tugilgan": "Туған күн", "bitiruv": "Бітіру", "bayram": "Мереке", "shunchaki": "Жай ғана", "maxsus": "Ерекше күн", "boshqaOc": "Басқа"}, "interests": {"gaming": "Гейминг", "kitob": "Кітап", "musiqa": "Музыка", "kiyim": "Киім", "tech": "Технология", "sport": "Спорт", "sanat": "Өнер", "shirinlik": "Тәттілер", "universal": "Әмбебап"}, "companions": {"dost": "Досым", "oila": "Отбасы", "yaqin": "Жақын адам", "yolgiz": "Жалғыз", "guruh": "Топ"}, "trip_types": {"tabiat": "Табиғат", "kongilochar": "Ойын-сауық", "ovqat": "Тамақтану", "madaniy": "Мәдени", "faol": "Белсенді", "tinch": "Тыныш / Chill", "aralash": "Аралас"}, "cities": {"astana": "Астана", "almaty": "Алматы", "shymkent": "Шымкент", "karaganda": "Қарағанды", "aktobe": "Ақтөбе", "taraz": "Тараз"}, "gifts": {"g_headset": "Гейминг құлаққап", "g_mouse": "Гейминг тышқан", "g_pad": "Гейминг тышқан төсемі", "g_grip": "Контроллерге арналған грип", "g_gamecard": "Ойын кодтары картасы", "g_novel": "Бестселлер роман", "g_motiv": "Мотивациялық кітаптар жиынтығы", "g_bookmark": "Әдемі кітап белгісі жиынтығы", "g_audiobook": "Аудиокітап жазылымы (3 ай)", "g_earbuds": "Сымсыз құлаққап", "g_speaker": "Bluetooth колонка (кішкентай)", "g_vinyl": "Винил пластинка", "g_musicsub": "Музыка қызметі жазылымы (3 ай)", "g_sweater": "Жұмсақ трикотаж свитер", "g_pants": "Спорттық шалбар", "g_scarf": "Шарф", "g_cap": "Бейсболка", "g_powerbank": "Powerbank", "g_charger": "Сымсыз зарядтағыш", "g_stand": "Телефонға арналған тұғырық", "g_watchband": "Смарт-сағат белдігі", "g_bands": "Фитнес резеңкелер жиынтығы", "g_bottle": "Спорттық су бөтелкесі", "g_yoga": "Йога кілемшесі", "g_bag": "Спорттық сөмке", "g_paint": "Акварель бояулар жиынтығы", "g_sketch": "Эскиз дәптері", "g_tablet": "Сурет салуға арналған планшет", "g_choc": "Шоколад жиынтығы", "g_candy": "Қолдан жасалған конфеттер", "g_sweetbox": "Тәтті сыйлық қорабы", "g_candle": "Хош иісті шам", "g_card": "Сыйлық открыткасы + шағын сыйлық", "g_mug": "Термокружка", "g_album": "Фотоальбом"}, "activities": {"a_park": {"name": "Саябақта серуендеу", "note": "Серуендеу және суретке түсу."}, "a_lake": {"name": "Көл жағасында демалу", "note": "Тыныш ортада уақыт өткізу."}, "a_cinema": {"name": "Кинотеатр", "note": "Жаңа фильмге бару."}, "a_bowling": {"name": "Боулинг", "note": "Достарыңызбен жарыс."}, "a_quest": {"name": "Квест бөлме", "note": "Топтық жұмбақ ойын."}, "a_pizza": {"name": "Пицца", "note": "Жеңіл түскі ас."}, "a_cafe": {"name": "Кафеде шай ішу", "note": "Кафеде уақыт өткізу."}, "a_dessert": {"name": "Десерт", "note": "Тәттімен аяқтау."}, "a_gallery": {"name": "Өнер галереясы", "note": "Заманауи көрмені көру."}, "a_museum": {"name": "Мұражай", "note": "Тарихи жәдігерлерді көру."}, "a_trampoline": {"name": "Батут паркі", "note": "Энергияны жұмсау."}, "a_bookshop": {"name": "Кітап дүкенінде аралау", "note": "Асықпай аралау."}, "a_bowling_active": {"name": "Боулинг", "note": "Белсенді демалыс."}, "a_cafe_chill": {"name": "Кафеде шай ішу", "note": "Тыныш әңгіме үшін тамаша."}}, "search_examples": "мысалы"}, "ru": {"nav_pricing": "Цены", "nav_faq": "Вопросы", "nav_fav": "Избранное", "nav_login": "Войти", "search_ph": "Например: что делать в Астане на 10 000 ₸?", "hero_kicker": "Подарки и прогулки — в одном месте", "hero_title_1": "Помогаем", "hero_title_em": "спланировать", "hero_title_2": "ваш день.", "hero_lede": "Не знаете, что подарить, или куда пойти? Ответьте на несколько вопросов — остальное придумаем мы.", "hero_feat1": "Результат за 30 секунд", "hero_feat2": "Под ваш бюджет", "hero_feat3": "Полностью бесплатно", "card_gift_badge": "Подарок", "card_gift_title": "Найти подарок", "card_gift_desc": "Подберём подходящий подарок для близкого человека с учётом бюджета и интересов.", "card_trip_badge": "Прогулка", "card_trip_title": "Спланировать прогулку", "card_trip_desc": "Составим интересный план дня по часам, который впишется в ваш бюджет.", "btn_start": "Начать", "how_eyebrow": "Как это работает", "how_title": "Готово за три шага.", "how1_title": "Выберите направление", "how1_desc": "Нужен подарок или план прогулки — с этого и начнём.", "how2_title": "Ответьте на несколько вопросов", "how2_desc": "Для кого, какой бюджет, какое настроение — займёт минуту.", "how3_title": "Получите готовый результат", "how3_desc": "Посмотрите подходящие варианты и сохраните понравившиеся.", "footer_about": "О нас", "footer_faq": "Вопросы", "footer_pricing": "Цены", "footer_contact": "Контакты", "footer_terms": "Условия и конфиденциальность", "footer_copy": "© GiftTrip, 2026", "back_home": "← На главную", "about_title": "О нас", "about_p1": "GiftTrip — сервис, который упрощает повседневные решения: выбрать подарок или спланировать свободный день теперь не занимает времени. Ответьте на несколько вопросов — остальное предложим мы.", "about_p2": "Наша идея проста: лучшие решения не всегда требуют больше всего времени. Поэтому мы свели каждый вопрос к минимуму — план готов за несколько нажатий.", "team_title": "Команда", "team1_name": "Азиза Рахимова", "team1_role": "Основатель и продукт", "team1_desc": "Отвечает за пользовательский опыт и продуктовую стратегию.", "team2_name": "Диёр Назаров", "team2_role": "Дизайн-направление", "team2_desc": "Создаёт дизайн сайта и приложения, определяет стиль бренда.", "team3_name": "Мадина Юсупова", "team3_role": "Разработка", "team3_desc": "Реализует техническую часть и новые функции.", "contact_title": "Контакты", "contact_p": "Если у вас есть вопрос или предложение, свяжитесь с нами:", "faq_title": "Часто задаваемые вопросы", "faq_sub_pre": "Если не нашли ответ,", "faq_sub_link": "напишите нам", "faq_q1": "Как работает GiftTrip?", "faq_a1": "На главной странице выберите «Найти подарок» или «Спланировать прогулку», ответьте на несколько коротких вопросов — для кого, какой бюджет — и сайт предложит подходящие варианты.", "faq_q2": "Сервис платный?", "faq_a2": "Основные функции (подарки, прогулки, избранное) полностью бесплатны. Для неограниченного поиска и доп. возможностей есть план Premium.", "faq_q3": "Откуда берутся предложения?", "faq_a3": "Пока — из демонстрационной базы данных. В будущем появится интеграция с реальными магазинами и местами.", "faq_q4": "Где хранится избранное?", "faq_a4": "Без аккаунта — в вашем браузере. После регистрации данные синхронизируются на всех устройствах.", "faq_q5": "Работает ли просмотр на карте?", "faq_a5": "Пока это демонстрационный блок. Полноценный Карта API будет подключён в следующей версии.", "pricing_title": "Цены", "pricing_sub": "Основной сервис всегда бесплатен. Нужно больше возможностей — есть Premium.", "plan_free": "Бесплатно", "plan_premium": "Premium", "price_premium_period": "/мес", "badge_recommended": "Рекомендуем", "free_feat1": "Подборки подарков и прогулок", "free_feat2": "До 5 поисков в день", "free_feat3": "Сохранение избранного", "premium_feat1": "Безлимитный поиск и случайный план", "premium_feat2": "Подробный маршрут на карте", "premium_feat3": "Приоритетные предложения и скидки", "premium_feat4": "Без рекламы", "plan_start": "Начать", "plan_premium_cta": "Оформить Premium", "terms_title": "Условия использования", "terms_p": "Используя GiftTrip, вы соглашаетесь со следующим: предложенные варианты подарков и прогулок носят исключительно рекомендательный характер, окончательное решение принимаете вы сами. Сервис может обновляться, функции могут меняться.", "privacy_title": "Политика конфиденциальности", "privacy_p": "Мы используем ваши персональные данные только для улучшения качества сервиса и не передаём их третьим лицам. Данные вроде списка избранного хранятся в браузере; после регистрации — на защищённом сервере.", "auth_tab_signin": "Войти", "auth_tab_signup": "Регистрация", "auth_welcome_title": "Добро пожаловать", "auth_welcome_sub": "Войдите, чтобы получить доступ к избранному и вашим планам.", "label_email": "Email", "label_pass": "Пароль", "remember_me": "Запомнить меня", "forgot_pass": "Забыли пароль?", "btn_signin": "Войти", "or_divider": "или", "no_account": "Нет аккаунта?", "go_signup": "Зарегистрируйтесь", "auth_signup_title": "Создать аккаунт", "auth_signup_sub": "Зарегистрируйтесь за пару секунд и сохраняйте свои планы.", "label_name": "Имя", "label_name_ph": "Ваше имя", "label_pass2_ph": "Минимум 8 символов", "btn_signup": "Создать аккаунт", "have_account": "Уже есть аккаунт?", "go_signin": "Войдите", "demo_alert": "Демо: бэкенд пока не подключён.", "demo_alert2": "Демо: пока не подключено.", "fav_title": "❤️ Мои сохранённые", "fav_sub": "Позже этот список будет синхронизироваться на всех устройствах через вход в аккаунт.", "fav_empty": "Пока ничего не сохранено. Нажмите ♡ на карточке подарка или прогулки.", "fav_gift_label": "🎁 Подарок", "fav_trip_label": "🗺️ Активность", "gift_step1_title": "Кому хотите подарить?", "gift_step2_title": "По какому поводу?", "gift_step3_title": "Какой у вас бюджет?", "gift_step4_title": "Чем увлекается?", "step_of": "шаг / 4", "optional": "необязательно", "budget_custom_label": "Или введите сами:", "budget_custom_ph": "например 25000", "back_btn": "← Назад", "next_btn": "Продолжить →", "see_results_btn": "Смотреть результаты →", "see_plan_btn": "Смотреть план →", "gift_results_title": "🎁 Подходящие подарки", "summary_to": "Кому", "summary_reason": "Повод", "summary_budget": "Бюджет", "summary_interest": "Интерес", "sort_price": "По цене", "sort_match": "По соответствию", "sort_rating": "По популярности", "gift_detail_btn": "Подробнее", "gift_detail_alert": "подробная информация скоро появится.", "gift_empty": "Пока нет подходящих вариантов. Попробуйте увеличить бюджет.", "back_to_questions": "← Назад к вопросам", "trip_step1_title": "В каком городе?", "trip_step2_title": "С кем пойдёте?", "trip_step3_title": "Ваш бюджет", "trip_step4_title": "Какую прогулку хотите?", "trip_results_title": "🌟 Ваш готовый план", "summary_city": "Город", "summary_with": "С кем", "summary_style": "Стиль", "total_label": "Итого", "remain_label": "останется", "over_label": "превышение бюджета на", "over_label2": "", "map_label": "📍 Смотреть на карте (в следующей версии с картой API)", "random_title": "🎲 Смешать всё", "random_sub": "Укажите город и бюджет — мы составим полностью случайный план.", "random_budget_ph": "Бюджет, ₸", "random_btn": "🎲 Дать случайный план", "recipients": {"ona": "Мама", "ota": "Папа", "dost": "Друг", "yaqin": "Близкий человек", "aka": "Старший брат", "uka": "Младший брат", "apa": "Старшая сестра", "singil": "Младшая сестра", "boshqa": "Другое"}, "occasions": {"tugilgan": "День рождения", "bitiruv": "Выпускной", "bayram": "Праздник", "shunchaki": "Просто так", "maxsus": "Особый день", "boshqaOc": "Другое"}, "interests": {"gaming": "Игры", "kitob": "Книги", "musiqa": "Музыка", "kiyim": "Одежда", "tech": "Технологии", "sport": "Спорт", "sanat": "Искусство", "shirinlik": "Сладости", "universal": "Универсальный"}, "companions": {"dost": "Друг", "oila": "Семья", "yaqin": "Близкий человек", "yolgiz": "Один", "guruh": "Группа"}, "trip_types": {"tabiat": "Природа", "kongilochar": "Развлечения", "ovqat": "Еда", "madaniy": "Культурное", "faol": "Активное", "tinch": "Спокойное", "aralash": "Смешанное"}, "cities": {"astana": "Астана", "almaty": "Алматы", "shymkent": "Шымкент", "karaganda": "Караганда", "aktobe": "Актобе", "taraz": "Тараз"}, "gifts": {"g_headset": "Игровая гарнитура", "g_mouse": "Игровая мышь", "g_pad": "Коврик для мыши", "g_grip": "Грип для геймпада", "g_gamecard": "Карта игровых кодов", "g_novel": "Роман-бестселлер", "g_motiv": "Набор мотивационных книг", "g_bookmark": "Набор красивых закладок", "g_audiobook": "Подписка на аудиокниги (3 мес)", "g_earbuds": "Беспроводные наушники", "g_speaker": "Bluetooth-колонка (компактная)", "g_vinyl": "Виниловая пластинка", "g_musicsub": "Подписка на музыку (3 мес)", "g_sweater": "Мягкий трикотажный свитер", "g_pants": "Спортивные штаны", "g_scarf": "Шарф", "g_cap": "Бейсболка", "g_powerbank": "Повербанк", "g_charger": "Беспроводное зарядное устройство", "g_stand": "Подставка для телефона", "g_watchband": "Ремешок для смарт-часов", "g_bands": "Набор фитнес-резинок", "g_bottle": "Спортивная бутылка для воды", "g_yoga": "Коврик для йоги", "g_bag": "Спортивная сумка", "g_paint": "Набор акварельных красок", "g_sketch": "Скетчбук", "g_tablet": "Планшет для рисования", "g_choc": "Набор шоколада", "g_candy": "Конфеты ручной работы", "g_sweetbox": "Коробка сладостей", "g_candle": "Ароматическая свеча", "g_card": "Открытка + небольшой подарок", "g_mug": "Термокружка", "g_album": "Фотоальбом"}, "activities": {"a_park": {"name": "Прогулка в парке", "note": "Прогулка и фотографии."}, "a_lake": {"name": "Отдых у озера", "note": "Время в спокойной обстановке."}, "a_cinema": {"name": "Кинотеатр", "note": "Сходить на новый фильм."}, "a_bowling": {"name": "Боулинг", "note": "Соревнование с друзьями."}, "a_quest": {"name": "Квест-комната", "note": "Командная игра-головоломка."}, "a_pizza": {"name": "Пицца", "note": "Лёгкий обед."}, "a_cafe": {"name": "Чай в кафе", "note": "Время в кафе."}, "a_dessert": {"name": "Десерт", "note": "Завершить сладким."}, "a_gallery": {"name": "Арт-галерея", "note": "Посмотреть современную выставку."}, "a_museum": {"name": "Музей", "note": "Посмотреть исторические экспонаты."}, "a_trampoline": {"name": "Батутный парк", "note": "Потратить энергию."}, "a_bookshop": {"name": "Прогулка по книжному", "note": "Неспешно полистать книги."}, "a_bowling_active": {"name": "Боулинг", "note": "Активный отдых."}, "a_cafe_chill": {"name": "Чай в кафе", "note": "Идеально для спокойной беседы."}}, "search_examples": "например"}, "en": {"nav_pricing": "Pricing", "nav_faq": "FAQ", "nav_fav": "Favorites", "nav_login": "Sign in", "search_ph": "e.g. What can I do in Astana with 10,000 ₸?", "hero_kicker": "Gifts and outings — in one place", "hero_title_1": "We help you", "hero_title_em": "plan", "hero_title_2": "your day.", "hero_lede": "Not sure what to give, or where to go? Answer a few questions — we'll figure out the rest.", "hero_feat1": "Results in 30 seconds", "hero_feat2": "Fits your budget", "hero_feat3": "Completely free", "card_gift_badge": "Gift", "card_gift_title": "Find a gift", "card_gift_desc": "We'll pick the right gift for someone close to you, based on your budget and their interests.", "card_trip_badge": "Outing", "card_trip_title": "Plan an outing", "card_trip_desc": "We'll build an hour-by-hour day plan that fits your budget.", "btn_start": "Get started", "how_eyebrow": "How it works", "how_title": "Ready in three steps.", "how1_title": "Choose a direction", "how1_desc": "A gift or a day plan — that's where we start.", "how2_title": "Answer a few questions", "how2_desc": "Who it's for, what budget, what mood — takes about a minute.", "how3_title": "Get your result", "how3_desc": "Browse options that fit your budget and save your favorites.", "footer_about": "About", "footer_faq": "FAQ", "footer_pricing": "Pricing", "footer_contact": "Contact", "footer_terms": "Terms & Privacy", "footer_copy": "© GiftTrip, 2026", "back_home": "← Home", "about_title": "About us", "about_p1": "GiftTrip is a small service built to make everyday decisions easier: choosing a gift or planning a free day no longer takes time. Answer a few questions and we'll suggest the rest.", "about_p2": "Our idea is simple: the best decisions aren't always the ones that take the most time. So we cut every question down to the essentials — a gift or a day plan is ready in a few clicks.", "team_title": "Team", "team1_name": "Aziza Rahimova", "team1_role": "Founder & product", "team1_desc": "Responsible for user experience and product strategy.", "team2_name": "Diyor Nazarov", "team2_role": "Design lead", "team2_desc": "Creates the site and app design, defines the brand style.", "team3_name": "Madina Yusupova", "team3_role": "Engineering", "team3_desc": "Builds the technical side and new features.", "contact_title": "Contact", "contact_p": "If you have a question or a suggestion, reach out to us:", "faq_title": "Frequently asked questions", "faq_sub_pre": "Can't find an answer?", "faq_sub_link": "Write to us", "faq_q1": "How does GiftTrip work?", "faq_a1": "On the home page, choose \"Find a gift\" or \"Plan an outing\", answer a few short questions — who it's for, what budget — and the site suggests matching options.", "faq_q2": "Is the service paid?", "faq_a2": "Core features (gift and outing suggestions, favorites) are completely free. A Premium plan is available for unlimited search and extra features.", "faq_q3": "Where do the suggestions come from?", "faq_a3": "Currently from a sample dataset. Real store and venue integrations are planned for the future.", "faq_q4": "Where are my favorites stored?", "faq_a4": "Without an account, they're stored in your browser. Once you sign up, they sync across all your devices.", "faq_q5": "Does the map view work?", "faq_a5": "It's currently a preview. Full map API support is coming in a future version.", "pricing_title": "Pricing", "pricing_sub": "The core service is always free. Need more? Premium is available.", "plan_free": "Free", "plan_premium": "Premium", "price_premium_period": "/mo", "badge_recommended": "Recommended", "free_feat1": "Gift and outing suggestions", "free_feat2": "Up to 5 searches a day", "free_feat3": "Save favorites", "premium_feat1": "Unlimited search and random plans", "premium_feat2": "Detailed map routes", "premium_feat3": "Priority offers and discounts", "premium_feat4": "Ad-free experience", "plan_start": "Get started", "plan_premium_cta": "Get Premium", "terms_title": "Terms of use", "terms_p": "By using GiftTrip, you agree to the following: the gift and outing options suggested by the service are recommendations only, and the final decision is yours. The service may be updated over time, and features may change.", "privacy_title": "Privacy policy", "privacy_p": "We use your personal data only to improve the quality of the service and never sell it to third parties. Data such as your favorites list is stored in your browser; once you create an account, it's stored on a secure server.", "auth_tab_signin": "Sign in", "auth_tab_signup": "Sign up", "auth_welcome_title": "Welcome back", "auth_welcome_sub": "Sign in to access your favorites and plans.", "label_email": "Email", "label_pass": "Password", "remember_me": "Remember me", "forgot_pass": "Forgot password?", "btn_signin": "Sign in", "or_divider": "or", "no_account": "Don't have an account?", "go_signup": "Sign up", "auth_signup_title": "Create an account", "auth_signup_sub": "Sign up in seconds and start saving your plans.", "label_name": "Name", "label_name_ph": "Your name", "label_pass2_ph": "At least 8 characters", "btn_signup": "Create account", "have_account": "Already have an account?", "go_signin": "Sign in", "demo_alert": "Demo: backend not connected yet.", "demo_alert2": "Demo: not connected yet.", "fav_title": "❤️ My saved items", "fav_sub": "Later, this list will sync across all your devices once you sign in.", "fav_empty": "Nothing saved yet. Tap ♡ on a gift or outing result.", "fav_gift_label": "🎁 Gift", "fav_trip_label": "🗺️ Outing activity", "gift_step1_title": "Who is the gift for?", "gift_step2_title": "What's the occasion?", "gift_step3_title": "What's your budget?", "gift_step4_title": "What are they into?", "step_of": "step / 4", "optional": "optional", "budget_custom_label": "Or enter your own:", "budget_custom_ph": "e.g. 25000", "back_btn": "← Back", "next_btn": "Continue →", "see_results_btn": "See results →", "see_plan_btn": "See plan →", "gift_results_title": "🎁 Gifts we found for you", "summary_to": "For", "summary_reason": "Occasion", "summary_budget": "Budget", "summary_interest": "Interest", "sort_price": "By price", "sort_match": "By match", "sort_rating": "By popularity", "gift_detail_btn": "Details", "gift_detail_alert": "details coming soon.", "gift_empty": "No matching options yet. Try increasing your budget.", "back_to_questions": "← Back to questions", "trip_step1_title": "Which city?", "trip_step2_title": "Who are you going with?", "trip_step3_title": "Your budget", "trip_step4_title": "What kind of outing do you want?", "trip_results_title": "🌟 Your ready plan", "summary_city": "City", "summary_with": "With", "summary_style": "Style", "total_label": "Total", "remain_label": "left", "over_label": "over budget by", "over_label2": "", "map_label": "📍 View on map (full map API coming in a future version)", "random_title": "🎲 Surprise me", "random_sub": "Enter a city and budget — we'll build a completely random plan for you.", "random_budget_ph": "Budget, ₸", "random_btn": "🎲 Give me a random plan", "recipients": {"ona": "Mom", "ota": "Dad", "dost": "Friend", "yaqin": "Partner", "aka": "Older brother", "uka": "Younger brother", "apa": "Older sister", "singil": "Younger sister", "boshqa": "Other"}, "occasions": {"tugilgan": "Birthday", "bitiruv": "Graduation", "bayram": "Holiday", "shunchaki": "Just because", "maxsus": "Special day", "boshqaOc": "Other"}, "interests": {"gaming": "Gaming", "kitob": "Books", "musiqa": "Music", "kiyim": "Clothing", "tech": "Tech", "sport": "Sport", "sanat": "Art", "shirinlik": "Sweets", "universal": "Universal"}, "companions": {"dost": "Friend", "oila": "Family", "yaqin": "Partner", "yolgiz": "Alone", "guruh": "Group"}, "trip_types": {"tabiat": "Nature", "kongilochar": "Entertainment", "ovqat": "Food", "madaniy": "Cultural", "faol": "Active", "tinch": "Relaxed / Chill", "aralash": "Mixed"}, "cities": {"astana": "Astana", "almaty": "Almaty", "shymkent": "Shymkent", "karaganda": "Karaganda", "aktobe": "Aktobe", "taraz": "Taraz"}, "gifts": {"g_headset": "Gaming headset", "g_mouse": "Gaming mouse", "g_pad": "Gaming mouse pad", "g_grip": "Controller grip", "g_gamecard": "Game gift card", "g_novel": "Bestseller novel", "g_motiv": "Motivational book set", "g_bookmark": "Nice bookmark set", "g_audiobook": "Audiobook subscription (3 mo)", "g_earbuds": "Wireless earbuds", "g_speaker": "Compact Bluetooth speaker", "g_vinyl": "Vinyl record", "g_musicsub": "Music service subscription (3 mo)", "g_sweater": "Soft knit sweater", "g_pants": "Sweatpants", "g_scarf": "Scarf", "g_cap": "Baseball cap", "g_powerbank": "Power bank", "g_charger": "Wireless charger", "g_stand": "Phone stand", "g_watchband": "Smartwatch band", "g_bands": "Resistance bands set", "g_bottle": "Sports water bottle", "g_yoga": "Yoga mat", "g_bag": "Sports bag", "g_paint": "Watercolor paint set", "g_sketch": "Sketchbook", "g_tablet": "Drawing tablet", "g_choc": "Chocolate box", "g_candy": "Handmade candy", "g_sweetbox": "Sweets gift box", "g_candle": "Scented candle", "g_card": "Greeting card + small gift", "g_mug": "Thermo mug", "g_album": "Photo album"}, "activities": {"a_park": {"name": "Walk in the park", "note": "A walk and some photos."}, "a_lake": {"name": "Time by the lake", "note": "Relaxing by the water."}, "a_cinema": {"name": "Cinema", "note": "Catch a new movie."}, "a_bowling": {"name": "Bowling", "note": "A friendly competition."}, "a_quest": {"name": "Escape room", "note": "A team puzzle game."}, "a_pizza": {"name": "Pizza", "note": "A light meal."}, "a_cafe": {"name": "Coffee at a cafe", "note": "Time to relax over coffee."}, "a_dessert": {"name": "Dessert", "note": "End on something sweet."}, "a_gallery": {"name": "Art gallery", "note": "See a contemporary exhibit."}, "a_museum": {"name": "Museum", "note": "See historical exhibits."}, "a_trampoline": {"name": "Trampoline park", "note": "Burn off some energy."}, "a_bookshop": {"name": "Browsing a bookshop", "note": "Take your time browsing."}, "a_bowling_active": {"name": "Bowling", "note": "An active break."}, "a_cafe_chill": {"name": "Coffee at a cafe", "note": "Perfect for quiet conversation."}}, "search_examples": "e.g."}};
 const V2_I18N={
 uz:{trip_step3_title:"Necha kishi borasiz?",trip_step4_title:"Budjetingiz",trip_step5_title:"Ob-havo qanday?",trip_step6_title:"Qanday sayr xohlaysiz?",group_hint:"Guruh rejasida xarajatlar odam soniga mos hisoblanadi.",weather_hint:"Reja ob-havoga moslanadi: yomg'ir/qorda yopiq joylar ustun bo'ladi.",summary_people:"Odam soni",summary_weather:"Ob-havo",night_note:"Tungi ko'ngilochar joylar 18+ uchun.",trip_types_night:"Tungi hayot / klub",weather_sunny:"Quyoshli",weather_cloudy:"Bulutli",weather_rain:"Yomg'ir",weather_snow:"Qor",weather_cold:"Sovuq",weather_any:"Farqi yo'q"},
 kk:{trip_step3_title:"Неше адам барасыз?",trip_step4_title:"Бюджетіңіз",trip_step5_title:"Ауа райы қандай?",trip_step6_title:"Қандай серуен қалайсыз?",group_hint:"Топтық жоспарда шығын адам санына бейімделеді.",weather_hint:"Жоспар ауа райына бейімделеді.",summary_people:"Адам саны",summary_weather:"Ауа райы",night_note:"Түнгі ойын-сауық орындары 18+ үшін.",trip_types_night:"Түнгі өмір / клуб",weather_sunny:"Күн ашық",weather_cloudy:"Бұлтты",weather_rain:"Жаңбыр",weather_snow:"Қар",weather_cold:"Суық",weather_any:"Маңызды емес"},
@@ -1104,8 +1202,10 @@ const RECIPIENTS = [
   {id:'ota', emoji:'\ud83d\udc68'},
   {id:'dost', emoji:'\ud83e\uddd1'},
   {id:'yaqin', emoji:'\ud83d\udc69\u200d\u2764\ufe0f\u200d\ud83d\udc68'},
-  {id:'akauka', emoji:'\ud83d\udc66'},
-  {id:'opasingil', emoji:'\ud83d\udc67'},
+  {id:'aka', emoji:'👨'},
+  {id:'uka', emoji:'👦'},
+  {id:'apa', emoji:'👩'},
+  {id:'singil', emoji:'👧'},
   {id:'boshqa', emoji:'\ud83d\udc64'},
 ];
 const OCCASIONS = [
@@ -1244,7 +1344,7 @@ function aralashPool(){
 }
 
 /* ===================== STATE ===================== */
-let gift = {recipient:null, occasion:null, budget:null, interest:null};
+let gift = {recipient:null, occasion:null, budget:null, interests:[]};
 let giftStep = 1;
 let giftSortMode = 'price';
 
@@ -1274,7 +1374,7 @@ function toggleFAQ(i){
   document.getElementById('faqItem'+i).classList.toggle('open');
 }
 
-function startGift(){ gift = {recipient:null, occasion:null, budget:null, interest:null}; giftStep=1; go('gift-wizard'); renderGiftStep(); }
+function startGift(){ gift = {recipient:null, occasion:null, budget:null, interests:[]}; giftStep=1; go('gift-wizard'); renderGiftStep(); }
 function startTrip(){ trip = {city:null, companion:null, groupSize:2, budget:null, weather:'any', type:null}; tripStep=1; go('trip-wizard'); renderTripStep(); }
 
 function showAuthTab(tab){
@@ -1298,14 +1398,22 @@ function optionGrid(items, selectedId, onClick, group){
       <span class="emoji">${it.emoji}</span><span>${t2(group, it.id)}</span>
     </button>`).join('') + `</div>`;
 }
+function multiOptionGrid(items, selectedIds, onClick, group){
+  const selected = Array.isArray(selectedIds) ? selectedIds : [];
+  return `<div class="option-grid">` + items.map(it => `
+    <button class="option ${selected.includes(it.id)?'selected':''}" onclick="${onClick}('${it.id}')">
+      <span class="emoji">${it.emoji}</span><span>${t2(group, it.id)}</span>
+    </button>`).join('') + `</div>`;
+}
+
 function budgetPicker(selected, presets, onPreset, onCustom){
   return `
     <div class="budget-row">
-      ${presets.map(p=>`<button class="chip ${selected===p?'selected':''}" onclick="${onPreset}(${p})">${p.toLocaleString('ru-RU')} \u20b8</button>`).join('')}
+      ${presets.map(p=>`<button class="chip ${selected===p?'selected':''}" onclick="${onPreset}(${p})">${p.toLocaleString(LANG==='en'?'en-US':LANG==='kk'?'kk-KZ':LANG==='uz'?'uz-UZ':'ru-RU')} \u20b8</button>`).join('')}
     </div>
     <div class="budget-custom">
       <span>${t('budget_custom_label')}</span>
-      <input type="number" placeholder="${t('budget_custom_ph')}" value="${(selected && !presets.includes(selected))?selected:''}" oninput="${onCustom}(this.value)">
+      <input type="number" inputmode="numeric" min="1" step="100" autocomplete="off" aria-label="${t('summary_budget')}" placeholder="${t('budget_custom_ph')}" value="${(selected && !presets.includes(selected))?selected:''}" oninput="${onCustom}(this.value)">
     </div>`;
 }
 function progressDots(container, total, current){
@@ -1323,8 +1431,22 @@ function navButtons(canBack, canNext, backFn, nextFn, nextLabel){
 function selectRecipient(id){ gift.recipient=id; renderGiftStep(); }
 function selectOccasion(id){ gift.occasion=id; renderGiftStep(); }
 function setGiftBudgetPreset(v){ gift.budget=v; renderGiftStep(); }
-function setGiftBudgetCustom(v){ gift.budget = v ? parseInt(v) : null; renderGiftStep(true); }
-function selectInterest(id){ gift.interest=id; renderGiftStep(); }
+function setGiftBudgetCustom(v){
+  const n = parseInt(v,10);
+  gift.budget = Number.isFinite(n) && n > 0 ? n : null;
+  const btn = document.querySelector('#giftStepBody .wizard-actions .btn.forest');
+  if(btn){
+    btn.disabled = !gift.budget;
+    btn.style.opacity = gift.budget ? '1' : '.4';
+    btn.style.pointerEvents = gift.budget ? 'auto' : 'none';
+  }
+}
+function selectInterest(id){
+  if(!Array.isArray(gift.interests)) gift.interests=[];
+  const i=gift.interests.indexOf(id);
+  if(i>=0) gift.interests.splice(i,1); else gift.interests.push(id);
+  renderGiftStep();
+}
 function giftBack(){ if(giftStep>1){giftStep--; renderGiftStep();} }
 function giftNext(){
   if(giftStep<4){ giftStep++; renderGiftStep(); }
@@ -1353,7 +1475,7 @@ function renderGiftStep(skipScroll){
   } else if(giftStep===4){
     html = `<h2 class="step-title">${t('gift_step4_title')}</h2>
       <p class="step-sub">4-${t('step_of')} \u00b7 ${t('optional')}</p>
-      ${optionGrid(INTERESTS, gift.interest, 'selectInterest', 'interests')}
+      ${multiOptionGrid(INTERESTS, gift.interests, 'selectInterest', 'interests')}
       ${navButtons(true, true, 'giftBack()', 'giftNext()', t('see_results_btn'))}`;
   }
   body.innerHTML = html;
@@ -1361,9 +1483,10 @@ function renderGiftStep(skipScroll){
 }
 
 function computeGiftResults(){
-  const interest = gift.interest || 'universal';
-  let pool = (GIFTS[interest] || GIFTS.universal).slice();
-  if(interest!=='universal') pool = pool.concat(GIFTS.universal.slice(0,1));
+  const interests = (Array.isArray(gift.interests) && gift.interests.length) ? gift.interests : ['universal'];
+  let pool = interests.flatMap(id => (GIFTS[id] || []));
+  if(!interests.includes('universal')) pool = pool.concat(GIFTS.universal.slice(0,2));
+  pool = [...new Map(pool.map(item => [item.id, item])).values()];
   const budget = gift.budget || 999999;
   let filtered = pool.filter(g=>g.price <= budget*1.15);
   if(filtered.length===0) filtered = pool.slice().sort((a,b)=>a.price-b.price).slice(0,3);
@@ -1375,12 +1498,12 @@ function computeGiftResults(){
 function renderGiftSummary(){
   const rec = RECIPIENTS.find(r=>r.id===gift.recipient);
   const occ = OCCASIONS.find(o=>o.id===gift.occasion);
-  const intr = INTERESTS.find(i=>i.id===gift.interest);
+  const intrs = (Array.isArray(gift.interests)?gift.interests:[]).map(id=>INTERESTS.find(i=>i.id===id)).filter(Boolean);
   document.getElementById('giftSummary').innerHTML = `
     <div><span>${t('summary_to')}</span>${rec? rec.emoji+' '+t2('recipients',rec.id) : '\u2014'}</div>
     <div><span>${t('summary_reason')}</span>${occ? occ.emoji+' '+t2('occasions',occ.id) : '\u2014'}</div>
     <div><span>${t('summary_budget')}</span>${gift.budget ? gift.budget.toLocaleString('ru-RU')+' \u20b8' : '\u2014'}</div>
-    <div><span>${t('summary_interest')}</span>${intr? intr.emoji+' '+t2('interests',intr.id) : t2('interests','universal')}</div>`;
+    <div><span>${t('summary_interest')}</span>${intrs.length ? intrs.map(intr=>intr.emoji+' '+t2('interests',intr.id)).join(', ') : t2('interests','universal')}</div>`;
 }
 function renderGiftSort(){
   const modes = [{id:'price',label:t('sort_price')},{id:'match',label:t('sort_match')},{id:'rating',label:t('sort_rating')}];
@@ -1416,7 +1539,16 @@ function selectCity(c){ trip.city=c; renderTripStep(); }
 function selectCompanion(id){ trip.companion=id; if(id==='yolgiz') trip.groupSize=1; renderTripStep(); }
 function setGroupSize(v){ trip.groupSize=parseInt(v)||1; renderTripStep(); }
 function setTripBudgetPreset(v){ trip.budget=v; renderTripStep(); }
-function setTripBudgetCustom(v){ trip.budget=v?parseInt(v):null; renderTripStep(true); }
+function setTripBudgetCustom(v){
+  const n = parseInt(v,10);
+  trip.budget = Number.isFinite(n) && n > 0 ? n : null;
+  const btn = document.querySelector('#tripStepBody .wizard-actions .btn.forest');
+  if(btn){
+    btn.disabled = !trip.budget;
+    btn.style.opacity = trip.budget ? '1' : '.4';
+    btn.style.pointerEvents = trip.budget ? 'auto' : 'none';
+  }
+}
 function selectWeather(id){ trip.weather=id; renderTripStep(); }
 function selectTripType(id){ trip.type=id; renderTripStep(); }
 function tripBack(){ if(tripStep>1){tripStep--;renderTripStep();} }
@@ -1425,9 +1557,9 @@ function renderTripStep(skipScroll){
  progressDots('tripProgress',6,tripStep); const body=document.getElementById('tripStepBody'); let html='';
  if(tripStep===1) html=`<h2 class="step-title">${t('trip_step1_title')}</h2><p class="step-sub">1 / 6</p><div class="option-grid">${CITIES.map(c=>`<button class="option ${trip.city===c?'selected':''}" onclick="selectCity('${c}')"><span>📍</span><span>${t2('cities',c)}</span></button>`).join('')}</div>${navButtons(false,!!trip.city,'','tripNext()')}`;
  else if(tripStep===2) html=`<h2 class="step-title">${t('trip_step2_title')}</h2><p class="step-sub">2 / 6</p>${optionGrid(COMPANIONS,trip.companion,'selectCompanion','companions')}${navButtons(true,!!trip.companion,'tripBack()','tripNext()')}`;
- else if(tripStep===3) html=`<h2 class="step-title">${t('trip_step3_title')}</h2><p class="step-sub">3 / 6</p><div class="group-size-grid">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<button class="chip ${trip.groupSize===n?'selected':''}" onclick="setGroupSize(${n})">${n} 👤</button>`).join('')}</div><div class="weather-note">👥 ${t('group_hint')}</div>${navButtons(true,!!trip.groupSize,'tripBack()','tripNext()')}`;
+ else if(tripStep===3) html=`<h2 class="step-title">${t('trip_step3_title')}</h2><p class="step-sub">3 / 6</p><div class="group-size-grid">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<button class="chip ${trip.groupSize===n?'selected':''}" onclick="setGroupSize(${n})">${n} ${gtTrip('group_person')}</button>`).join('')}</div><div class="weather-note">👥 ${t('group_hint')}</div>${navButtons(true,!!trip.groupSize,'tripBack()','tripNext()')}`;
  else if(tripStep===4) html=`<h2 class="step-title">${t('trip_step4_title')}</h2><p class="step-sub">4 / 6</p>${budgetPicker(trip.budget,[5000,10000,20000,50000],'setTripBudgetPreset','setTripBudgetCustom')}${navButtons(true,!!trip.budget,'tripBack()','tripNext()')}`;
- else if(tripStep===5) html=`<h2 class="step-title">${t('trip_step5_title')}</h2><p class="step-sub">5 / 6</p><div class="option-grid">${WEATHER.map(w=>`<button class="option ${trip.weather===w.id?'selected':''}" onclick="selectWeather('${w.id}')"><span class="emoji">${w.emoji}</span><span>${t(w.key)}</span></button>`).join('')}</div><div class="weather-note">🌦️ ${t('weather_hint')}</div>${navButtons(true,!!trip.weather,'tripBack()','tripNext()')}`;
+ else if(tripStep===5) html=`<h2 class="step-title">${t('trip_step5_title')}</h2><p class="step-sub">5 / 6</p><div class="option-grid">${WEATHER.map(w=>`<button class="option ${trip.weather===w.id?'selected':''}" onclick="selectWeather('${w.id}')"><span class="emoji">${w.emoji}</span><span>${gtTrip({any:'weather_any',sunny:'weather_sunny',cloudy:'weather_cloudy',rain:'weather_rain',snow:'weather_snow',cold:'weather_cold'}[w.id]||w.key)}</span></button>`).join('')}</div><div class="weather-note">🌦️ ${t('weather_hint')}</div>${navButtons(true,!!trip.weather,'tripBack()','tripNext()')}`;
  else html=`<h2 class="step-title">${t('trip_step6_title')}</h2><p class="step-sub">6 / 6</p>${optionGrid(TRIP_TYPES,trip.type,'selectTripType','trip_types')}<div class="weather-note">🌙 ${t('night_note')}</div>${navButtons(true,!!trip.type,'tripBack()','tripNext()',t('see_plan_btn'))}`;
  body.innerHTML=html; if(!skipScroll)window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -1481,7 +1613,7 @@ function renderTotalCard(total, budget){
     ? remain.toLocaleString('ru-RU')+' \u20b8 '+t('remain_label')
     : t('over_label')+' '+Math.abs(remain).toLocaleString('ru-RU')+' \u20b8 '+t('over_label2');
   document.getElementById('totalCard').innerHTML = `
-    <div><small>${t('total_label')}</small><div class="num">\ud83d\udcb0 ~${total.toLocaleString('ru-RU')} \u20b8</div></div>
+    <div><small>${t('total_label')}</small><div class="num">\ud83d\udcb0 ~${total.toLocaleString(LANG==='en'?'en-US':LANG==='kk'?'kk-KZ':LANG==='uz'?'uz-UZ':'ru-RU')} \u20b8</div></div>
     <div style="text-align:right;"><small>${t('summary_budget')}</small><div class="num" style="font-size:20px;color:${remain>=0?'var(--forest)':'var(--rose)'}">${remainText}</div></div>`;
 }
 function renderMapBox(plan){
@@ -1578,5 +1710,427 @@ if('IntersectionObserver' in window){
   revealEls.forEach(el=>revealObserver.observe(el));
 }
 </script>
+
+
+
+<script>
+/* Trip wizard translation repair */
+const GT_TRIP_FIX = {
+ uz:{
+   group_title:"Necha kishi borasiz?", weather_title:"Ob-havo qanday?",
+   weather_any:"Farqi yo'q", weather_sunny:"Quyoshli", weather_cloudy:"Bulutli",
+   weather_rain:"Yomg'ir", weather_snow:"Qor", weather_cold:"Sovuq",
+   nightlife:"Tungi hayot / klub", group_person:"kishi"
+ },
+ kk:{
+   group_title:"Неше адам барасыз?", weather_title:"Ауа райы қандай?",
+   weather_any:"Маңызды емес", weather_sunny:"Күн ашық", weather_cloudy:"Бұлтты",
+   weather_rain:"Жаңбыр", weather_snow:"Қар", weather_cold:"Суық",
+   nightlife:"Түнгі өмір / клуб", group_person:"адам"
+ },
+ ru:{
+   group_title:"Сколько человек идёт?", weather_title:"Какая погода?",
+   weather_any:"Неважно", weather_sunny:"Солнечно", weather_cloudy:"Облачно",
+   weather_rain:"Дождь", weather_snow:"Снег", weather_cold:"Холодно",
+   nightlife:"Ночная жизнь / клуб", group_person:"чел."
+ },
+ en:{
+   group_title:"How many people are going?", weather_title:"What's the weather like?",
+   weather_any:"Any weather", weather_sunny:"Sunny", weather_cloudy:"Cloudy",
+   weather_rain:"Rain", weather_snow:"Snow", weather_cold:"Cold",
+   nightlife:"Nightlife / club", group_person:"people"
+ }
+};
+function gtTrip(k){return (GT_TRIP_FIX[LANG]||GT_TRIP_FIX.uz)[k]||k;}
+</script>
+
+<script>
+const GT3_I18N = {
+  uz:{
+    age_title:"Yosh oralig'ini tanlang", multi_hint:"bir nechta tanlash mumkin",
+    unusual_title:"✨ Noodatiy sovg'alar", unusual_desc:"Kreativ va kutilmagan variantlarni ham tavsiya qiladi",
+    compare_btn:"🆚 Tanlanganlarni solishtirish", compare_label:"🆚 Solishtirish",
+    compare_min:"Kamida 2 ta sovg'ani belgilang.", giftbox:"🎁 Gift Box",
+    giftbox_desc:"Budjet ichida bir nechta kichik sovg'adan tayyor paket.", total:"Jami",
+    main_gift:"70% asosiy sovg'a", extra:"20% qo'shimcha", reserve:"10% zaxira",
+    time_title:"🕐 Sayr vaqtini tanlang", start:"Boshlanish", end:"Tugash",
+    date_title:"❤️ Date Mode", normal:"Oddiy sayr", first:"Birinchi uchrashuv",
+    romantic:"Romantik", anniversary:"Yillik sana", chill:"Chill date", adventure:"Adventure date",
+    ages:["0–12 yosh","13–17 yosh","18–25 yosh","26–40 yosh","40+ yosh"]
+  },
+  kk:{
+    age_title:"Жас аралығын таңдаңыз", multi_hint:"бірнешеуін таңдауға болады",
+    unusual_title:"✨ Ерекше сыйлықтар", unusual_desc:"Креативті және күтпеген нұсқаларды да ұсынады",
+    compare_btn:"🆚 Таңдалғандарды салыстыру", compare_label:"🆚 Салыстыру",
+    compare_min:"Кемінде 2 сыйлықты белгілеңіз.", giftbox:"🎁 Сыйлық жинағы",
+    giftbox_desc:"Бюджет шегінде бірнеше шағын сыйлықтан дайын жинақ.", total:"Барлығы",
+    main_gift:"70% негізгі сыйлық", extra:"20% қосымша", reserve:"10% қор",
+    time_title:"🕐 Серуен уақытын таңдаңыз", start:"Басталуы", end:"Аяқталуы",
+    date_title:"❤️ Кездесу режимі", normal:"Қарапайым серуен", first:"Алғашқы кездесу",
+    romantic:"Романтикалық", anniversary:"Жылдық мерейтой", chill:"Тыныш кездесу", adventure:"Шытырман кездесу",
+    ages:["0–12 жас","13–17 жас","18–25 жас","26–40 жас","40+ жас"]
+  },
+  ru:{
+    age_title:"Выберите возраст", multi_hint:"можно выбрать несколько",
+    unusual_title:"✨ Необычные подарки", unusual_desc:"Также предложим креативные и неожиданные варианты",
+    compare_btn:"🆚 Сравнить выбранные", compare_label:"🆚 Сравнить",
+    compare_min:"Выберите минимум 2 подарка.", giftbox:"🎁 Подарочный набор",
+    giftbox_desc:"Готовый набор из нескольких небольших подарков в рамках бюджета.", total:"Итого",
+    main_gift:"70% основной подарок", extra:"20% дополнение", reserve:"10% резерв",
+    time_title:"🕐 Выберите время прогулки", start:"Начало", end:"Окончание",
+    date_title:"❤️ Режим свидания", normal:"Обычная прогулка", first:"Первое свидание",
+    romantic:"Романтическое", anniversary:"Годовщина", chill:"Спокойное свидание", adventure:"Приключение",
+    ages:["0–12 лет","13–17 лет","18–25 лет","26–40 лет","40+ лет"]
+  },
+  en:{
+    age_title:"Choose an age range", multi_hint:"you can select multiple",
+    unusual_title:"✨ Unusual gifts", unusual_desc:"Also include creative and unexpected gift ideas",
+    compare_btn:"🆚 Compare selected", compare_label:"🆚 Compare",
+    compare_min:"Select at least 2 gifts.", giftbox:"🎁 Gift Box",
+    giftbox_desc:"A ready-made bundle of several smaller gifts within your budget.", total:"Total",
+    main_gift:"70% main gift", extra:"20% add-on", reserve:"10% reserve",
+    time_title:"🕐 Choose outing time", start:"Start", end:"End",
+    date_title:"❤️ Date Mode", normal:"Regular outing", first:"First date",
+    romantic:"Romantic", anniversary:"Anniversary", chill:"Chill date", adventure:"Adventure date",
+    ages:["0–12","13–17","18–25","26–40","40+"]
+  }
+};
+function gt3(k){ return (GT3_I18N[LANG]||GT3_I18N.uz)[k] ?? GT3_I18N.uz[k] ?? k; }
+</script>
+
+<script>
+
+const gtTripBaseT2 = t2;
+t2 = function(group,id){
+  if(group==='trip_types' && (id==='nightlife' || id==='tungi')) return gtTrip('nightlife');
+  return gtTripBaseT2(group,id);
+};
+
+/* GiftTrip v3 feature pack */
+const GT_AGES=[['0_12','🧒'],['13_17','🎒'],['18_25','✨'],['26_40','💼'],['40','🌿']];
+const GT_DATES=[['none','🚶','normal'],['first','🌸','first'],['romantic','❤️','romantic'],['anniversary','💍','anniversary'],['chill','☕','chill'],['adventure','🎢','adventure']];
+let gtCompare=[];
+
+const gtOldStartGift=startGift;
+startGift=function(){gtOldStartGift();gift.age=null;gift.unusual=false;gtCompare=[];};
+const gtOldStartTrip=startTrip;
+startTrip=function(){gtOldStartTrip();trip.startTime='14:00';trip.endTime='22:00';trip.dateMode='none';};
+
+function gtAge(id){gift.age=id;renderGiftStep();}
+function gtUnusual(){gift.unusual=!gift.unusual;renderGiftStep(true);}
+function gtCompareToggle(id){let i=gtCompare.indexOf(id);if(i>=0)gtCompare.splice(i,1);else if(gtCompare.length<3)gtCompare.push(id);renderGiftList();}
+function gtSetTime(k,v){
+  trip[k]=v;
+  if(trip.startTime && trip.endTime){
+    const toMin=x=>{const [h,m]=x.split(':').map(Number);return h*60+m;};
+    let start=toMin(trip.startTime), end=toMin(trip.endTime);
+    if(end<=start) end+=1440;
+    trip.durationMinutes=end-start;
+  }
+}
+function gtDate(id){trip.dateMode=id;renderTripStep();}
+
+giftNext=function(){if(giftStep<5){giftStep++;renderGiftStep();}else{computeGiftResults();go('gift-results');}};
+renderGiftStep=function(skip){
+ progressDots('giftProgress',5,giftStep);let b=document.getElementById('giftStepBody'),h='';
+ if(giftStep===1)h=`<h2 class="step-title">${t('gift_step1_title')}</h2><p class="step-sub">1 / 5</p>${optionGrid(RECIPIENTS,gift.recipient,'selectRecipient','recipients')}${navButtons(false,!!gift.recipient,'','giftNext()')}`;
+ else if(giftStep===2)h=`<h2 class="step-title">${t('gift_step2_title')}</h2><p class="step-sub">2 / 5</p>${optionGrid(OCCASIONS,gift.occasion,'selectOccasion','occasions')}${navButtons(true,!!gift.occasion,'giftBack()','giftNext()')}`;
+ else if(giftStep===3)h=`<h2 class="step-title">${t('gift_step3_title')}</h2><p class="step-sub">3 / 5</p>${budgetPicker(gift.budget,[5000,10000,20000,50000],'setGiftBudgetPreset','setGiftBudgetCustom')}${navButtons(true,!!gift.budget,'giftBack()','giftNext()')}`;
+ else if(giftStep===4)h=`<h2 class="step-title">${gt3('age_title')}</h2><p class="step-sub">4 / 5</p><div class="option-grid">${GT_AGES.map(a=>`<button class="option ${gift.age===a[0]?'selected':''}" onclick="gtAge('${a[0]}')"><span class="emoji">${a[1]}</span><span>${gt3('ages')[GT_AGES.indexOf(a)]}</span></button>`).join('')}</div>${navButtons(true,!!gift.age,'giftBack()','giftNext()')}`;
+ else h=`<h2 class="step-title">${t('gift_step4_title')}</h2><p class="step-sub">5 / 5 · ${gt3('multi_hint')}</p>${multiOptionGrid(INTERESTS,gift.interests,'selectInterest','interests')}<div class="feature-toggle"><div><b>${gt3('unusual_title')}</b><small>${gt3('unusual_desc')}</small></div><button class="switch ${gift.unusual?'on':''}" onclick="gtUnusual()"><i></i></button></div>${navButtons(true,true,'giftBack()','giftNext()',t('see_results_btn'))}`;
+ b.innerHTML=h;if(!skip)scrollTo({top:0,behavior:'smooth'});
+};
+
+const gtOldGiftList=renderGiftList;
+renderGiftList=function(){
+ gtOldGiftList();
+ let list=document.getElementById('giftList'); if(!list)return;
+ let sorted=(window.__giftResults||[]).slice();
+ if(giftSortMode==='price')sorted.sort((a,b)=>a.price-b.price);
+ else if(giftSortMode==='rating')sorted.sort((a,b)=>b.rating-a.rating);
+ else sorted.sort((a,b)=>Math.abs(a.price-(gift.budget||999999))-Math.abs(b.price-(gift.budget||999999)));
+ [...list.querySelectorAll('.gift-card')].forEach((card,i)=>{let g=sorted[i];if(g)card.insertAdjacentHTML('beforeend',`<label class="compare-check"><input type="checkbox" ${gtCompare.includes(g.id)?'checked':''} onchange="gtCompareToggle('${g.id}')"> ${gt3('compare_label')}</label>`);});
+ let cheap=sorted.filter(x=>x.price<=(gift.budget||0)*.45).slice(0,3),total=cheap.reduce((s,x)=>s+x.price,0);
+ let box=document.createElement('div');box.className='feature-box';
+ box.innerHTML=`<button class="btn ghost" onclick="gtShowCompare()">${gt3('compare_btn')}</button><div id="gtComparePanel"></div>${cheap.length>=2?`<hr style="border-color:#303344;margin:18px 0"><h3>${gt3('giftbox')}</h3><p class="step-sub">${gt3('giftbox_desc')}</p><div class="mini-pills">${cheap.map(x=>`<span>${tGift(x.id)} · ${x.price.toLocaleString(LANG==='en'?'en-US':LANG==='kk'?'kk-KZ':LANG==='uz'?'uz-UZ':'ru-RU')} ₸</span>`).join('')}</div><b>${gt3('total')} ≈ ${total.toLocaleString(LANG==='en'?'en-US':LANG==='kk'?'kk-KZ':LANG==='uz'?'uz-UZ':'ru-RU')} ₸</b><div class="mini-pills"><span>${gt3('main_gift')}</span><span>${gt3('extra')}</span><span>${gt3('reserve')}</span></div>`:''}`;
+ list.prepend(box);
+};
+function gtShowCompare(){
+ let p=document.getElementById('gtComparePanel'),items=(window.__giftResults||[]).filter(x=>gtCompare.includes(x.id));
+ p.innerHTML=items.length<2?`<p class="step-sub" style="margin-top:12px">${gt3('compare_min')}</p>`:`<div class="compare-grid" style="margin-top:14px">${items.map(x=>`<div class="compare-item"><b>${tGift(x.id)}</b><p>💰 ${x.price.toLocaleString(LANG==='en'?'en-US':LANG==='kk'?'kk-KZ':LANG==='uz'?'uz-UZ':'ru-RU')} ₸</p><p>⭐ ${x.rating}</p></div>`).join('')}</div>`;
+}
+
+tripNext=function(){if(tripStep<8){tripStep++;renderTripStep();}else{computeTripResults();go('trip-results');}};
+renderTripStep=function(skip){
+ progressDots('tripProgress',8,tripStep);let b=document.getElementById('tripStepBody'),h='';
+ if(tripStep===1)h=`<h2 class="step-title">${t('trip_step1_title')}</h2><p class="step-sub">1 / 8</p><div class="option-grid">${CITIES.map(c=>`<button class="option ${trip.city===c?'selected':''}" onclick="selectCity('${c}')">📍 <span>${t2('cities',c)}</span></button>`).join('')}</div>${navButtons(false,!!trip.city,'','tripNext()')}`;
+ else if(tripStep===2)h=`<h2 class="step-title">${t('trip_step2_title')}</h2><p class="step-sub">2 / 8</p>${optionGrid(COMPANIONS,trip.companion,'selectCompanion','companions')}${navButtons(true,!!trip.companion,'tripBack()','tripNext()')}`;
+ else if(tripStep===3)h=`<h2 class="step-title">${gtTrip('group_title')}</h2><p class="step-sub">3 / 8</p><div class="group-size-grid">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<button class="chip ${trip.groupSize===n?'selected':''}" onclick="setGroupSize(${n})">${n} ${gtTrip('group_person')}</button>`).join('')}</div>${navButtons(true,true,'tripBack()','tripNext()')}`;
+ else if(tripStep===4)h=`<h2 class="step-title">${t('trip_step4_title')}</h2><p class="step-sub">4 / 8</p>${budgetPicker(trip.budget,[5000,10000,20000,50000],'setTripBudgetPreset','setTripBudgetCustom')}${navButtons(true,!!trip.budget,'tripBack()','tripNext()')}`;
+ else if(tripStep===5)h=`<h2 class="step-title">${gtTrip('weather_title')}</h2><p class="step-sub">5 / 8</p><div class="option-grid">${WEATHER.map(w=>`<button class="option ${trip.weather===w.id?'selected':''}" onclick="selectWeather('${w.id}')"><span class="emoji">${w.emoji}</span><span>${gtTrip({any:'weather_any',sunny:'weather_sunny',cloudy:'weather_cloudy',rain:'weather_rain',snow:'weather_snow',cold:'weather_cold'}[w.id]||w.key)}</span></button>`).join('')}</div>${navButtons(true,true,'tripBack()','tripNext()')}`;
+ else if(tripStep===6)h=`<h2 class="step-title">${t('trip_step6_title')}</h2><p class="step-sub">6 / 8</p>${optionGrid(TRIP_TYPES,trip.type,'selectTripType','trip_types')}${navButtons(true,!!trip.type,'tripBack()','tripNext()')}`;
+ else if(tripStep===7)h=`<h2 class="step-title">${gt3('time_title')}</h2><p class="step-sub">7 / 8</p><div class="time-row"><div class="time-field"><label>${gt3('start')}</label><input type="time" aria-label="${gt3('start')}" value="${trip.startTime||'14:00'}" onchange="gtSetTime('startTime',this.value)"></div><div class="time-field"><label>${gt3('end')}</label><input type="time" aria-label="${gt3('end')}" value="${trip.endTime||'22:00'}" onchange="gtSetTime('endTime',this.value)"></div></div>${navButtons(true,true,'tripBack()','tripNext()')}`;
+ else h=`<h2 class="step-title">${gt3('date_title')}</h2><p class="step-sub">8 / 8</p><div class="option-grid">${GT_DATES.map(m=>`<button class="option ${trip.dateMode===m[0]?'selected':''}" onclick="gtDate('${m[0]}')"><span class="emoji">${m[1]}</span><span>${gt3(m[2])}</span></button>`).join('')}</div>${navButtons(true,true,'tripBack()','tripNext()',t('see_plan_btn'))}`;
+ b.innerHTML=h;if(!skip)scrollTo({top:0,behavior:'smooth'});
+};
+
+const gtOldTimeline=renderPlanTimeline;
+renderPlanTimeline=function(plan){
+ const startText=trip.startTime||'14:00', endText=trip.endTime||'22:00';
+ const toMin=x=>{const [h,m]=x.split(':').map(Number);return h*60+m;};
+ let start=toMin(startText), end=toMin(endText); if(end<=start) end+=1440;
+ const slot=120;
+ const maxItems=Math.max(1,Math.floor((end-start)/slot)+1);
+ const visiblePlan=plan.slice(0,maxItems);
+ gtOldTimeline(visiblePlan);
+ [...document.querySelectorAll('#planTimeline .plan-time')].forEach((e,i)=>{
+   const tm=(start+i*slot)%1440, h=Math.floor(tm/60), m=tm%60;
+   e.textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+ });
+};
+
+const gt3BaseSetLang = setLang;
+setLang = function(lang){
+  gt3BaseSetLang(lang);
+  if(document.getElementById('view-gift-wizard').classList.contains('active')) renderGiftStep(true);
+  if(document.getElementById('view-trip-wizard').classList.contains('active')) renderTripStep(true);
+  if(document.getElementById('view-gift-results').classList.contains('active')) renderGiftList();
+};
+
+</script>
+
+
+<script>
+/* ===== DummyJSON is now the PRIMARY gift result source ===== */
+const API_GIFT_TEXT={
+ uz:{loading:"Internetdan sovg'alar qidirilmoqda…",fail:"Mahsulotlarni yuklab bo'lmadi.",source:"Mahsulotlar DummyJSON API orqali yuklandi",compare:"Solishtirish"},
+ kk:{loading:"Интернеттен сыйлықтар ізделуде…",fail:"Өнімдерді жүктеу мүмкін болмады.",source:"Өнімдер DummyJSON API арқылы жүктелді",compare:"Салыстыру"},
+ ru:{loading:"Ищем подарки в интернете…",fail:"Не удалось загрузить товары.",source:"Товары загружены через DummyJSON API",compare:"Сравнить"},
+ en:{loading:"Searching for gifts online…",fail:"Could not load products.",source:"Products loaded via DummyJSON API",compare:"Compare"}
+};
+function agt(k){return (API_GIFT_TEXT[LANG]||API_GIFT_TEXT.uz)[k]||k}
+const API_USD_KZT=500;
+
+function apiGiftCategories(){
+ const ids=(gift.interests||[]).length?gift.interests:['universal'];
+ const map={
+  gaming:['laptops','mobile-accessories'],
+  kitob:['home-decoration'],
+  musiqa:['mobile-accessories'],
+  kiyim:['mens-shirts','tops','womens-dresses','sunglasses'],
+  tech:['smartphones','laptops','tablets','mobile-accessories'],
+  sport:['sports-accessories'],
+  sanat:['home-decoration'],
+  shirinlik:['groceries'],
+  universal:['mens-watches','womens-watches','beauty','fragrances','mobile-accessories']
+ };
+ return [...new Set(ids.flatMap(x=>map[x]||map.universal))].slice(0,4);
+}
+
+async function fetchApiGifts(){
+ let products=[];
+ for(const cat of apiGiftCategories()){
+  try{
+   const r=await fetch(`https://dummyjson.com/products/category/${encodeURIComponent(cat)}?limit=12`);
+   if(r.ok){const d=await r.json();products.push(...(d.products||[]));}
+  }catch(e){}
+ }
+ if(!products.length){
+  const r=await fetch('https://dummyjson.com/products?limit=40');
+  if(!r.ok) throw new Error('DummyJSON');
+  products=(await r.json()).products||[];
+ }
+ products=[...new Map(products.map(p=>[p.id,p])).values()].map(p=>({
+   id:'api_'+p.id, apiId:p.id, name:p.title, image:p.thumbnail||(p.images&&p.images[0])||'',
+   price:Math.max(500,Math.round((Number(p.price)||0)*API_USD_KZT/100)*100),
+   rating:Number(p.rating)||0, category:p.category||'', brand:p.brand||''
+ }));
+ const budget=Number(gift.budget)||Infinity;
+ const under=products.filter(p=>p.price<=budget*1.15);
+ return (under.length?under:products.sort((a,b)=>a.price-b.price)).slice(0,12);
+}
+
+computeGiftResults=async function(){
+ renderGiftSummary(); renderGiftSort();
+ const list=document.getElementById('giftList');
+ list.innerHTML=`<div class="api-loading">⏳ ${agt('loading')}</div>`;
+ try{
+   window.__giftResults=await fetchApiGifts();
+   renderGiftList();
+ }catch(e){
+   console.error(e);
+   window.__giftResults=[];
+   list.innerHTML=`<div class="api-loading">⚠️ ${agt('fail')}</div>`;
+ }
+};
+
+renderGiftList=function(){
+ let items=(window.__giftResults||[]).slice();
+ const budget=gift.budget||999999;
+ if(giftSortMode==='price')items.sort((a,b)=>a.price-b.price);
+ else if(giftSortMode==='rating')items.sort((a,b)=>b.rating-a.rating);
+ else items.sort((a,b)=>Math.abs(a.price-budget)-Math.abs(b.price-budget));
+ const list=document.getElementById('giftList');
+ if(!items.length){list.innerHTML=`<div class="empty-state">${agt('fail')}</div>`;return;}
+ list.innerHTML=`<div class="api-source">● ${agt('source')}</div>`+items.map(g=>{
+   const favKey='gift:'+g.id, fav=isFavorite(favKey);
+   const safeName=String(g.name).replace(/</g,'&lt;').replace(/>/g,'&gt;');
+   const safeImg=String(g.image).replace(/"/g,'&quot;');
+   return `<article class="gift-card api-gift-card">
+    <img class="api-gift-img" src="${safeImg}" alt="${safeName}" loading="lazy">
+    <div class="api-gift-body">
+      <button class="heart ${fav?'active':''}" onclick='toggleFavorite(${JSON.stringify(favKey)},${JSON.stringify({type:"apiGift",id:g.id,name:g.name,image:g.image,price:g.price,rating:g.rating})})'>${fav?'♥':'♡'}</button>
+      <h3>${safeName}</h3>
+      <div class="api-gift-meta">${g.brand?g.brand+' · ':''}${g.category}</div>
+      <div class="gift-price">💰 ${g.price.toLocaleString(LANG==='en'?'en-US':'ru-RU')} ₸</div>
+      <div class="gift-rating">⭐ ${g.rating}</div>
+      <label class="compare-check"><input type="checkbox" ${gtCompare.includes(g.id)?'checked':''} onchange="gtCompareToggle('${g.id}')"> ${agt('compare')}</label>
+    </div>
+   </article>`;
+ }).join('');
+};
+
+gtShowCompare=function(){
+ const p=document.getElementById('gtComparePanel');
+ if(!p)return;
+ const items=(window.__giftResults||[]).filter(x=>gtCompare.includes(x.id));
+ p.innerHTML=items.length<2?`<p class="step-sub" style="margin-top:12px">${gt3('compare_min')}</p>`:
+ `<div class="compare-grid" style="margin-top:14px">${items.map(x=>`<div class="compare-item"><b>${x.name}</b><p>💰 ${x.price.toLocaleString()} ₸</p><p>⭐ ${x.rating}</p></div>`).join('')}</div>`;
+};
+
+const apiOldFavName=favDisplayName;
+favDisplayName=function(f){if(f.type==='apiGift')return f.name||'Gift';return apiOldFavName(f);};
+
+const apiBaseSetLang=setLang;
+setLang=function(lang){
+ apiBaseSetLang(lang);
+ if(document.getElementById('view-gift-results').classList.contains('active') && window.__giftResults?.some(x=>String(x.id).startsWith('api_'))){
+   renderGiftSummary();renderGiftSort();renderGiftList();
+ }
+};
+</script>
+
+
+<script>
+/* ===== REAL WEATHER + PLACES + PLACE PHOTOS ===== */
+const RP_CITY={
+ astana:[51.1694,71.4491],almaty:[43.2389,76.8897],shymkent:[42.3417,69.5901],
+ karaganda:[49.8064,73.0855],aktobe:[50.2839,57.1670],taraz:[42.9000,71.3667]
+};
+const RP_TXT={
+ uz:{loading:"Shahardagi real joylar qidirilmoqda…",none:"Mos real joy topilmadi.",address:"Manzil",hours:"Ish vaqti",phone:"Telefon",map:"Xaritada ochish",site:"Sayti",photoMissing:"Rasm mavjud emas",weather:"Hozirgi ob-havo",feels:"his qilinadi",source:"Joylar: OpenStreetMap · rasmlar mavjud bo'lsa Wikimedia Commons/Wikidata"},
+ kk:{loading:"Қаладағы нақты орындар ізделуде…",none:"Сәйкес нақты орын табылмады.",address:"Мекенжай",hours:"Жұмыс уақыты",phone:"Телефон",map:"Картадан ашу",site:"Сайты",photoMissing:"Сурет жоқ",weather:"Қазіргі ауа райы",feels:"сезіледі",source:"Орындар: OpenStreetMap · суреттер болса Wikimedia Commons/Wikidata"},
+ ru:{loading:"Ищем реальные места в городе…",none:"Подходящих реальных мест не найдено.",address:"Адрес",hours:"Часы работы",phone:"Телефон",map:"Открыть на карте",site:"Сайт",photoMissing:"Фото отсутствует",weather:"Погода сейчас",feels:"ощущается",source:"Места: OpenStreetMap · фото при наличии из Wikimedia Commons/Wikidata"},
+ en:{loading:"Searching for real places in the city…",none:"No matching real places found.",address:"Address",hours:"Opening hours",phone:"Phone",map:"Open on map",site:"Website",photoMissing:"No photo available",weather:"Current weather",feels:"feels like",source:"Places: OpenStreetMap · photos when available from Wikimedia Commons/Wikidata"}
+};
+function rpt(k){return (RP_TXT[LANG]||RP_TXT.uz)[k]||k}
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function placeholder(name){
+ const txt=esc(name).replace(/&/g,'&amp;');
+ return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480"><defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#171b2b"/><stop offset="1" stop-color="#292044"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><circle cx="400" cy="190" r="55" fill="none" stroke="#9f8cff" stroke-width="8"/><path d="M400 245c-55-55-85-92-85-135a85 85 0 0 1 170 0c0 43-30 80-85 135z" fill="none" stroke="#9f8cff" stroke-width="8"/><text x="400" y="355" text-anchor="middle" fill="#d9d2ff" font-family="Arial" font-size="28">${txt}</text></svg>`)}`
+}
+function commonsFileUrl(v){
+ if(!v)return null;
+ if(v.startsWith('File:')) return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(v.slice(5))}?width=800`;
+ return null;
+}
+async function wikidataImage(qid){
+ if(!qid)return null;
+ try{
+  const r=await fetch(`https://www.wikidata.org/wiki/Special:EntityData/${encodeURIComponent(qid)}.json`);
+  if(!r.ok)return null; const d=await r.json(),e=d.entities?.[qid];
+  const f=e?.claims?.P18?.[0]?.mainsnak?.datavalue?.value;
+  return f?`https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(f)}?width=800`:null;
+ }catch{return null}
+}
+async function placePhoto(tags,name){
+ const direct=commonsFileUrl(tags.wikimedia_commons);
+ if(direct)return direct;
+ const wd=await wikidataImage(tags.wikidata);
+ return wd||placeholder(name);
+}
+function placeFilter(){
+ if(trip.type==='night')return '["amenity"~"nightclub|bar|pub"]';
+ if(trip.type==='ovqat')return '["amenity"~"restaurant|cafe|fast_food"]';
+ if(trip.type==='madaniy')return '["tourism"~"museum|gallery"]';
+ if(trip.type==='tabiat')return '["leisure"~"park|garden"]';
+ if(trip.type==='kongilochar')return '["amenity"~"cinema|theatre|bowling_alley"]';
+ if(trip.type==='faol')return '["leisure"~"sports_centre|fitness_centre|bowling_alley"]';
+ if(trip.type==='tinch')return '["amenity"~"cafe|library"]';
+ return '["amenity"~"restaurant|cafe|cinema|theatre|nightclub|bar|pub"]';
+}
+function fullAddress(t){
+ const parts=[t['addr:street'],t['addr:housenumber'],t['addr:suburb'],t['addr:city']].filter(Boolean);
+ return parts.join(', ')||t['addr:full']||'—';
+}
+async function fetchWeather(){
+ const c=RP_CITY[trip.city]; if(!c)return null;
+ try{
+  const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${c[0]}&longitude=${c[1]}&current=temperature_2m,apparent_temperature,weather_code&timezone=auto`);
+  if(!r.ok)return null; return (await r.json()).current||null;
+ }catch{return null}
+}
+async function fetchPlaces(){
+ const c=RP_CITY[trip.city]; if(!c)return [];
+ const f=placeFilter();
+ const q=`[out:json][timeout:20];(node(around:9000,${c[0]},${c[1]})${f};way(around:9000,${c[0]},${c[1]})${f};relation(around:9000,${c[0]},${c[1]})${f};);out center tags 30;`;
+ const endpoints=['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter'];
+ for(const ep of endpoints){
+  try{
+   const r=await fetch(ep,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:'data='+encodeURIComponent(q)});
+   if(!r.ok)continue;
+   const d=await r.json();
+   const raw=(d.elements||[]).filter(x=>x.tags?.name);
+   const uniq=[...new Map(raw.map(x=>[(x.tags.name+'|'+fullAddress(x.tags)).toLowerCase(),x])).values()].slice(0,9);
+   return await Promise.all(uniq.map(async x=>{
+    const lat=x.lat??x.center?.lat,lon=x.lon??x.center?.lon,t=x.tags;
+    return {name:t.name,address:fullAddress(t),hours:t.opening_hours||'',phone:t.phone||t['contact:phone']||'',website:t.website||t['contact:website']||'',lat,lon,type:t.amenity||t.tourism||t.leisure||'',photo:await placePhoto(t,t.name)};
+   }));
+  }catch(e){}
+ }
+ return [];
+}
+function weatherIcon(code){if([61,63,65,80,81,82,95].includes(code))return'🌧️';if([71,73,75,85,86].includes(code))return'❄️';if(code===0)return'☀️';return'☁️'}
+
+function renderRealPlaces(items,weather){
+ const tl=document.getElementById('planTimeline');
+ tl.style.borderLeft='0';tl.style.paddingLeft='0';tl.style.marginLeft='0';
+ const w=weather?`<div class="live-weather-strip">${weatherIcon(weather.weather_code)} <b>${rpt('weather')}:</b> ${Math.round(weather.temperature_2m)}°C · ${rpt('feels')} ${Math.round(weather.apparent_temperature)}°C</div>`:'';
+ if(!items.length){tl.innerHTML=w+`<div class="place-loading">${rpt('none')}</div>`;return}
+ tl.innerHTML=w+`<div class="real-place-grid">${items.map(p=>`<article class="real-place-card">
+   <img class="real-place-photo" src="${esc(p.photo)}" alt="${esc(p.name)}" loading="lazy" onerror="this.src='${placeholder('GiftTrip')}'">
+   <div class="real-place-body"><h3>${esc(p.name)}</h3>
+   <div class="real-place-meta">📍 <b>${rpt('address')}:</b> ${esc(p.address)}</div>
+   ${p.hours?`<div class="real-place-meta">🕐 <b>${rpt('hours')}:</b> ${esc(p.hours)}</div>`:''}
+   ${p.phone?`<div class="real-place-meta">☎️ <b>${rpt('phone')}:</b> ${esc(p.phone)}</div>`:''}
+   ${trip.type==='night'?`<div class="real-place-meta">🔞 18+</div>`:''}
+   <div class="real-place-actions">
+    ${p.lat&&p.lon?`<a target="_blank" rel="noopener" href="https://www.openstreetmap.org/?mlat=${p.lat}&mlon=${p.lon}#map=17/${p.lat}/${p.lon}">🗺 ${rpt('map')}</a>`:''}
+    ${p.website?`<a target="_blank" rel="noopener" href="${esc(p.website)}">↗ ${rpt('site')}</a>`:''}
+   </div></div></article>`).join('')}</div><div class="place-source">${rpt('source')}</div>`;
+}
+
+/* Real places replace the old demo activity timeline. */
+computeTripResults=async function(){
+ renderTripSummary();
+ document.getElementById('planTimeline').innerHTML=`<div class="place-loading">⏳ ${rpt('loading')}</div>`;
+ document.getElementById('totalCard').innerHTML=`<div><small>${t('summary_budget')}</small><div class="num">${trip.budget.toLocaleString()} ₸</div></div>`;
+ document.getElementById('mapBox').innerHTML='';
+ const [weather,places]=await Promise.all([fetchWeather(),fetchPlaces()]);
+ window.__realWeather=weather; window.__realPlaces=places;
+ renderRealPlaces(places,weather);
+ document.getElementById('mapBox').innerHTML=`<div class="label">${rpt('source')}</div>`;
+};
+
+/* Language switch also re-renders live places. */
+const rpSetLang=setLang;
+setLang=function(lang){
+ rpSetLang(lang);
+ if(document.getElementById('view-trip-results').classList.contains('active')&&window.__realPlaces){
+   renderTripSummary();renderRealPlaces(window.__realPlaces,window.__realWeather);
+ }
+};
+</script>
+
 </body>
 </html>
